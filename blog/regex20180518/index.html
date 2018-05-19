@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="regex," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="java正则表达式入门字符模式常用字符转意是反斜杠\和斜杠/区分开 使用的时候都要转意，比如//d,//w等，要多一个斜杠 - \\ 反斜杠  - .  任意字符（如果想取本身的.需要\.进行转意） - \t 间隔 (&amp;apos;/u0009&amp;apos;)制表符（tab键） - \n 换行 (&amp;apos;/u000A&amp;apos;) - \r 回车 (&amp;apos;/u000D&amp;apos;)">
+<meta name="keywords" content="regex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式">
+<meta property="og:url" content="happyshell.top/blog/regex20180518/index.html">
+<meta property="og:site_name" content="Blog Of Huanglibei">
+<meta property="og:description" content="java正则表达式入门字符模式常用字符转意是反斜杠\和斜杠/区分开 使用的时候都要转意，比如//d,//w等，要多一个斜杠 - \\ 反斜杠  - .  任意字符（如果想取本身的.需要\.进行转意） - \t 间隔 (&amp;apos;/u0009&amp;apos;)制表符（tab键） - \n 换行 (&amp;apos;/u000A&amp;apos;) - \r 回车 (&amp;apos;/u000D&amp;apos;)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/iQ0RHgv.jpg">
+<meta property="og:updated_time" content="2018-05-19T08:07:23.711Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式">
+<meta name="twitter:description" content="java正则表达式入门字符模式常用字符转意是反斜杠\和斜杠/区分开 使用的时候都要转意，比如//d,//w等，要多一个斜杠 - \\ 反斜杠  - .  任意字符（如果想取本身的.需要\.进行转意） - \t 间隔 (&amp;apos;/u0009&amp;apos;)制表符（tab键） - \n 换行 (&amp;apos;/u000A&amp;apos;) - \r 回车 (&amp;apos;/u000D&amp;apos;)">
+<meta name="twitter:image" content="https://i.imgur.com/iQ0RHgv.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="happyshell.top/blog/regex20180518/"/>
+
+
+
+
+
+  <title>正则表达式 | Blog Of Huanglibei</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog Of Huanglibei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">快乐贝壳</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/regex20180518/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">正则表达式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-18T10:33:31+08:00">
+                2018-05-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaSE/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaSE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://i.imgur.com/iQ0RHgv.jpg" alt="">    </p>
+<h1 id="java正则表达式入门"><a href="#java正则表达式入门" class="headerlink" title="java正则表达式入门"></a>java正则表达式入门</h1><h2 id="字符模式"><a href="#字符模式" class="headerlink" title="字符模式"></a>字符模式</h2><h3 id="常用字符"><a href="#常用字符" class="headerlink" title="常用字符"></a>常用字符</h3><pre><code>转意是反斜杠\和斜杠/区分开
+使用的时候都要转意，比如//d,//w等，要多一个斜杠
+- \\ 反斜杠 
+- .  任意字符（如果想取本身的.需要\.进行转意）
+- \t 间隔 (&apos;/u0009&apos;)制表符（tab键）
+- \n 换行 (&apos;/u000A&apos;)
+- \r 回车 (&apos;/u000D&apos;)
+- \d 数字 等价于[0-9]
+- \D 非数字 等价于[^0-9]
+- \s 空白符号 [/t/n/x0B/f/r]
+- \S 非空白符号 [^/t/n/x0B/f/r]
+- \w 单独字符 [a-zA-Z_0-9]
+- \W 非单独字符 [^a-zA-Z_0-9]
+- \f 换页符
+- \e Escape
+- \b 一个单词的边界
+- \B 一个非单词的边界
+- \G 前一个匹配的结束
+
+- ^为限制开头
+- ^java     条件限制为以Java为开头字符
+- $为限制结尾
+- java$     条件限制为以java为结尾字符
+- .  条件限制除/n以外任意一个单独字符
+- java..     条件限制为java后除换行外任意两个字符
+</code></pre><h3 id="加入特定限制条件"><a href="#加入特定限制条件" class="headerlink" title="加入特定限制条件[ ]"></a>加入特定限制条件[ ]</h3><pre><code>[a-z]     条件限制在小写a to z范围中一个字符
+[A-Z]     条件限制在大写A to Z范围中一个字符
+[a-zA-Z] 条件限制在小写a to z或大写A to Z范围中一个字符
+[0-9]     条件限制在小写0 to 9范围中一个字符
+[0-9a-z] 条件限制在小写0 to 9或a to z范围中一个字符
+[0-9[a-z]] 条件限制在小写0 to 9或a to z范围中一个字符(交集)
+[^a-z]     条件限制在非小写a to z范围中一个字符
+[^A-Z]     条件限制在非大写A to Z范围中一个字符
+[^a-zA-Z] 条件限制在非小写a to z或大写A to Z范围中一个字符
+[^0-9]     条件限制在非小写0 to 9范围中一个字符
+[^0-9a-z] 条件限制在非小写0 to 9或a to z范围中一个字符
+[^0-9[a-z]] 条件限制在非小写0 to 9或a to z范围中一个字符(交集)
+</code></pre><h3 id="表示次数"><a href="#表示次数" class="headerlink" title="表示次数"></a>表示次数</h3><pre><code>x?            表示x出现一次或者0次
+x*            表示0次或多次
+x+            表示一次或多次
+x｛n｝         表示恰好出现n次
+x｛n，｝     表示至少出现n次
+x｛n，m｝     表示出现n-m次的范围
+</code></pre><h2 id="正则的简单应用"><a href="#正则的简单应用" class="headerlink" title="正则的简单应用"></a>正则的简单应用</h2><p>java中正则的基本方法<br>    find()：在一个字符串中寻找给定模式的匹配<br>    lookingAt()： 匹配开头<br>    matches()： 完全匹配<br>    replaceAll()：替换所有字符串<br>    replaceFirst()：替换第一个    </p>
+<h3 id="完全匹配matches"><a href="#完全匹配matches" class="headerlink" title="完全匹配matches"></a>完全匹配matches</h3><pre><code>匹配手机是否正确
+String tel=&quot;15800001111&quot;;
+String regex=&quot;1[358][0-9]{9}&quot;;//表示第一位是1，第二位是3，5，8中的一个，后面0-9出现九次
+boolean b=tel.matches(regex);
+System.out.println(b);
+</code></pre><h3 id="获取"><a href="#获取" class="headerlink" title="获取"></a>获取</h3><pre><code>String str=&quot;hello world my friend&quot;;
+String regex=&quot;[a-z]{3}&quot;;
+Pattern p=Pattern.compile(regex);//封装正则表达式
+Matcher m=p.matcher(str);//连接需要匹配的字符串
+while(m.find()){//寻找匹配序列
+    System.out.println(m.group());//输出匹配的下一序列
+    System.out.println(m.start());//输出匹配到的下一序列的字符在原字符串起始角标
+    System.out.println(m.end());//输出匹配到的下一序列的字符在原字符串末尾角标
+
+}
+</code></pre><h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><pre><code>对所匹配到的第一个进行替换
+String str=&quot;hello world my friend&quot;;
+str=str.replaceFirst(&quot;[a-z]{3}&quot;, &quot;A&quot;);
+System.out.println(str);//输出Alo world my friend
+
+替换所有匹配到的字符
+String str1=str.replaceAll(&quot;[a-z]{3}&quot;, &quot;A&quot;);
+System.out.println(str1);//输出Alo Ald my AA
+</code></pre><h3 id="尝试匹配lookingAt"><a href="#尝试匹配lookingAt" class="headerlink" title="尝试匹配lookingAt()"></a>尝试匹配lookingAt()</h3><pre><code>这里regex来尝试匹配字符串，返回的是boolean类型
+当是regex=&quot;[a-z]{5}&quot;时返回true，开头5个字符是匹配的，变为6时会发现为false与开头不匹配
+String str=&quot;hello world my friend&quot;;
+String regex=&quot;[a-z]{5}&quot;;
+Pattern p=Pattern.compile(regex);//封装正则表达式
+Matcher m=p.matcher(str);//连接需要匹配的字符串
+System.out.println(m.lookingAt());
+</code></pre><h3 id="贪婪型元字符与懒惰型元字符"><a href="#贪婪型元字符与懒惰型元字符" class="headerlink" title="贪婪型元字符与懒惰型元字符"></a>贪婪型元字符与懒惰型元字符</h3><pre><code>*和+都是所有的贪婪型元字符，它们在进行匹配的行为模式中是尽可能地从一
+段文本的开头一直匹配到文本的末尾，而不是从这段文本的开头遇到的第一个匹配！
+
+那么在不需要这&quot;贪婪行为&quot;的时候该怎么办呢,这时候使用&quot;懒惰型&quot;,懒惰型的含义
+是尽可能匹配较少的字符，与前者相反，具体表现为加个&apos;?&apos;
+*？
++？
+</code></pre><p>下面具体举一个例子说明    </p>
+<pre><code>String str=&quot;living in &lt;B&gt;AK&lt;/B&gt; and &lt;B&gt;HI&lt;/B&gt;&quot;;
+String regex=&quot;&lt;[Bb]&gt;.*&lt;/[Bb]&gt;&quot;;
+Pattern p=Pattern.compile(regeString regex=&quot;&lt;[Bb]&gt;.*&lt;/[Bb]&gt;&quot;;x);//封装正则表达式
+Matcher m=p.matcher(str);//连接需要匹配的字符串
+while(m.find()){
+    System.out.println(m.group());
+}
+
+这里输出： 
+&lt;B&gt;AK&lt;/B&gt; and &lt;B&gt;HI&lt;/B&gt;
+因为是贪婪元字符，所以.*把第一个&lt;B&gt;之后的AK&lt;/B&gt; and &lt;B&gt;HI全部匹配了
+
+当改为String regex=&quot;&lt;[Bb]&gt;.*？&lt;/[Bb]&gt;&quot;后
+输出为：（这里匹配的时候尽可能在匹配的情况下匹配少的字符）
+&lt;B&gt;AK&lt;/B&gt;
+&lt;B&gt;HI&lt;/B&gt;
+</code></pre><h3 id="边界位置匹配"><a href="#边界位置匹配" class="headerlink" title="边界位置匹配"></a>边界位置匹配</h3><p>单词边界一般用来匹配单词的开头，结束，整个单词等。</p>
+<p>\b和\B：这里要理解什么是单词边界，什么是非单词边界</p>
+<pre><code>1.单词边界\b：单词边界就是单词和符号之间的边界
+  这里的单词可以是中文字符,英文字符,数字，下划线
+  符号可以是中文符号,英文符号,空格,制表符,换行
+2.非单词边界\B：除了单词与字符之间的边界，即单词与单词，字符与字符之间的边界
+3.边界的定义：很多人刚开始很容易把边界理解成为空格或者占位符，其实不是，而是符号与
+  单词之间的位置
+例：&quot; a &quot; 对于这个字符串，边界不是空格，假如用正则匹配&quot;//ba//b&quot;匹配
+    会得到a，但不是因为空格是单词边界\b，而是由a（代表单词）和空格（代表符号）之间
+    的位置形成单词边界（\b），所以符合正则
+</code></pre><p>test1：</p>
+<pre><code>下面输出匹配成功，但是假如将str改为&quot; 2 &quot;,会显示不成功，证明了上面所说\b不是空格也不是占位符  
+  String str=&quot;2&quot;;
+  String rex=&quot;\\b2\\b&quot;;
+  Pattern pattern=Pattern.compile(rex);
+  Matcher matcher=pattern.matcher(str);
+  if(matcher.matches()){
+      System.out.println(&quot;匹配成功&quot;);
+  }else{
+      System.out.println(&quot;匹配不成功&quot;);
+  }
+</code></pre><p>test2：</p>
+<pre><code>下面输出结果是：呵呵，字符串左边呵（中文字符代表单词）和（&apos;,&apos;代表符号）之间是单词边界，
+后面同理满足要求
+如果将str改为 String str=&quot;,,,,啊呵呵,,,,&quot;，那么不匹配，无输出，
+因为&apos;啊&apos;是单词，&apos;呵&apos;也是单词，俩个单词属于非单词边界\B，所以不符合下面的正则表达
+
+  String str=&quot;,,,,呵呵,,,,&quot;;
+  String rex=&quot;\\b呵呵\\b&quot;;
+
+  Pattern pattern=Pattern.compile(rex);
+  Matcher matcher=pattern.matcher(str);
+
+  if(matcher.find()){
+  System.out.println(matcher.group());
+  }
+</code></pre><p>test3:</p>
+<pre><code>下面运行结果：-
+\B代表非单词边界，即除了单词与符号的组合都可以算是\B
+下方&apos;-&apos;是color - code中的‘-’，空格与-都属于符号，所以它们之间是非单词边界，满足要求
+至于nine-dight和pass-key，都属于空格和字母（也就是单词），属于单词边界\b,
+假如将正则改为&quot;\\b-\\b&quot;,则会输出俩个‘-’分别是nine-dight和pass-key中的-
+ String str=&quot;please enter the nine-dight id as it appears 
+ on your color - code pass-key&quot;;
+ String rex=&quot;\\B-\\B&quot;;
+
+ Pattern pattern=Pattern.compile(rex);
+ Matcher matcher=pattern.matcher(str);
+
+ while(matcher.find()){
+     System.out.println(matcher.group());
+ }
+</code></pre><h3 id="字符串边界"><a href="#字符串边界" class="headerlink" title="字符串边界"></a>字符串边界</h3><pre><code>字符串开头匹配:^(在用[]表示放里面是取非的意思)
+字符串结尾匹配:$
+</code></pre><p>test:^</p>
+<pre><code>匹配合法的XML文件，XML文件格式为&lt;?xml version=&quot;1.0&quot;,encoding=&quot;UTF-8&quot; ?&gt;
+
+正则表达式：&lt;\?xml.*\?&gt;    这里\?转意&apos;？&apos;字符，因为其本身代表前一个字符出现0或者一次
+
+如果这个文件最开始有一些其他信息，那么正则也能匹配到，但不是我们要的xml文件，
+这时候，需要用^进行开头的匹配
+
+正则表达式：^\\s*&lt;\?xml.*\?&gt;
+这里\\s代表对空白字符\s转意，后面跟*，允许后面的&lt;?xml.*\?&gt;前面出现空格 ，制表符，
+换行符等空白字符，对合法的空白字符做出妥善处理
+
+最终的正则应该是：^\\s*&lt;\?xml.*？\?&gt;
+当文档较长，后续有很多内容时，贪婪型字符.*会尽可能多匹配，所以要用.*?懒惰型元字符限制
+</code></pre><p>test：$</p>
+<pre><code>对html文件结尾的进行匹配，允许出现合法空白字符\s
+&lt;/[Hh][Tt][Mm][Ll]&gt;\\s*$
+</code></pre><h3 id="分行匹配-m"><a href="#分行匹配-m" class="headerlink" title="分行匹配(?m)"></a>分行匹配(?m)</h3><pre><code>//make me happy
+String=&quot;abd&quot;;
+//hello
+正则表达式：（？m）^\\s*//.*$
+这里可以匹配到俩个注解，（？m）代表分行匹配，后面的代表以\\开始允许之前有空白字符，以任意字符结尾。
+（？m）^\\s*//.*$这里将换行符视为一个字符串分割器
+</code></pre><h2 id="子表达式"><a href="#子表达式" class="headerlink" title="子表达式"></a>子表达式</h2><p>子表达式的顺序看，左括号的顺序，（</p>
+<h3 id="子表达式概念"><a href="#子表达式概念" class="headerlink" title="子表达式概念"></a>子表达式概念</h3><pre><code>子表达式其实就是用（）将一些连续字符组合起来，便于组合字符的次数查询或者防止逻辑错误
+test1：
+xyz｛2，｝  我们想要拿到xyz整体出现俩次或以上，但是这里匹配的是xyzzzz，只是z多次
+正确是：（xyz）｛2，｝
+
+test2：
+匹配一个IP地址：193.192.97.153
+正则表达式：\\d{1,3}\.\\d{1,3}\.\\d{1,3}\.\\d{1,3}\  每组有1-3个数字和.组成
+但是可以用子表达式简化
+正则表达式：（\\d{1,3}\.）｛3｝\\d{1,3}，前面三组重复三次
+</code></pre><h3 id="子表达式的嵌套"><a href="#子表达式的嵌套" class="headerlink" title="子表达式的嵌套"></a>子表达式的嵌套</h3><pre><code>子表达式的嵌套说的其实就是用多个（（（）））重复嵌套
+
+比如上面的IP地址，IP地址数字应该都是0-255范围，上面的方法允许344等错误格式的数字出现
+所以需要进行规则构造
+-任何一个1位或俩位数字
+-任何一个以1开头的三位数字
+-任何一个以1开头，第二个数子在0-4之间的数字三位数字
+-任何一个以25开头，第三个数字在0-5之间的3位数字
+正则表达式：
+((（\\d{1,2}）|(1\\d{2})|(2[0-4]\\d)|(25[0-5]))\.){}3
+(（\\d{1,2}）|(1\\d{2})|(2[0-4]\\d)|(25[0-5]))
+一般有|（或）符号需要（）括起来，不然会连着后面所有表达式
+</code></pre><h2 id="回溯引用"><a href="#回溯引用" class="headerlink" title="回溯引用"></a>回溯引用</h2><p>回溯起始就是将前面用（）包围的子表达式，在后面引用，用\1、\2分表表示第一组，第二组等</p>
+<h3 id="回溯前后引用一致匹配"><a href="#回溯前后引用一致匹配" class="headerlink" title="回溯前后引用一致匹配"></a>回溯前后引用一致匹配</h3><p>test1：找出重复字，正则表达式：”(.)\1+”</p>
+<pre><code>这里指的是一个字重复，如运行结果所示
+\1+表示与第一组匹配，也就是第一个括号内的内容
+String str=&quot;上上海市市市&quot;;    
+System.out.println(&quot;===========找出重复字===========&quot;);  
+Pattern p=Pattern.compile(&quot;(.)\\1+&quot;);  
+Matcher m=p.matcher(str);  
+while(m.find()){  
+    System.out.println(m.group()+&quot;   位置：[&quot;+m.start()+&quot;,&quot;+m.end()+&quot;]&quot;);  
+}  
+
+运行结果：上上   位置：[0,2]  
+        市市市   位置：[3,6]  
+</code></pre><p>test2：找出重复字母</p>
+<pre><code>正则表达式：&quot;([a-z]+)\\1+&quot;
+这里的重复包括一个字母重复或者多个字母重复
+str=&quot;aafdfdttffjjj&quot;;  
+p=Pattern.compile(&quot;([a-z]+)\\1+&quot;);  
+m=p.matcher(str);  
+while(m.find()){  
+    System.out.println(m.group()+&quot;   位置：[&quot;+m.start()+&quot;,&quot;+m.end()+&quot;]&quot;);  
+}  
+
+运行结果：aa   位置：[0,2]  
+        fdfd   位置：[2,6]  
+        tt   位置：[6,8]  
+        ff   位置：[8,10]  
+        jjj   位置：[10,13] 
+</code></pre><p>test3：匹配html标题</p>
+<pre><code>str=&quot;&lt;h1&gt;标题1&lt;/h1&gt;&lt;h2&gt;标题2&lt;/h2&gt;&lt;h3&gt;标题3&lt;/h3&gt;&lt;h4&gt;标题4&lt;/h5&gt;&quot;; 
+System.out.println(&quot;===========匹配标题(非回溯方法)===========&quot;);  
+//&lt;h4&gt;标题4&lt;/h5&gt;这个不符合的标题也会被匹配  
+p=Pattern.compile(&quot;&lt;h[1-6]&gt;.*?&lt;/h[1-6]&gt;&quot;);  
+m=p.matcher(str);  
+while(m.find()){  
+    System.out.println(m.group()+&quot;   位置：[&quot;+m.start()+&quot;,&quot;+m.end()+&quot;]&quot;);  
+}  
+运行结果：&lt;h1&gt;标题1&lt;/h1&gt;   位置：[0,12]  
+        &lt;h2&gt;标题2&lt;/h2&gt;   位置：[12,24]  
+        &lt;h3&gt;标题3&lt;/h3&gt;   位置：[24,36]  
+        &lt;h4&gt;标题4&lt;/h5&gt;   位置：[36,48]  
+</code></pre><p>常规仿佛匹配会匹配到不符合的，如h4和h5也会匹配，而我们需要前后一致</p>
+<pre><code>System.out.println(&quot;===========匹配标题(回溯方法)===========&quot;);  
+//&lt;h4&gt;标题4&lt;/h5&gt;这个不符合的标题不会被匹配  
+// \1表示前面第一个子表达式，\2表示前面第2个子表达式，依此类推  
+p=Pattern.compile(&quot;&lt;h([1-6])&gt;.*?&lt;/h\\1&gt;&quot;);  
+m=p.matcher(str);  
+while(m.find()){  
+    System.out.println(m.group()+&quot;   位置：[&quot;+m.start()+&quot;,&quot;+m.end()+&quot;]&quot;);  
+}  
+运行结果：&lt;h1&gt;标题1&lt;/h1&gt;   位置：[0,12]  
+        &lt;h2&gt;标题2&lt;/h2&gt;   位置：[12,24]  
+        &lt;h3&gt;标题3&lt;/h3&gt;   位置：[24,36] 
+</code></pre><h3 id="回溯中的替换应用"><a href="#回溯中的替换应用" class="headerlink" title="回溯中的替换应用"></a>回溯中的替换应用</h3><p>替换也可以用到回溯，这时候用的不是\1或者\2表示第几组子表达式了，改为用$1或$2</p>
+<p>test1：替换连续字符</p>
+<pre><code>String str=&quot;zhangsanttttssssfffvvvhai&quot;;
+str=str.replaceAll(&quot;(.)\\1+&quot;, &quot;呵&quot;);
+System.out.println(str);
+运行结果：zhangsan呵呵呵呵hai，将连续字符用呵替换
+
+str=str.replaceAll(&quot;(.)\\1+&quot;, &quot;$1&quot;);这表示将连续字符都缩减为一个
+结果：zhangsantsfvhai
+</code></pre><p>test2：替换电话号码</p>
+<pre><code>String tel=&quot;15800009704&quot;;
+tel=tel.replaceAll(&quot;(\\d{3})(\\d{4})(\\d{4})&quot;, &quot;$1****$3&quot;);
+System.out.println(tel);
+运行结果：158****9704
+解析：三个括号，三个组，字符串用(第一组$1和4个*号加上第三组$3)替换，结果如上
+</code></pre><h2 id="前后查找"><a href="#前后查找" class="headerlink" title="前后查找"></a>前后查找</h2><p>前后查找简单来说就是，对正则中的某一部分你希望用它来进行匹配，但是输出结果中又不希望它出现的例子</p>
+<ul>
+<li>(?=)    正向前查找</li>
+<li>(？！)    负向前查找</li>
+<li>(？&lt;=)  正向后查找</li>
+<li>(?&lt;!)    负向后查找</li>
+</ul>
+<p>下面举例说明:</p>
+<pre><code>匹配文本中的标题
+&lt;Head&gt;
+    &lt;TITLE&gt;this is my test&lt;/TITLE&gt;
+    this is my test
+&lt;/Head&gt;
+一般正则表达式：&lt;TITLE&gt;.*&lt;/TITLE&gt;
+
+结果是：&lt;TITLE&gt;this is my test&lt;/TITLE&gt;，但是我们只想要标题中的内容
+不要TITLE，但是如果直接正则去掉&lt;TITLE&gt;部分也不行，这样会匹配到文本中的内容
+
+这时候就需要前后匹配了：匹配需要你，但是输出不要你（一般称之为消费，匹配不消费）
+正则表达式：（？&lt;=&lt;TITLE&gt;）.*+(?=&lt;/TITLE&gt;)
+即开头匹配TITLE后面的内容，结尾匹配TITLE前面的内容，也就是匹配用到了，输出不用
+
+上述都为正向前后查找
+
+下面说说负向前后查找：也就是正则如果改为：
+（？&lt;！&lt;TITLE&gt;）.*+(?！&lt;/TITLE&gt;)
+此时需要的是不以TITLE开头结尾的内容
+</code></pre><h2 id="嵌入条件"><a href="#嵌入条件" class="headerlink" title="嵌入条件"></a>嵌入条件</h2><p>这里先简单介绍一下：正则表达式中的条件一般用？来定义，简单先举个例子吧：</p>
+<pre><code>文本：
+ 123-456-7890
+(123)456-7890
+(123)-456-7890
+(123-456-7890
+1234567890
+123 456 7890
+
+要求：只匹配123-456-7890或者（123）456-7890的格式内容
+分析：左括号存在，必须有右括号，不要-，没有括号需要-
+正则表达式：(\()?\\d{3}(?(1)\)|-)\\d{3}-\\d{4}
+解析：(\()? 这里面\(是转意(\()?意思是左括号（是否存在，后面跟的数字
+    (?(1)\)|-)这里?(1)意思是前一个是否存在，存在则匹配\)也就是右括号，否则匹配-
+</code></pre><p>暂时正则就讲这么多，后续如果遇到难点或者其他问题在过来补充</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/regex/" rel="tag"># regex</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/电商项目环境部署20180518/" rel="next" title="电商项目ssh配置文件">
+                <i class="fa fa-chevron-left"></i> 电商项目ssh配置文件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanglibei</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java正则表达式入门"><span class="nav-number">1.</span> <span class="nav-text">java正则表达式入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符模式"><span class="nav-number">1.1.</span> <span class="nav-text">字符模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用字符"><span class="nav-number">1.1.1.</span> <span class="nav-text">常用字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入特定限制条件"><span class="nav-number">1.1.2.</span> <span class="nav-text">加入特定限制条件[ ]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表示次数"><span class="nav-number">1.1.3.</span> <span class="nav-text">表示次数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则的简单应用"><span class="nav-number">1.2.</span> <span class="nav-text">正则的简单应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#完全匹配matches"><span class="nav-number">1.2.1.</span> <span class="nav-text">完全匹配matches</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取"><span class="nav-number">1.2.2.</span> <span class="nav-text">获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换"><span class="nav-number">1.2.3.</span> <span class="nav-text">替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尝试匹配lookingAt"><span class="nav-number">1.2.4.</span> <span class="nav-text">尝试匹配lookingAt()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贪婪型元字符与懒惰型元字符"><span class="nav-number">1.2.5.</span> <span class="nav-text">贪婪型元字符与懒惰型元字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边界位置匹配"><span class="nav-number">1.2.6.</span> <span class="nav-text">边界位置匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串边界"><span class="nav-number">1.2.7.</span> <span class="nav-text">字符串边界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分行匹配-m"><span class="nav-number">1.2.8.</span> <span class="nav-text">分行匹配(?m)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子表达式"><span class="nav-number">1.3.</span> <span class="nav-text">子表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#子表达式概念"><span class="nav-number">1.3.1.</span> <span class="nav-text">子表达式概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子表达式的嵌套"><span class="nav-number">1.3.2.</span> <span class="nav-text">子表达式的嵌套</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回溯引用"><span class="nav-number">1.4.</span> <span class="nav-text">回溯引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#回溯前后引用一致匹配"><span class="nav-number">1.4.1.</span> <span class="nav-text">回溯前后引用一致匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回溯中的替换应用"><span class="nav-number">1.4.2.</span> <span class="nav-text">回溯中的替换应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前后查找"><span class="nav-number">1.5.</span> <span class="nav-text">前后查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#嵌入条件"><span class="nav-number">1.6.</span> <span class="nav-text">嵌入条件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huanglibei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">快乐贝壳</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
