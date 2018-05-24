@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="华为," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="String类型题计算字符串最后一个单词的长度，单词以空格隔开public class test1 { public static void main(String[] args){         Scanner in=new Scanner(System.in);     while(in.hasNextLine()){         String str=in.nextLine();">
+<meta name="keywords" content="华为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql数据库">
+<meta property="og:url" content="happyshell.top/blog/华为机试20180519/index.html">
+<meta property="og:site_name" content="Blog Of Huanglibei">
+<meta property="og:description" content="String类型题计算字符串最后一个单词的长度，单词以空格隔开public class test1 { public static void main(String[] args){         Scanner in=new Scanner(System.in);     while(in.hasNextLine()){         String str=in.nextLine();">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-23T08:47:20.694Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql数据库">
+<meta name="twitter:description" content="String类型题计算字符串最后一个单词的长度，单词以空格隔开public class test1 { public static void main(String[] args){         Scanner in=new Scanner(System.in);     while(in.hasNextLine()){         String str=in.nextLine();">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="happyshell.top/blog/华为机试20180519/"/>
+
+
+
+
+
+  <title>mysql数据库 | Blog Of Huanglibei</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog Of Huanglibei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">快乐贝壳</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/华为机试20180519/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mysql数据库</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-19T17:28:03+08:00">
+                2018-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程题/" itemprop="url" rel="index">
+                    <span itemprop="name">编程题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="String类型题"><a href="#String类型题" class="headerlink" title="String类型题"></a>String类型题</h1><h2 id="计算字符串最后一个单词的长度，单词以空格隔开"><a href="#计算字符串最后一个单词的长度，单词以空格隔开" class="headerlink" title="计算字符串最后一个单词的长度，单词以空格隔开"></a>计算字符串最后一个单词的长度，单词以空格隔开</h2><pre><code>public class test1 {
+public static void main(String[] args){
+        Scanner in=new Scanner(System.in);
+    while(in.hasNextLine()){
+        String str=in.nextLine();
+        String[] a=str.split(&quot; &quot;);
+        System.out.println(a[a.length-1].length());
+    }    
+}
+}
+</code></pre><h2 id="输入一个字符串和字符，输出字符串中包含字符的个数"><a href="#输入一个字符串和字符，输出字符串中包含字符的个数" class="headerlink" title="输入一个字符串和字符，输出字符串中包含字符的个数"></a>输入一个字符串和字符，输出字符串中包含字符的个数</h2><pre><code>public static void main(String[] args){
+    Scanner in=new Scanner(System.in);
+    while(in.hasNextLine()){
+        String str=in.nextLine().toUpperCase();
+        System.out.println(str);
+        int count=0;
+        for(int i=0;i&lt;str.length()-1;i++){
+            if(str.charAt(i)==str.charAt(str.length()-1)){
+                count++;
+            }
+        }
+        System.out.println(count);
+    }    
+}
+</code></pre><h2 id="输入N个数，去重排序输出"><a href="#输入N个数，去重排序输出" class="headerlink" title="输入N个数，去重排序输出"></a>输入N个数，去重排序输出</h2><pre><code> public static void main(String[] args){
+Scanner in=new Scanner(System.in);
+while(in.hasNext()){    
+    int a=in.nextInt();
+
+    int b=0;
+    TreeSet&lt;Integer&gt; set=new TreeSet();
+    while(b&lt;a){
+        set.add(in.nextInt());
+        b++;
+    }
+
+    for(Object i : set){
+        System.out.println(i);
+    }
+ }
+</code></pre><h2 id="输入字符串将其分割成长度为8的字符串数组，后续为0不处理，不足8补0"><a href="#输入字符串将其分割成长度为8的字符串数组，后续为0不处理，不足8补0" class="headerlink" title="输入字符串将其分割成长度为8的字符串数组，后续为0不处理，不足8补0"></a>输入字符串将其分割成长度为8的字符串数组，后续为0不处理，不足8补0</h2><pre><code>public static void main(String[] args){
+        Scanner in=new Scanner(System.in);
+    while(in.hasNextLine()){
+        String str=in.nextLine();
+        if(str.length()%8!=0){
+         str=str+&quot;00000000&quot;;
+        }
+        int a=str.length()/8;
+        int b=0;
+        while(b&lt;a){
+            System.out.println(str.substring(b*8, (b+1)*8));
+            b++;
+        }
+    }    
+}
+</code></pre><h2 id="给定n个字符串，请对n个字符串按照字典序排列"><a href="#给定n个字符串，请对n个字符串按照字典序排列" class="headerlink" title="给定n个字符串，请对n个字符串按照字典序排列"></a>给定n个字符串，请对n个字符串按照字典序排列</h2><pre><code> public static void main(String[]args){
+        Scanner scan=new Scanner(System.in);
+        ArrayList&lt;String&gt; set=new ArrayList&lt;String&gt;();
+        int num=Integer.parseInt(scan.nextLine());
+        for(int x=0;x&lt;num;x++){
+            set.add(scan.nextLine());
+        }
+
+        Collections.sort(set);//collection本身具有字典排序功能，abc序列。
+        for(String str:set){
+            System.out.println(str);
+        }
+    }
+}
+</code></pre><h2 id="简单密码"><a href="#简单密码" class="headerlink" title="简单密码"></a>简单密码</h2><p>手机上的字母： 1–1， abc–2, def–3, ghi–4, jkl–5, mno–6, pqrs–7, tuv–8 wxyz–9, 0–0,</p>
+<p>而密码中出现的大写字母则变成小写之后往后移一位，如：X，先变成小写，再往后移一位，就是y了<br>z往后移是a<br>例：输入：YUANzhi1987<br>    输出：zvbo9441987</p>
+<pre><code>    public static void password(String s) {
+    char[] ch =s.toCharArray();
+    for(int i=0;i&lt;s.length();i++){
+        if(s.valueOf(ch[i]).matches(&quot;[A-Y]&quot;)){
+            ch[i]=(char)(s.toLowerCase().charAt(i)+1);
+
+        }else if(ch[i]==&apos;Z&apos;){
+            ch[i]=&apos;a&apos;;
+        }else if(s.valueOf(ch[i]).matches(&quot;[abc]&quot;)){
+            ch[i]=&apos;2&apos;;
+        }else if(s.valueOf(ch[i]).matches(&quot;[def]&quot;)){
+            ch[i]=&apos;3&apos;;
+        }else if(s.valueOf(ch[i]).matches(&quot;[ghi]&quot;)){
+            ch[i]=&apos;4&apos;;
+        }else if(s.valueOf(ch[i]).matches(&quot;[jkl]&quot;)){
+            ch[i]=&apos;5&apos;;
+        }else if(s.valueOf(ch[i]).matches(&quot;[mno]&quot;)){
+            ch[i]=&apos;6&apos;;
+        }else if(s.valueOf(ch[i]).matches(&quot;[pqrs]&quot;)){
+            ch[i]=&apos;7&apos;;
+        }else if(s.valueOf(ch[i]).matches(&quot;[tuv]&quot;)){
+            ch[i]=&apos;8&apos;;
+        }else if(s.valueOf(ch[i]).matches(&quot;[wxyz]&quot;)){
+            ch[i]=&apos;9&apos;;
+        }
+    }
+    for(char c:ch){
+        System.out.print(c);
+    }
+
+}
+</code></pre><h2 id="删除字符串出现最少的字符"><a href="#删除字符串出现最少的字符" class="headerlink" title="删除字符串出现最少的字符"></a>删除字符串出现最少的字符</h2><p>实现删除字符串中出现次数最少的字符，若多个字符出现次数一样，则都删除。输出删除这些单词后的字符串，字符串中其它字符保持原来的顺序。</p>
+<pre><code>    public static void main(String[] args) {
+    Scanner cin = new Scanner(System.in);
+    while(cin.hasNext()) {
+    int[] num = new int[26];//分配为大小26的数组，初始默认为0
+    String line = cin.nextLine();
+    for(int i=0; i&lt;line.length(); i++) {
+    char c = line.charAt(i);
+    int n = (int)(c - &apos;a&apos;);//这里减a等于把所有字符都变为0-26的数字，a=0
+    num[n] ++;//将字符的个数一一加入对应的数组位置
+    }
+    int min = Integer.MAX_VALUE;
+    for(int i=0; i&lt;26; i++) {
+    if(num[i] != 0 &amp;&amp; num[i] &lt; min) //判断出最小的字符的数量
+    min = num[i];
+         }
+     }
+    for(int i=0; i&lt;line.length(); i++) 
+      char c = line.charAt(i);
+         int n = (int)(c - &apos;a&apos;);
+        if(num[n] != min) {//每次判断这个字符是否属于最小数量的字符，如果不是则输出。
+         System.out.print(c);
+         }
+     }
+        System.out.println();
+    }
+} 
+</code></pre><h1 id="其他类型"><a href="#其他类型" class="headerlink" title="其他类型"></a>其他类型</h1><h2 id="输出质数因子"><a href="#输出质数因子" class="headerlink" title="输出质数因子"></a>输出质数因子</h2><p>功能:输入一个正整数，按照从小到大的顺序输出它的所有质数的因子（如180的质数因子为2 2 3 3 5 ）</p>
+<pre><code>  public static void main(String[] args){
+    Scanner in=new Scanner(System.in);
+    long x=in.nextLong();
+    getResult(x);
+}
+public static void getResult(long x){
+    long y=2;
+    while(y&lt;=x){//每次都除2，直到没有2的因子为止，然后三，等于自动就排序了
+        if(x%y==0){
+            System.out.print(y+&quot; &quot;);
+            x/=y;
+        }
+        else{
+            y++;
+        }
+    }
+}
+</code></pre><h2 id="合并数据表"><a href="#合并数据表" class="headerlink" title="合并数据表"></a>合并数据表</h2><p>数据表记录包含表索引和数值，请对表索引相同的记录进行合并，即将相同索引的数值进行求和运算，输出按照key值升序进行输出。</p>
+<pre><code>public static void main(String[] args){
+        Scanner in=new Scanner(System.in);
+        int x=in.nextInt();
+        Map&lt;Integer,Integer&gt; p=new TreeMap();
+        for(int y=0;y&lt;x;y++){
+            int a =in.nextInt();
+            int b=in.nextInt();
+            if(p.containsKey(a)){//判断键是否有重复
+                int c=(int)p.get(a)+b;//值相加
+                p.put(a, c);
+            }else{
+                p.put(a, b);
+            }
+        }
+        for(Map.Entry&lt;Integer,Integer&gt; m : p.entrySet() ){
+            System.out.println(m.getKey()+&quot; &quot;+m.getValue());
+        }
+    }
+</code></pre><h2 id="提取不重复的正数"><a href="#提取不重复的正数" class="headerlink" title="提取不重复的正数"></a>提取不重复的正数</h2><p>输入一个int型整数，按照从右向左的阅读顺序，返回一个不含重复数字的新的整数。</p>
+<pre><code>public static void main(String[] args) {
+    Scanner in= new Scanner(System.in);
+    String str = in.nextLine();
+    char[] b=str.toCharArray();
+    //System.out.println(Arrays.toString(b));
+    LinkedHashSet hs=new LinkedHashSet&lt;Integer&gt;();//数组set的去重
+    for(int a=0;a&lt;b.length;a++){
+        hs.add(b[b.length-1-a]);
+    }
+    Object[] arr=hs.toArray();
+    for(Object a:arr){
+        System.out.print(a);
+    }
+}
+</code></pre><h2 id="字符个数统计"><a href="#字符个数统计" class="headerlink" title="字符个数统计"></a>字符个数统计</h2><p>编写一个函数，计算字符串中含有的不同字符的个数。字符在ACSII码范围内(0~127)。不在范围内的不作统计</p>
+<pre><code>public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
+    char[] ch = in.nextLine().toCharArray();
+    int count=0;
+    char[] ch1=new char[127];
+    for(int x=0;x&lt;ch.length;x++){
+        int m=(int)ch[x];
+
+        if(m&gt;=0&amp;&amp;m&lt;=127&amp;&amp;ch1[m]!=1){//这里ch1[m]！=1是为了判断这个之前有没有出现过，没有出现过，个数加1
+            count++;
+        }
+        ch1[m]=1;
+    }
+    System.out.println(count);
+}
+</code></pre><h2 id="坐标移动"><a href="#坐标移动" class="headerlink" title="坐标移动"></a>坐标移动</h2><p>开发一个坐标计算工具， A表示向左移动，D表示向右移动，W表示向上移动，S表示向下移动。从（0,0）点开始移动，从输入字符串里面读取一些坐标，并将最终输入结果输出到输出文件里面。</p>
+<p>合法坐标：A10</p>
+<p>非法坐标点需要进行丢弃。如AA10;  A1A;  $%$;  YAD; 等。</p>
+<pre><code>public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
+    while(in.hasNextLine()){
+    int x=0,y=0;
+
+    String[] s=in.nextLine().split(&quot;;&quot;);
+    for(int a=0;a&lt;s.length;a++){
+        int b=Integer.parseInt(s[a].substring(1));
+        try {
+            if(s[a].charAt(0)==&apos;A&apos;){
+                x-=b;
+            }
+             if(s[a].charAt(0)==&apos;W&apos;){
+                y+=b;
+            }
+             if(s[a].charAt(0)==&apos;S&apos;){
+                y-=b;
+            }
+             if(s[a].charAt(0)==&apos;D&apos;){
+                x+=b;
+            }
+        } catch (NumberFormatException e) {
+            continue;
+        }
+    }
+    System.out.println(x+&quot;,&quot;+y);
+}
+}
+</code></pre><h2 id="密码验证合格程序"><a href="#密码验证合格程序" class="headerlink" title="密码验证合格程序"></a>密码验证合格程序</h2><pre><code>密码要求:
+1.长度超过8位
+2.包括大小写字母.数字.其它符号,以上四种至少三种
+3.不能有相同长度超2的子串重复
+说明:长度超过2的子串
+输入描述:
+一组或多组长度超过2的子符串。每组占一行
+输出描述:
+如果符合要求输出：OK，否则输出NG
+
+public static void main(String[] args) {
+    // TODO Auto-generated method stub
+    Scanner in = new Scanner(System.in);
+    while(in.hasNextLine()){
+    String s = in.nextLine();
+    password(s);
+    }
+}
+
+public static void password(String s) {
+    // TODO Auto-generated method stub
+    int count=0,up=0,down=0,num=0;
+    if(s.length()&lt;9){
+        System.out.println(&quot;NG&quot;);
+        return;
+    }
+    for(int i=0;i&lt;s.length();i++){
+
+        if(s.valueOf(s.charAt(i)).matches(&quot;\\d&quot;)){
+            count=1;
+        }else if(s.valueOf(s.charAt(i)).matches(&quot;[A-Z]&quot;)){
+            up=1;
+        }else if(s.valueOf(s.charAt(i)).matches(&quot;[a-z]&quot;)){
+            down=1;
+        }else{
+            num=1;
+        }
+    }
+    if(f(s)==true&amp;&amp;count+up+down+num&gt;=3){
+        System.out.println(&quot;OK&quot;);
+    }else{
+        System.out.println(&quot;NG&quot;);
+    }
+}
+public static boolean f(String s){//3.不能有相同长度超2的子串重复
+    for(int i=0;i&lt;s.length()-3;i++){
+        if(s.substring(i+1).contains(s.substring(i, i+3))){
+            return false;
+        }
+}
+    return true;
+}
+</code></pre><h1 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h1><h2 id="求一个值的二进制中1的个数"><a href="#求一个值的二进制中1的个数" class="headerlink" title="求一个值的二进制中1的个数"></a>求一个值的二进制中1的个数</h2><p><strong>n&amp;n-1的妙用：</strong></p>
+<pre><code>  n&amp;(n-1)作用：将n的二进制表示中的最低位为1的改为0，先看一个简单的例子：
+
+ n = 10100(二进制），则(n-1) = 10011 ==》n&amp;(n-1) = 10000
+
+ 可以看到原本最低位为1的那位变为0。
+
+
+
+方法一：
+public class Main{
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        int count = 0;
+        while(n&gt;0){
+            if((n&amp;1)&gt;0){
+                count++;
+            }
+            n=n&gt;&gt;1;
+        }
+        System.out.println(count);
+    }
+}
+
+方法2：
+public class Main {
+public static void main(String[] args) {
+    Scanner sc=new Scanner(System.in);
+    while (sc.hasNext()){
+        int n=sc.nextInt();
+        int count=0;
+        while (n!=0){//只要n不等于0，必定还有1，所以count+1
+            count++;
+            n=n&amp;(n-1);
+        }
+        System.out.println(count);
+    }
+}
+</code></pre><p>}</p>
+<h2 id="判断一个数是不是2的幂"><a href="#判断一个数是不是2的幂" class="headerlink" title="判断一个数是不是2的幂"></a>判断一个数是不是2的幂</h2><pre><code>int n, count = 0;
+if((n&gt;0) &amp;&amp; (!(n&amp;(n-1))) == true)//2的幂都是100，1000，这样只有一个1，n&amp;n-1=0;
+    syso(&quot;是&quot;)
+else
+    syso(&quot;不是&quot;)    ；
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/华为/" rel="tag"># 华为</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/regex20180518/" rel="next" title="正则表达式">
+                <i class="fa fa-chevron-left"></i> 正则表达式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/mysql20180519/" rel="prev" title="mysql数据库">
+                mysql数据库 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanglibei</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#String类型题"><span class="nav-number">1.</span> <span class="nav-text">String类型题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算字符串最后一个单词的长度，单词以空格隔开"><span class="nav-number">1.1.</span> <span class="nav-text">计算字符串最后一个单词的长度，单词以空格隔开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入一个字符串和字符，输出字符串中包含字符的个数"><span class="nav-number">1.2.</span> <span class="nav-text">输入一个字符串和字符，输出字符串中包含字符的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入N个数，去重排序输出"><span class="nav-number">1.3.</span> <span class="nav-text">输入N个数，去重排序输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入字符串将其分割成长度为8的字符串数组，后续为0不处理，不足8补0"><span class="nav-number">1.4.</span> <span class="nav-text">输入字符串将其分割成长度为8的字符串数组，后续为0不处理，不足8补0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给定n个字符串，请对n个字符串按照字典序排列"><span class="nav-number">1.5.</span> <span class="nav-text">给定n个字符串，请对n个字符串按照字典序排列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单密码"><span class="nav-number">1.6.</span> <span class="nav-text">简单密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除字符串出现最少的字符"><span class="nav-number">1.7.</span> <span class="nav-text">删除字符串出现最少的字符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他类型"><span class="nav-number">2.</span> <span class="nav-text">其他类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输出质数因子"><span class="nav-number">2.1.</span> <span class="nav-text">输出质数因子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并数据表"><span class="nav-number">2.2.</span> <span class="nav-text">合并数据表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取不重复的正数"><span class="nav-number">2.3.</span> <span class="nav-text">提取不重复的正数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符个数统计"><span class="nav-number">2.4.</span> <span class="nav-text">字符个数统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坐标移动"><span class="nav-number">2.5.</span> <span class="nav-text">坐标移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#密码验证合格程序"><span class="nav-number">2.6.</span> <span class="nav-text">密码验证合格程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位运算"><span class="nav-number">3.</span> <span class="nav-text">位运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#求一个值的二进制中1的个数"><span class="nav-number">3.1.</span> <span class="nav-text">求一个值的二进制中1的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断一个数是不是2的幂"><span class="nav-number">3.2.</span> <span class="nav-text">判断一个数是不是2的幂</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huanglibei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">快乐贝壳</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

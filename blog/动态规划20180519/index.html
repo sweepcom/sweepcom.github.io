@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="happyshell.top, sweepcom blog" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="动态规划定义动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划 动态规划实际上是一类题目的总称，并不是指某个固定的算法。动态规划的意义就是通过采用递推（或者分而治之）的策略，通过解决大问题的子问题从而解决整体的做法。动态规划的核心思想是巧妙的将问题拆分成多个子问题，通过计算子问题而得到整体问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态规划">
+<meta property="og:url" content="happyshell.top/blog/动态规划20180519/index.html">
+<meta property="og:site_name" content="Blog Of Huanglibei">
+<meta property="og:description" content="动态规划定义动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划 动态规划实际上是一类题目的总称，并不是指某个固定的算法。动态规划的意义就是通过采用递推（或者分而治之）的策略，通过解决大问题的子问题从而解决整体的做法。动态规划的核心思想是巧妙的将问题拆分成多个子问题，通过计算子问题而得到整体问">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-24T01:29:59.445Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态规划">
+<meta name="twitter:description" content="动态规划定义动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划 动态规划实际上是一类题目的总称，并不是指某个固定的算法。动态规划的意义就是通过采用递推（或者分而治之）的策略，通过解决大问题的子问题从而解决整体的做法。动态规划的核心思想是巧妙的将问题拆分成多个子问题，通过计算子问题而得到整体问">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="happyshell.top/blog/动态规划20180519/"/>
+
+
+
+
+
+  <title>动态规划 | Blog Of Huanglibei</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog Of Huanglibei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">快乐贝壳</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/动态规划20180519/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">动态规划</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-19T17:28:03+08:00">
+                2018-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="动态规划定义"><a href="#动态规划定义" class="headerlink" title="动态规划定义"></a>动态规划定义</h1><p>动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划</p>
+<p>动态规划实际上是一类题目的总称，并不是指某个固定的算法。动态规划的意义就是通过采用递推（或者分而治之）的策略，通过解决大问题的子问题从而解决整体的做法。动态规划的核心思想是巧妙的将问题拆分成多个子问题，通过计算子问题而得到整体问题的解。而子问题又可以拆分成更多的子问题，从而用类似递推迭代的方法解决要求的问题。</p>
+<p><strong>动态规划的应用场景</strong></p>
+<p>对于一个可拆分问题中存在可以由前若干项计算当前项的问题可以由动态规划计算。<br>能用动态规划计算的问题存在一种递推的连带关系。</p>
+<p>分析问题时需要进行状态转换，分解问题，分解成自己能够解决的问题</p>
+<p>例：题目：求一个数列中最大连续子序列的和。</p>
+<p>原问题转化为：Fk是第k项前的最大序列和，求F1～FN中最大值。</p>
+<p>#动态规划的应用举例 #</p>
+<h2 id="数塔取数问题"><a href="#数塔取数问题" class="headerlink" title="数塔取数问题"></a>数塔取数问题</h2><p>一个高度为N的由正整数组成的三角形，从上走到下，求经过的数字和的最大值。<br>每次只能走到下一层相邻的数上，例如从第3层的6向下走，只能走到第4层的2或9上。</p>
+<pre><code>该三角形第n层有n个数字，例如：
+
+第一层有一个数字：       5
+
+第二层有两个数字：      8 4
+
+第三层有三个数字：     3 6 9
+
+第四层有四个数字：    7 2 9 5
+
+最优方案是：5 + 8 + 6 + 9 = 28
+
+状态定义: Fi，j是第i行j列项最大取数和，求第n行Fn，m（0 &lt; m &lt; n）中最大值。
+
+状态转移方程：Fi，j = max{Fi-1,j-1,Fi-1,j}+Ai,j
+</code></pre><p>上述解释可能还明白，看代码分析：</p>
+<pre><code>public static void main(String[] args) {
+   Scanner in = new Scanner(System.in);
+   int n = in.nextInt();
+   long max = 0;//用来获取最大路径
+   int[][] arr=new int[n][n];     //建立数组存放值
+   arr[0][0]=in.nextInt();        //将第一行值存入
+   for(int i=1;i&lt;n;i++){          //共几行，就循环几次
+       for(int j=0;j&lt;=i;j++){
+           int num=in.nextInt();
+           if(j==0){
+               arr[i][j]=arr[i-1][j]+num;//每行第一个值是上一行 第一个值加上给出的值
+           }else{
+               arr[i][j]=Math.max(arr[i-1][j-1], arr[i-1][j])+num;
+                //每行后面的值都取上一行相邻俩个值大的再加上新值
+           }
+           max=Math.max(arr[i][j], max);//每次都与max比较，时刻保持最大路径
+       }
+   }
+   System.out.println(max);
+}    
+}
+
+解析：其实动态规划就是分解成多个子问题，问题是求最大路径，那么就把每一行的最大路径存进去
+     ，每次加入新的一行只需要获取前一行的值就可以了，不用在重新重头走一遍了
+如下
+
+                    三角形数字                    动态规划过程
+第一层有一个数字：       5                             5
+
+第二层有两个数字：      8 4                        13  9
+
+第三层有三个数字：     3 6 9                     16  19 18
+
+第四层有四个数字：    7 2 9 5                  23  21  28 23
+
+第一行直接存入5
+第二行存的是最路径的和（8+5）（4+5）
+第三行这里计算的时候，如（19）只需要原值6加上上一行相邻值的较大者13，得到19
+不需要在重新进行5+8+6的计算了
+所以每次得到的都是在那个点的最大路径值，分而治之。
+</code></pre><h2 id="矩阵取数问题"><a href="#矩阵取数问题" class="headerlink" title="矩阵取数问题"></a>矩阵取数问题</h2><p>一个N<em>N矩阵中有不同的正整数，经过这个格子，就能获得相应价值的奖励，从左上走到右下，只能向下向右走，求能够获得的最大价值。例如：3 </em> 3的方格。</p>
+<pre><code>1 3 3 
+2 1 3 
+2 2 1
+
+能够获得的最大价值为：11。
+
+解题思路同上
+public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
+    int n = in.nextInt();
+    int[][] arr = new int[n+1][n+1];//这里用n+1是为了下面的i-1=0时的角标存在，
+                                        不需要重新单独考虑，默认从角标1开始
+    int max=Integer.MIN_VALUE;
+    for(int i=1;i&lt;n+1;i++){
+        for(int j=1;j&lt;n+1;j++){
+            int num =in.nextInt();
+            if(i==1){
+                arr[i][j]=arr[i][j-1]+num;
+            }
+            else{
+                arr[i][j]=Math.max(arr[i][j-1], arr[i-1][j])+num;
+            }
+            max=Math.max(arr[i][j], max);
+        }
+    }
+    System.out.println(max);
+}
+</code></pre><h2 id="最长递增子序列"><a href="#最长递增子序列" class="headerlink" title="最长递增子序列"></a>最长递增子序列</h2><pre><code>给出长度为N的数组，找出这个数组的最长递增子序列。 
+(递增子序列是指，子序列的元素是递增的） 
+例如：5 1 6 8 2 4 5 10，最长递增子序列是1 2 4 5 10。
+
+O(n^2)
+public static void main(String[] args) {
+     Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] A = new int[n];
+        for (int j = 0; j &lt; n; j++){
+            A[j] = in.nextInt();
+        }
+        int[] dp=new int[n];//用来存放每个数字的最长子序列长度
+        int max=0;
+        for(int i=0;i&lt;n;i++){
+            dp[i]=1;//每个数的初始序列长度是自身也就是1.
+            for(int j=0;j&lt;i;j++){
+                if(A[i]&gt;A[j]){
+                    dp[i]=Math.max(dp[i],dp[j]+1);//让比这个数小的所有值的子序列相比
+                                                    取最大值然后加1；
+                    max=Math.max(dp[i]，max）;
+            }     
+        }
+        }
+        System.out.println(max);
+}
+
+解析：A里面用来存放原始数组
+     dp里面用来存放以各自原始数值为末尾时的最小子串长度
+     这种方法时间复杂度O（n^2），类似与冒泡了，每次都要与之前的所有相比
+     例如8，上述程序要与5的最长子序列也就是1相比，要和1的子序列长度1比，要和6的子序列长
+     度2相比，但是其实只需要和6比了，在时间复杂度上做的不够，但是代码更加简洁
+</code></pre><p>O(nlogn)</p>
+<pre><code>public int findLongest(int[] A, int n) {
+        int[] B = new int[n+1]; B[1] = A[0];
+        int len=1,start=0,end=len,mid;
+        for(int i = 1;i&lt;n;i++){
+        if(A[i]&gt;B[len]) {len++;B[len] = A[i];}
+        else{
+            start=1;end=len;
+            while(start&lt;=end){
+            mid=(start+end)/2;
+            if(B[mid]&lt;A[i]) start=mid+1;
+            else end=mid-1;
+            } 
+            B[start] = A[i];
+        }
+    }
+    }
+    return len;
+  ｝
+｝
+</code></pre><h2 id="求最大子段和"><a href="#求最大子段和" class="headerlink" title="求最大子段和"></a>求最大子段和</h2><p>例如：-2,11,-4,13,-5,-2，和最大的子段为：11,-4,13。和为20。</p>
+<pre><code>public static void main(String[] args) {
+     Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        long max=0;long summax=0;
+        for(int i=0;i&lt;n;i++){
+            summax+=in.nextLong();
+            if(summax&gt;max){//当最新字段大于之前字段时，更新max
+                max=summax;
+            }
+            if(summax&lt;0){当子段小于0时，重头开始计算
+                summax=0;
+            }
+        }
+        System.out.println(max);
+}   
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/反射20180519/" rel="next" title="mysql数据库">
+                <i class="fa fa-chevron-left"></i> mysql数据库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanglibei</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划定义"><span class="nav-number">1.</span> <span class="nav-text">动态规划定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数塔取数问题"><span class="nav-number">1.1.</span> <span class="nav-text">数塔取数问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵取数问题"><span class="nav-number">1.2.</span> <span class="nav-text">矩阵取数问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最长递增子序列"><span class="nav-number">1.3.</span> <span class="nav-text">最长递增子序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求最大子段和"><span class="nav-number">1.4.</span> <span class="nav-text">求最大子段和</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huanglibei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">快乐贝壳</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
