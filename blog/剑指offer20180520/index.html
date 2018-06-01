@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="happyshell.top, sweepcom blog" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数组二位数组的查找在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。 第一种：暴力查找，遍历全部数组 第二种：从左下或者右上开始查找 下面介绍从左下开始查找 从左下角来看，向上数字递减，向右数字递增， 当要查找数字比左下角数字大时。右移 要查找数字比左下角数字小时，上移 public">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指OFFER">
+<meta property="og:url" content="happyshell.top/blog/剑指offer20180520/index.html">
+<meta property="og:site_name" content="Blog Of Huanglibei">
+<meta property="og:description" content="数组二位数组的查找在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。 第一种：暴力查找，遍历全部数组 第二种：从左下或者右上开始查找 下面介绍从左下开始查找 从左下角来看，向上数字递减，向右数字递增， 当要查找数字比左下角数字大时。右移 要查找数字比左下角数字小时，上移 public">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-01T12:46:15.314Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="剑指OFFER">
+<meta name="twitter:description" content="数组二位数组的查找在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。 第一种：暴力查找，遍历全部数组 第二种：从左下或者右上开始查找 下面介绍从左下开始查找 从左下角来看，向上数字递减，向右数字递增， 当要查找数字比左下角数字大时。右移 要查找数字比左下角数字小时，上移 public">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="happyshell.top/blog/剑指offer20180520/"/>
+
+
+
+
+
+  <title>剑指OFFER | Blog Of Huanglibei</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog Of Huanglibei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">快乐贝壳</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/剑指offer20180520/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">剑指OFFER</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-20T17:28:03+08:00">
+                2018-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程题/" itemprop="url" rel="index">
+                    <span itemprop="name">编程题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="二位数组的查找"><a href="#二位数组的查找" class="headerlink" title="二位数组的查找"></a>二位数组的查找</h2><p>在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
+<p>第一种：暴力查找，遍历全部数组</p>
+<p>第二种：从左下或者右上开始查找</p>
+<p>下面介绍从左下开始查找</p>
+<pre><code>从左下角来看，向上数字递减，向右数字递增，
+当要查找数字比左下角数字大时。右移
+要查找数字比左下角数字小时，上移
+public class Solution {
+public boolean Find(int target, int [][] array) {
+     int row=array.length-1;   
+     int col=0;              //初row，col为始查找横纵坐标，左下角
+    while(row&gt;=0&amp;&amp;col&lt;array[row].length){//坐标不能越界
+        if(array[row][col]&gt;target){
+            row--;
+        }
+        else if(array[row][col]&lt;target){
+            col++;
+        }
+        else{
+            return true;
+        }
+    }
+    return false;
+}
+}
+</code></pre><h2 id="调整数组顺序，奇数在前，偶数在后"><a href="#调整数组顺序，奇数在前，偶数在后" class="headerlink" title="调整数组顺序，奇数在前，偶数在后"></a>调整数组顺序，奇数在前，偶数在后</h2><p>输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。</p>
+<pre><code>方法1：
+时间复杂度为O（n），空间复杂度为O（n）的算法
+/*
+整体思路：
+首先统计奇数的个数
+然后新建一个等长数组，设置两个指针，奇数指针从0开始，偶数指针从奇数个数的末尾开始 遍历，填数
+*/
+public class Solution {
+    public void reOrderArray(int [] array) {
+        if(array.length==0||array.length==1) return;
+        int oddCount=0,oddBegin=0;
+        int[] newArray=new int[array.length];
+        for(int i=0;i&lt;array.length;i++){
+            if((array[i]&amp;1)==1) oddCount++;
+        }
+        for(int i=0;i&lt;array.length;i++){
+            if((array[i]&amp;1)==1) newArray[oddBegin++]=array[i];
+            else newArray[oddCount++]=array[i];
+        }
+        for(int i=0;i&lt;array.length;i++){
+            array[i]=newArray[i];
+        }
+    }
+}
+
+
+方法2：类似冒泡，每次都从前开始，判断前后相邻是不是奇偶，时间复杂度O(n^2)
+class Solution {
+public:
+    void reOrderArray(vector&lt;int&gt; &amp;array) {
+
+
+        for (int i = 0; i &lt; array.size();i++)
+        {
+            for (int j = array.size() - 1; j&gt;i;j--)
+            {
+                if (array[j] % 2 == 1 &amp;&amp; array[j - 1]%2 == 0) //前偶后奇交换
+                {
+                    swap(array[j], array[j-1]);
+                }
+            }
+        }
+    }
+};
+</code></pre><h2 id="替换空格"><a href="#替换空格" class="headerlink" title="替换空格"></a>替换空格</h2><p>请实现一个函数，将一个字符串中的空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。</p>
+<pre><code>方法1：
+ public String replaceSpace(StringBuffer str) {
+    String s=str.toString();
+    s=s.replaceAll(&quot; &quot;, &quot;%20&quot;);
+    return s;
+}
+
+方法2：
+ public String replaceSpace(StringBuffer str) {
+     StringBuilder newStr = new StringBuilder();
+    for(int i=0;i&lt;str.length();i++){
+        if(str.charAt(i)==&apos; &apos;){
+            newStr.append(&quot;%20&quot;);
+          ;
+        }else{
+            newStr.append(str.charAt(i));
+        }
+    }
+    return newStr.toString();
+}
+</code></pre><h2 id="数组中出现次数超过一半的数字"><a href="#数组中出现次数超过一半的数字" class="headerlink" title="数组中出现次数超过一半的数字"></a>数组中出现次数超过一半的数字</h2><p>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。<br>    这里用的hashmap，还可以用快速排序的原理来实现<br>        public int MoreThanHalfNum_Solution(int [] array) {<br>         HashMap&lt;Integer,Integer&gt; map=new HashMap&lt;Integer,Integer&gt;();<br>         for(int i=0;i&lt;array.length;i++){<br>              if(!map.containsKey(array[i])){<br>                 map.put(array[i], 1);<br>             }<br>             else{<br>                 map.put(array[i], map.get(array[i])+1);<br>             }<br>         }<br>        for(Map.Entry&lt;Integer,Integer&gt; me :map.entrySet()){<br>                if(me.getValue()&gt;array.length/2){<br>                    return me.getKey();<br>                }<br>            }<br>            return 0;<br>        }</p>
+<h2 id="连续子数组的最大和"><a href="#连续子数组的最大和" class="headerlink" title="连续子数组的最大和"></a>连续子数组的最大和</h2><p>例如:{6,-3,-2,7,-15,1,2,2},连续子向量的最大和为8(从第0个开始,到第3个为止)。你会不会被他忽悠住？(子向量的长度至少是1)</p>
+<pre><code>public int FindGreatestSumOfSubArray(int[] array) {
+             int sum=0;
+            int max=Integer.MIN_VALUE;
+            for(int i=0;i&lt;array.length;i++){
+
+                if(sum&lt;=0){
+                    sum=array[i];
+                }else{
+                    sum+=array[i];
+                }
+                    max=Math.max(max, sum);
+            }
+            return max;
+    }
+
+方法2：
+    public  int FindGreatestSumOfSubArray(int[] array) {
+    int res = array[0]; //记录当前所有子数组的和的最大值
+    int max=array[0];   //包含array[i]的连续数组最大值
+    for (int i = 1; i &lt; array.length; i++) {
+        max=Math.max(max+array[i], array[i]);
+        res=Math.max(max, res);
+    }
+    return res;
+</code></pre><p>}</p>
+<h2 id="和为s的连续正数序列"><a href="#和为s的连续正数序列" class="headerlink" title="和为s的连续正数序列"></a>和为s的连续正数序列</h2><p>输出所有和为S的连续正数序列。序列内按照从小至大的顺序，序列间按照开始数字从小到大的顺序    </p>
+<pre><code>*初始化start=1，end=2;
+*start到end序列和小于sum，end++;大于sum，small++;
+*当small增加到(1+sum)/2是停止初始值设为1，2因为是连续递增的，所以start不可能超过中间数
+
+
+ArrayList&lt;ArrayList&lt;Integer&gt;&gt; listAll=new ArrayList&lt;&gt;();
+ArrayList&lt;Integer&gt; list=new ArrayList&lt;&gt;();
+public ArrayList&lt;ArrayList&lt;Integer&gt; &gt; FindContinuousSequence(int sum) {
+   if(sum&lt;3){ 
+       return listAll;}
+   int start=1,end=2,mid=(sum+1)/2;
+    int curSum=start+end;                 //初始的和值为3
+      while(start&lt;mid){
+        if(curSum==sum){
+            addList(start,end);       //若当前和与传入参数相同，则添加数组
+          }
+        while(curSum&gt;sum&amp;&amp;start&lt;mid){ //循环判断是否大于sum，大于则减去最小位
+            curSum-=start;
+            start++;
+            if(curSum==sum){
+                addList(start,end);
+            }
+        }                             //小于sum或者等于，都需要加下一位开始判断。
+           end++;
+           curSum+=end;
+    }
+   return listAll; 
+}
+
+public void addList(int start,int end){
+    for(int i=start;i&lt;=end;i++){
+        list.add(i);
+    }
+    listAll.add(new ArrayList(list));
+    list.removeAll(list);
+}
+</code></pre><h2 id="和为s的俩个数"><a href="#和为s的俩个数" class="headerlink" title="和为s的俩个数"></a>和为s的俩个数</h2><p>输入一个递增排序的数组和一个数字S，在数组中查找两个数，是的他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的。</p>
+<pre><code>先看第一个和最后一个数的和，大了，后面的数前移，小了前面的数后移，直到相遇
+这里不用判断乘积了，距离越远乘积越小，所以找到的第一对就是最小值
+public ArrayList&lt;Integer&gt; FindNumbersWithSum(int [] array,int sum) {
+    ArrayList&lt;Integer&gt; list=new ArrayList&lt;&gt;();
+    int max=Integer.MIN_VALUE;
+    int start=0,end=array.length-1;
+    while(start&lt;end){
+        if(array[start]+array[end]==sum){
+
+            list.add(array[start]);
+            list.add(array[end]);
+            break;
+        }else if(array[start]+array[end]&lt;sum){
+            start++;
+        }else{
+            end--;
+        }
+
+    }
+    return list;
+}
+</code></pre><h2 id="最小的k个数"><a href="#最小的k个数" class="headerlink" title="最小的k个数"></a>最小的k个数</h2><p>输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,</p>
+<pre><code>        利用堆实现
+        public ArrayList&lt;Integer&gt; GetLeastNumbers_Solution(int[] input, int k) {
+        ArrayList&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        if (input == null || k &lt;= 0 || k &gt; input.length) {
+            return res;
+        }
+        Queue&lt;Integer&gt; queue = new PriorityQueue&lt;&gt;(k, Collections.reverseOrder());//这里要逆转排序顺序，java中默认是最小堆，或者重写
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return o2.compareTo(o1);
+        }
+
+
+        for (int i = 0; i &lt; input.length; i++) {
+
+            if (queue.size() &lt; k) {
+                queue.add(input[i]);
+            } else {
+                if (input[i] &lt; queue.peek()) {
+                    queue.remove();
+                    queue.add(input[i]);
+                }
+            }
+        }
+        while (!queue.isEmpty()) {
+            res.add(queue.remove());
+        }
+        return res;
+
+ 方法2：
+ public ArrayList&lt;Integer&gt; GetLeastNumbers_Solution(int [] input, int k) {
+ ArrayList&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();
+
+    if(input.length &lt; k || k == 0)
+        return list;
+
+    for (int i = 0; i &lt; k; i++)
+        list.add(input[i]);//存入前K个值
+
+    for (int i = k; i &lt; input.length; i++) {
+        int j = this.getMax(list);//每次都找出最大值与下一个值相比
+        int temp = (Integer) list.get(j);
+        if (input[i] &lt; temp)
+            list.set(j, input[i]);
+    }
+    return list;
+}
+public int getMax(ArrayList&lt;Integer&gt; list) {
+    int max = list.get(0);
+    int j = 0;
+    for (int i = 0; i &lt; list.size(); i++) {
+        if (list.get(i) &gt; max) {
+            max = list.get(i);
+            j = i;
+        }
+    }
+    return j;
+}
+</code></pre><h2 id="把数组排成最小的数"><a href="#把数组排成最小的数" class="headerlink" title="把数组排成最小的数"></a>把数组排成最小的数</h2><p>输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。</p>
+<pre><code>    public String PrintMinNumber(int [] numbers) {
+    if(numbers == null || numbers.length == 0) return &quot;&quot;;
+    int len = numbers.length;
+    String[] str = new String[len];
+    StringBuilder sb = new StringBuilder();
+    for(int i = 0; i &lt; len; i++){
+        str[i] = String.valueOf(numbers[i]);
+    }
+    Arrays.sort(str,new Comparator&lt;String&gt;(){
+        @Override
+        public int compare(String s1, String s2) {
+            String c1 = s1 + s2;
+            String c2 = s2 + s1;
+            return c1.compareTo(c2);
+    //重新写比较器方法，根据字符串比较。
+        }
+    });
+    for(int i = 0; i &lt; len; i++){
+        sb.append(str[i]);
+    }
+    return sb.toString();
+}
+</code></pre><h2 id="数字在排序数组中出现的次数"><a href="#数字在排序数组中出现的次数" class="headerlink" title="数字在排序数组中出现的次数"></a>数字在排序数组中出现的次数</h2><pre><code>统计一个数字k在排序数组中出现的次数。
+循环遍历这里就不说了
+排序数组查询想到二分法；先找到k的位置，然后查看该位置后一位或者前一位是否也是k，最后找到
+最后一位k和第一位k的角标，然后相减+1
+
+ public int GetNumberOfK(int [] array , int k) {
+   int min=0,max=array.length-1;
+  int length = array.length;
+    if(length == 0){
+        return 0;
+    }
+    int firstK = getFirstK(array, k, 0, length-1);//寻找第一个k
+    int lastK = getLastK(array, k, 0, length-1);  //寻找最后一个k
+    if(firstK != -1 &amp;&amp; lastK != -1){
+         return lastK - firstK + 1;
+    }
+    return 0;
+}
+
+private int getLastK(int [] array , int k, int min, int max){
+    while(min&lt;=max){
+        int    mid=(min+max)&gt;&gt;1;
+        if(k&lt;array[mid]){
+            max=mid-1;
+        }
+        else if(k&gt;array[mid]){
+            min=mid+1;
+        }
+        else if(mid+1&lt;array.length&amp;&amp;array[mid+1]==k){
+            min=mid+1;        //如果mid位置等于k，查看下一个位置，若是，则继续循环
+        }else{
+            return mid;      //如果都mid是K。而且下一位不等于k，那么返回该下标
+        }
+    }
+    return -1;
+}
+
+private int getFirstK(int [] array , int k, int min, int max){
+    while(min&lt;=max){
+        int    mid=(min+max)&gt;&gt;1;
+        if(k&lt;array[mid]){
+            max=mid-1;
+        }
+        else if(k&gt;array[mid]){
+            min=mid+1;
+        }
+        else if(mid&gt;0&amp;&amp;array[mid-1]==k){
+            max=mid-1;
+        }else{
+            return mid;
+        }
+    }
+    return -1;
+}
+
+递归遍历：
+ private int getFirstK(int [] array , int k, int start, int end){
+    if(start &gt; end){
+        return -1;
+    }
+    int mid = (start + end) &gt;&gt; 1;
+    if(array[mid] &gt; k){
+        return getFirstK(array, k, start, mid-1);
+    }else if (array[mid] &lt; k){
+        return getFirstK(array, k, mid+1, end);
+    }else if(mid-1 &gt;=0 &amp;&amp; array[mid-1] == k){
+        return getFirstK(array, k, start, mid-1);
+    }else{
+        return mid;
+    }
+}
+</code></pre><h2 id="丑数的计算"><a href="#丑数的计算" class="headerlink" title="丑数的计算"></a>丑数的计算</h2><p>把只包含因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。</p>
+<pre><code>说下思路，如果p是丑数，那么p=2^x * 3^y * 5^z
+那么只要赋予x,y,z不同的值就能得到不同的丑数。
+如果要顺序找出丑数，要知道下面几个特（fei）点（hua）。
+对于任何丑数p：
+（一）那么2*p,3*p,5*p都是丑数，并且2*p&lt;3*p&lt;5*p
+（二）如果p&lt;q, 那么2*p&lt;2*q,3*p&lt;3*q,5*p&lt;5*q
+其实每次我们只用比较3个数：用于乘2的最小的数、用于乘3的最小的数，用于乘5的最小的数。
+分别同t2,t3,t5,记录下下来。每用到一次，分别将记录值加1；
+
+ public int GetUglyNumber_Solution(int index) {
+    if(index==0){
+        return 0;
+    }
+      int[] arr=new int[index];
+         arr[0]=1;
+         int t2=0,t3=0,t5=0;
+         for(int i=1;i&lt;index;i++){
+             arr[i]=Math.min(arr[t2]*2, Math.min(arr[t3]*3,arr[t5]*5));
+             if(arr[i]==arr[t2]*2)t2++;
+             if(arr[i]==arr[t3]*3)t3++;
+             if(arr[i]==arr[t5]*5)t5++;
+         }
+         return arr[index-1];
+}
+</code></pre><h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="输入一个链表，从尾到头打印链表每个节点的值"><a href="#输入一个链表，从尾到头打印链表每个节点的值" class="headerlink" title="输入一个链表，从尾到头打印链表每个节点的值"></a>输入一个链表，从尾到头打印链表每个节点的值</h2><pre><code>这里要求从尾到头打印，所以需要一个栈来实现
+      public ArrayList&lt;Integer&gt; printListFromTailToHead(ListNode listNode) {
+    ArrayList&lt;Integer&gt; arr=new ArrayList&lt;Integer&gt;();
+    Stack&lt;Integer&gt; s=new Stack();
+    while(listNode!=null){
+        s.push(listNode.val);
+        listNode=listNode.next;
+    }
+     while (!s.isEmpty()) {
+        arr.add(s.pop());
+    }
+    return arr;
+        }
+
+    链表的节点结构：
+     public class ListNode {
+         int val;
+         ListNode next = null;
+
+         ListNode(int val) {
+              this.val = val;
+         }
+     }
+</code></pre><h2 id="输入一个链表，输出该链表中倒数第k个结点。"><a href="#输入一个链表，输出该链表中倒数第k个结点。" class="headerlink" title="输入一个链表，输出该链表中倒数第k个结点。"></a>输入一个链表，输出该链表中倒数第k个结点。</h2><pre><code>方法一：用栈
+
+   public ListNode FindKthToTail(ListNode head,int k) {
+   Stack&lt;ListNode&gt; stack = new Stack&lt;ListNode&gt;();
+        int count = 0;
+        while(head != null){
+            stack.push(head);
+            head = head.next;
+            count++;
+        }
+        if(count &lt; k){
+            return null;
+        }
+
+        ListNode knode = null;
+        for(int i = 0; i &lt; k; i++){
+            knode = stack.pop();
+        }
+    }
+</code></pre><p>   方法2：遍历俩次，一次求出链表长度，然后倒数k就是n-k个值，在遍历一次</p>
+<p>   方法三：完美，<br>    //p1指针先跑，当p指针跑了k-1个节点后，pre指针开始跑，<br>        当p指针跑到最后时，pre所指指针就是倒数第k个节点，可以任意举个例子来理解</p>
+<pre><code>if(k&lt;1|head==null){
+        return  null;
+    }
+    ListNode p1=head;
+    ListNode p2=head;
+    for(int i=0;i&lt;k-1&amp;&amp;p1!=null;i++){//p1先前移K步
+        p1=p1.next;
+        if(p1==null){
+            return null;
+        }
+    }
+    while(p1.next!=null){//p1没到尾节点时，p1,p2一起继续跑
+        p1=p1.next;
+        p2=p2.next;
+    }
+    return p2;
+}
+</code></pre><h2 id="链表的反转输出-public-ListNode-ReverseList-ListNode-head"><a href="#链表的反转输出-public-ListNode-ReverseList-ListNode-head" class="headerlink" title="链表的反转输出 ##public ListNode ReverseList(ListNode head) {"></a>链表的反转输出 ##public ListNode ReverseList(ListNode head) {</h2><pre><code> 需要三个指针来记录,当前节点，前一个节点，后一个节点，因为要将当前节点的next改为
+ 前一个，这时候链断了，连不到后一个了，所有要提前就next记录下来
+1 2 3 4 5   
+这里对于第一个节点，记录 null ，1，2
+                     pre    p  pnext
+                每次循环都将三个指针后移，当pnext为null时，结束循环。
+
+ListNode  reverseNode=head;
+        ListNode  pre=null;
+        ListNode  p=head;
+        while(p!=null){
+            ListNode pNext=p.next;
+            if(pNext==null){
+                reverseNode=p;
+            }
+            p.next=pre;
+            pre=p;
+            p=pNext;
+        }
+        return reverseNode;
+ }
+</code></pre><h2 id="俩个链表的公共节点"><a href="#俩个链表的公共节点" class="headerlink" title="俩个链表的公共节点"></a>俩个链表的公共节点</h2><p>输入两个链表，找出它们的第一个公共结点。</p>
+<pre><code>俩个链表如果相交有公共节点，则尾节点一定相同；
+34567
+ 1267     
+ public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
+ if(pHead1==null||pHead2==null){
+         return null;
+     }
+     int len1=1,len2=1;
+     ListNode tail1=pHead1;
+     while(tail1.next!=null){
+         tail1=tail1.next;
+         len1++;                        //获取链表长度
+     }
+     ListNode tail2=pHead2;
+     while(tail2.next!=null){
+         tail2=tail2.next;
+         len2++;
+     }
+     if(tail1!=tail2){
+         return null;
+     }
+     ListNode t1=pHead1,t2=pHead2;
+     if(len1&gt;len2){                    //长的先走几步，同步俩个链表长度，然后一一比较
+         int d=len1-len2;
+         while(d!=0){
+             t1=t1.next;
+             d--;
+         }
+     }else{
+         int d=len2-len1;
+         while(d!=0){
+             t2=t2.next;
+             d--;
+         }
+     }
+     while(t1!=t2){
+         t1=t1.next;
+         t2=t2.next;
+     }
+    return t1;
+    }
+</code></pre><h2 id="合并俩个链表的排序"><a href="#合并俩个链表的排序" class="headerlink" title="合并俩个链表的排序"></a>合并俩个链表的排序</h2><p>输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。</p>
+<pre><code>递归：每次都是表一和表2的值相比
+public ListNode Merge(ListNode list1,ListNode list2) {
+       if(list1 == null){
+           return list2;//结束条件，俩个表有一个为空了
+       }
+       if(list2 == null){
+           return list1;
+       }
+       if(list1.val &lt;= list2.val){
+           list1.next = Merge(list1.next, list2);
+           return list1;//每次list.next不是在表一就是在表二，所以可以递归实现在
+                           在每下一次递归时决定list.next是哪一个值
+       }else{
+           list2.next = Merge(list1, list2.next);
+           return list2;
+       }       
+   }
+
+非递归：
+    需要一个当前节点来记录最新的连接点，list1和list2每次更新比较
+    1 3 5 7
+    2 4 8
+    current为1，list1为3，list2为2，2&lt;3
+    current.next=2, current=2, list2=4,3和4比..一直循环
+
+    if(list1 == null){
+            return list2;
+        }
+        if(list2 == null){
+            return list1;
+        }
+        ListNode mergeHead = null;
+        ListNode current = null;     
+        while(list1!=null &amp;&amp; list2!=null){
+            if(list1.val &lt;= list2.val){
+                if(mergeHead == null){
+                   mergeHead = current = list1;
+                }else{
+                   current.next = list1;//当list1&lt;list2时，当前节点后连list1
+                   current = current.next;  //然后当前节点更新到最新位置
+                }
+                list1 = list1.next;//   list1跳到下一个继续循环
+            }else{
+                if(mergeHead == null){
+                   mergeHead = current = list2;
+                }else{
+                   current.next = list2;
+                   current = current.next;
+                }
+                list2 = list2.next;
+            }
+        }
+        if(list1 == null){
+            current.next = list2;
+        }else{
+            current.next = list1;
+        }
+        return mergeHead;
+</code></pre><h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h2 id="重建二叉树"><a href="#重建二叉树" class="headerlink" title="重建二叉树"></a>重建二叉树</h2><p>输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。</p>
+<pre><code>利用递归的思想
+  public class TreeNode {
+      int val;
+    TreeNode left;
+      TreeNode right;
+  TreeNode(int x) { val = x; }
+
+public class Solution {
+public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+    TreeNode root=reConstructBinaryTree(pre,0,pre.length-1,in,0,in.length-1);
+    //初始传入的值是前序遍历数组和中序遍历数组以及初始坐标
+    return root;
+}
+//前序遍历{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}
+//每次遍历的是前序遍历和中序遍历的子序列数组
+       public TreeNode reConstructBinaryTree(int [] pre,int startPre,
+    int endPre,int [] in,int startIn,int endIn) {
+
+    if(startPre&gt;endPre||startIn&gt;endIn)
+        return null;//判断越界则说明不存在，子节点为null返回
+    TreeNode root=new TreeNode(pre[startPre]);
+
+    for(int i=startIn;i&lt;=endIn;i++)
+        if(in[i]==pre[startPre]){//即中序数组中的i等于前序遍历的初始根节点
+        root.left=reConstructBinaryTree(pre,startPre+1,
+        startPre+i-startIn,in,startIn,i-1);
+        root.right=reConstructBinaryTree(pre,i-startIn+startPre+1,endPre,
+        in,i+1,endIn);
+              break;
+        }
+
+    return root;
+}
+}    
+
+i-startin是在计算当前节点左子树节点个数；i-startin+startpre是确定当前节点
+左子树在pre里的位置；根据中序遍历+前序遍历的特点，pre[starpre+1]就是当前节点
+的左子节点，pre[i-starin+starpre+1]就是当前节点的右子节点；巧妙的是那个判定条件，
+越界即左右子节点不存在
+
+    pre        1,2,4,7,3,5,6,8
+
+    in        4,7,2,1,5,3,8,6
+第一次：传入: startpre=0,  endpre=pre.length-1=7;数组大小。
+             startin=0,  endin=in.length-1=7;
+       TreeNode root=new TreeNode(pre[startPre])
+       即root=1；
+       in[3]=pre[0]=1;   i=3
+       所以，1作为根节点，472为左子树，5386为右子树
+       开启下一次循环：判断新的开始结束节点
+左子树：247 ，472
+       前序的循环角标：
+       startpre=startpre+1 //这里在原数组pre中2的位置角标0+1=1
+       endpre=startpre+（i-startin）//开始的角标加上左子树长度,这里是0+3-0=3
+       中序的循环角标：
+       startin=startin;判断成功后，i左边的是左子树，右边的右子树
+       endpre=i-1;           所以范围是startin-（i-1）
+右子树:3568,5368
+      前序的循环角标：
+      startpre=startpre+（i-startin）+1//从数组可看到是前序末尾的后一位就是开头3         
+      endpre=endpre； 最后以为就是右子树的末尾
+      中序的循环角标：
+      startin=i+1;
+      endin=endin;
+</code></pre><h2 id="树的子结构"><a href="#树的子结构" class="headerlink" title="树的子结构"></a>树的子结构</h2><p>输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）</p>
+<pre><code>public class Solution {
+public static boolean HasSubtree(TreeNode root1, TreeNode root2) {
+    boolean result = false;
+    //当Tree1和Tree2都不为零的时候，才进行比较。否则直接返回false
+    if (root2 != null &amp;&amp; root1 != null) {
+        //如果找到了对应Tree2的根节点的点
+        if(root1.val == root2.val){
+            //以这个根节点为为起点判断是否包含Tree2
+            result = doesTree1HaveTree2(root1,root2);
+        }
+        //如果找不到，那么就再去root的左儿子当作起点，去判断时候包含Tree2
+        if (!result) {
+            result = HasSubtree(root1.left,root2);
+        }
+
+        //如果还找不到，那么就再去root的右儿子当作起点，去判断时候包含Tree2
+        if (!result) {
+            result = HasSubtree(root1.right,root2);
+           }
+        }
+        //返回结果
+    return result;
+}
+
+public static boolean doesTree1HaveTree2(TreeNode node1, TreeNode node2) {
+    //如果Tree2已经遍历完了都能对应的上，返回true
+    if (node2 == null) {
+        return true;
+    }
+    //如果Tree2还没有遍历完，Tree1却遍历完了。返回false
+    if (node1 == null) {
+        return false;
+    }
+    //如果其中有一个点没有对应上，返回false
+    if (node1.val != node2.val) {  
+            return false;
+    }
+
+    //如果根节点对应的上，那么就分别去子节点里面匹配
+    return doesTree1HaveTree2(node1.left,node2.left) 
+    &amp;&amp; doesTree1HaveTree2(node1.right,node2.right);
+}
+</code></pre><p>##二叉树的镜像  ##<br>左右子树交换位置  ：递归实现，节点不为空时，交换根节点左右子树，然后递归左右子树   </p>
+<pre><code>public void Mirror(TreeNode Root) {
+    if(Root==null){
+        return;
+    }
+    TreeNode tmp = Root.left;
+    Root.left = Root.right;
+    Root.right = tmp;
+    Mirror(Root.left);
+    Mirror(Root.right);
+   }   
+</code></pre><h2 id="二叉树的深度"><a href="#二叉树的深度" class="headerlink" title="二叉树的深度"></a>二叉树的深度</h2><p>输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。</p>
+<pre><code>public int TreeDepth(TreeNode root) {
+    if(root==null){
+        return 0;
+    }
+    int nleft=TreeDepth(root.left);
+    int nright=TreeDepth(root.right);
+    return nleft&gt;nright?(nleft+1):(nright+1);
+}  
+</code></pre><h2 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h2><p>输入一棵二叉树，判断该二叉树是否是平衡二叉树。</p>
+<pre><code>这里从上往下遍历的时候，每次都要重复遍历后面的节点
+    public boolean IsBalanced_Solution(TreeNode root) {
+        if(root == null) {
+            return true;
+        }
+        return Math.abs(maxDepth(root.left) - maxDepth(root.right)) &lt;= 1 &amp;&amp;
+            IsBalanced_Solution(root.left) &amp;&amp; IsBalanced_Solution(root.right);
+        }
+
+        private int maxDepth(TreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    }
+
+
+方法2：递归从底层开始判断，若是平衡二叉树，返回子节点的最大长度，若不是返回-1，在每次对值
+进行是否是-1的判断，一路返回最上层，有一个子树不是平滑二叉树，则肯定不是。
+     public boolean IsBalanced_Solution(TreeNode root) {
+        return getDepth(root)!=-1;
+    }
+
+    private int getDepth(TreeNode root) {
+        if(root==null){
+            return 0;
+        }
+        int left=getDepth(root.left);
+        if(left==-1)
+            return -1;
+        int right=getDepth(root.right);
+        if(right==-1)
+            return -1;
+        return Math.abs(left-right)&gt;1?-1:Math.max(left,right)+1;
+    }
+</code></pre><h1 id="队列和栈"><a href="#队列和栈" class="headerlink" title="队列和栈"></a>队列和栈</h1><h2 id="用俩个栈实现队列"><a href="#用俩个栈实现队列" class="headerlink" title="用俩个栈实现队列"></a>用俩个栈实现队列</h2><pre><code>public class Solution {
+Stack&lt;Integer&gt; stack1 = new Stack&lt;Integer&gt;();
+Stack&lt;Integer&gt; stack2 = new Stack&lt;Integer&gt;();
+
+  public void push(int node) {
+   stack1.push(node);
+}
+public int pop() throws Exception {
+    if(stack2.size()&lt;=0){
+        while(stack1.size()&gt;0){
+            stack2.push(stack1.pop());
+        }
+    }
+    if(stack2.size()==0){
+        throw new Exception(&quot;队列为空&quot;);
+    }
+    return stack2.pop();
+}
+    }
+</code></pre><h2 id="包含min函数的栈"><a href="#包含min函数的栈" class="headerlink" title="包含min函数的栈"></a>包含min函数的栈</h2><p>定义栈的数据结构，请在该类型中实现一个能够得到栈最小元素的min函数。</p>
+<pre><code>Stack&lt;Integer&gt; s1=new Stack&lt;&gt;();
+Stack&lt;Integer&gt; s2=new Stack&lt;&gt;();
+  public void push(int node) {
+    s1.push(node);
+    if(s2.size()==0||node&lt;s2.peek()){
+        s2.push(node);
+    }else{
+        s2.push(s2.peek());
+    }
+}
+public void pop() {
+if(s1.size()&gt;0&amp;&amp;s2.size()&gt;0){
+   s1.pop();
+   s2.pop();
+}
+}
+
+public int top() {
+    return s1.peek();
+
+}
+public int min() {
+
+    return s2.peek();
+}
+</code></pre><h2 id="链表中环的入口"><a href="#链表中环的入口" class="headerlink" title="链表中环的入口"></a>链表中环的入口</h2><pre><code>思路：第一步：判断是否有环，设置俩个指针，一个一次走一步，一个一次走俩步，遇到空返回，说明没有
+            环，否则会相遇，相遇这个节点必然是环中的某一个节点，但不是环入口
+     第二步：判断环的节点个数，让第一步得到的节点开始往下走，直到再次遇到自己，记录个数n
+     第三部：设置p1，p2，p1先走n（环的个数）步，然后p2从头开始，p1p2同步走，相遇后就是入口
+
+  public ListNode isLoop(ListNode pHead){//判断是否是环，返回环的某个节点
+    if(pHead==null)
+        return null;
+     ListNode p1=pHead.next;
+     if(p1==null)
+        return null;
+     ListNode p2=p1.next;
+     while(p1!=null&amp;&amp;p2!=null){
+         if(p1==p2)
+             return p2;
+         p1=p1.next;
+         p2=p2.next.next;
+
+     }
+     return null;
+}
+
+public ListNode EntryNodeOfLoop(ListNode pHead){
+    ListNode mNode=isLoop(pHead);
+    if(mNode==null)
+        return null;
+    int count=1;
+    ListNode p1=mNode;
+    while(p1.next!=mNode){              //得到环节点的个数n
+        p1=p1.next;
+        count++;
+    } 
+    p1=pHead;
+    ListNode p2=pHead;
+    for(int i=0;i&lt;count;i++){      //p1先走n步
+        p1=p1.next;
+    }
+    while(p1!=p2){
+        p1=p1.next;               //一起走，直到相遇
+        p2=p2.next;
+    }
+    return p1;
+}
+</code></pre><h2 id="删除链表中重复的点"><a href="#删除链表中重复的点" class="headerlink" title="删除链表中重复的点"></a>删除链表中重复的点</h2><p>在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。 例如，链表1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5 处理后为 1-&gt;2-&gt;5</p>
+<pre><code> public ListNode deleteDuplication(ListNode pHead)
+{
+
+    ListNode bNode=new ListNode(1);      新建一个节点，因为头结点可能丢失
+    bNode.next=pHead;
+    ListNode result=bNode;               新建节点最后用来返回
+    ListNode cur=pHead;                  判断当前节点位置，循环判断用
+    while(cur!=null){
+        if(cur.next!=null&amp;&amp;cur.next.val==cur.val){  //当前节点和下一节点值相同
+                                            则继续判断后面的是否还有值相同然后
+                                            cur后移到新的节点                        
+           while(cur.next!=null&amp;&amp;cur.next.val==cur.val){
+           cur=cur.next;
+           }
+           cur=cur.next;   
+           bNode.next=cur;                  next指向新的节点
+        }
+        else{
+            bNode=bNode.next;                 //前后值不相同，后移next
+            cur=cur.next;
+        }
+    }
+   return result.next;         
+}
+</code></pre><h2 id="栈的压入、弹出序列"><a href="#栈的压入、弹出序列" class="headerlink" title="栈的压入、弹出序列"></a>栈的压入、弹出序列</h2><p>输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4，5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）</p>
+<pre><code>【思路】借用一个辅助的栈，遍历压栈顺序，先讲第一个放入栈中，这里是1，然后判断栈顶
+元素是不是出栈顺序的第一个元素，这里是4，很显然1≠4，所以我们继续压栈，直到相等以后开
+始出栈，出栈一个元素，则将出栈顺序向后移动一位，直到不相等，这样循环等压栈顺序遍历完
+成，如果辅助栈还不为空，说明弹出序列不是该栈的弹出顺序。
+
+public boolean IsPopOrder(int [] pushA,int [] popA) {
+  if(pushA.length == 0 || popA.length == 0)
+       return false;
+    Stack&lt;Integer&gt; s=new Stack&lt;Integer&gt;();
+    int popIndex=0;
+    for(int i=0;i&lt;pushA.length;i++){
+        s.push(pushA[i]);
+        while(!s.isEmpty()&amp;&amp;s.peek()==popA[popIndex]){
+            s.pop();
+            popIndex++;
+        }
+    }
+    return s.isEmpty();
+}
+</code></pre><p>举例：</p>
+<p>入栈1,2,3,4,5</p>
+<p>出栈4,5,3,2,1</p>
+<p>首先1入辅助栈，此时栈顶1≠4，继续入栈2</p>
+<p>此时栈顶2≠4，继续入栈3</p>
+<p>此时栈顶3≠4，继续入栈4</p>
+<p>此时栈顶4＝4，出栈4，弹出序列向后一位，此时为5，,辅助栈里面是1,2,3</p>
+<p>此时栈顶3≠5，继续入栈5</p>
+<p>此时栈顶5=5，出栈5,弹出序列向后一位，此时为3，,辅助栈里面是1,2,3</p>
+<p>….</p>
+<p>依次执行，最后辅助栈为空。如果不为空说明弹出序列不是该栈的弹出顺序</p>
+<h2 id="二叉树的后续搜索遍历"><a href="#二叉树的后续搜索遍历" class="headerlink" title="二叉树的后续搜索遍历"></a>二叉树的后续搜索遍历</h2><p>输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。<br>后续遍历判断例：<br>    5，7，6 ，9，11，10，8<br>    最后的8是第一个根节点，前面从头开始遍历所有比8小的，找到角标，576，在找比8大的，<br>    576作为新的二叉树，6作为新根节点，找比6小的5是左节点，大的7是右节点，以此类推，如若<br>    7后面是比6小的数5，则说明其不符合搜索二叉树的后序遍历规律</p>
+<pre><code> public boolean VerifySquenceOfBST(int [] sequence) {
+    if(sequence.length == 0) return false;
+    return IsTreeBST(sequence, 0, sequence.length-1);
+}
+public boolean IsTreeBST(int [] sequence,int start,int end ){
+    if(end &lt;= start) return true;
+    int i = start;
+    for (; i &lt; end; i++) {
+        if(sequence[i] &gt; sequence[end]) break;
+    }
+    for (int j = i; j &lt; end; j++) {
+        if(sequence[j] &lt; sequence[end]) return false;
+    }
+    return IsTreeBST(sequence, start, i-1) &amp;&amp; IsTreeBST(sequence, i, end-1);
+}
+</code></pre><h2 id="二叉树某一值和的所有路径"><a href="#二叉树某一值和的所有路径" class="headerlink" title="二叉树某一值和的所有路径"></a>二叉树某一值和的所有路径</h2><p>输入一颗二叉树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。</p>
+<pre><code>public class Solution {
+        ArrayList&lt;ArrayList&lt;Integer&gt;&gt; arr=new ArrayList&lt;&gt;();
+        ArrayList&lt;Integer&gt; list=new ArrayList&lt;&gt;();
+        public ArrayList&lt;ArrayList&lt;Integer&gt;&gt; FindPath(TreeNode root,int target) {
+            if(root==null)return arr;
+            list.add(root.val);
+            target-=root.val;
+            if(target==0&amp;&amp;root.left==null&amp;&amp;root.right==null){
+                arr.add(new ArrayList&lt;&gt;(list));
+            }
+            FindPath(root.left, target);
+            FindPath(root.right, target);
+            list.remove(list.size()-1);
+            return arr;
+        }
+}
+
+分析：传入一个二叉树序列，和一个值，返回一个数组，要求数组中存放和为该值的所有路径情况
+    使用递归的方法，如果节点为空，返回上一层，如果，左右节点都为空，target=0，也就是
+    target等于之前遍历过的节点和，这是将该路径节点加入数组中，如若不是，继续遍历
+    arr.add(new ArrayList&lt;&gt;(list));这里要新建数组，因为是引用数组，所以要新建。
+    list.remove(list.size()-1);每次遍历完都删除本节点返回上一层寻找其他符合的路径
+</code></pre><h2 id="二叉树的下一个节点"><a href="#二叉树的下一个节点" class="headerlink" title="二叉树的下一个节点"></a>二叉树的下一个节点</h2><p>给定一个二叉树和其中的一个结点node，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。</p>
+<pre><code>复杂度高的节点：先向上找到根节点，然后中序遍历，找出节点
+
+最优解法：
+情况一：如果node有右子树，那么后继节点就是右子树最左边的节点
+情况2：如果node没有右子树，那么先看node是不是父节点的左孩子，如果是左孩子，那么此时node的
+父节点就是node的后继节点，如果是右孩子，就向上继续node的后继节点，假设向上移动的节点记为
+s，s的父节点记为P，如果s是p的左孩子，那么节点P就是node的后继节点，否则一直向上移动
+情况三：一直向上到空节点，则没有node的后继节点，返回空
+</code></pre><h1 id="算法和数据操作"><a href="#算法和数据操作" class="headerlink" title="算法和数据操作"></a>算法和数据操作</h1><p>斐波那契数列：</p>
+<pre><code>0                        n=0
+</code></pre><p>  f(n)=  1                        n=1<br>        f(n-1)+f(n-2)             n&gt;1</p>
+<pre><code>方法一：最低级暴力的解决方法，重复计算太多时间久
+
+if(n&lt;=0){
+        return 0;
+    }
+    if(n==1){
+        return 1;
+    }
+    return Fibonacci(n-1)+Fibonacci(n-2);
+
+方法2：动态规划，每次都是求前俩个数值的和，所以每次都把前俩个值记录下来，在相加
+      ，相加之后，更新最新的值到记录的俩个值
+    public int Fibonacci(int n) {
+    if(n&lt;=0){
+        return 0;
+    }
+    if(n==1){
+        return 1;
+    }
+    int fibPreOne=1;//前一个
+    int fibPreTwo=0;//前俩个
+    int fibN=0;
+    for(int i=2;i&lt;=n;i++){
+        fibN=fibPreOne+fibPreTwo;
+        fibPreTwo=fibPreOne;
+        fibPreOne=fibN;
+    }
+    return fibN;
+    }
+</code></pre><h2 id="青蛙跳台阶"><a href="#青蛙跳台阶" class="headerlink" title="青蛙跳台阶"></a>青蛙跳台阶</h2><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p>
+<pre><code>1.假设当有n个台阶时假设有f(n)种走法。
+2.青蛙最后一步要么跨1个台阶要么跨2个台阶。
+3.当最后一步跨1个台阶时即之前有n-1个台阶，根据1的假设即n-1个台阶有f(n-1)种走法。
+4. 当最后一步跨2个台阶时即之前有n-2个台阶，根据1的假设即n-2个台阶有f(n-2 )种走法。
+5.显然n个台阶的走法等于前两种情况的走法之和即f(n)=f(n-1)+f(n-2)。
+6.找出递推公式后要找公式出口，即当n为1、2时的情况，显然n=1时f(1)等于1，f(2)等于2
+7.        | 1, (n=1)
+  f(n) =  | 2, (n=2)
+          | f(n-1)+f(n-2) ,(n&gt;2,n为整数)
+
+ 动态规划解决
+ public int JumpFloor(int target) {
+    int n=target;
+    if(n==2){
+        return 2;
+    }
+    if(n==1){
+        return 1;
+    }
+    int fibPreOne=2;
+    int fibPreTwo=1;
+    int fibN=0;
+    for(int i=3;i&lt;=n;i++){
+        fibN=fibPreOne+fibPreTwo;
+        fibPreTwo=fibPreOne;
+        fibPreOne=fibN;
+    }
+    return fibN;
+}
+</code></pre><p>}</p>
+<h2 id="青蛙条台阶变态版"><a href="#青蛙条台阶变态版" class="headerlink" title="青蛙条台阶变态版"></a>青蛙条台阶变态版</h2><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p>
+<p>1）这里的f(n) 代表的是n个台阶有一次1,2,…n阶的 跳法数。</p>
+<p>2）n = 1时，只有1种跳法，f(1) = 1</p>
+<p>3) n = 2时，会有两个跳得方式，一次1阶或者2阶，这回归到了问题（1） ，f(2) = f(2-1) + f(2-2) </p>
+<p>4) n = 3时，会有三种，f(3) = f(3-1)+f(3-2)+f(3-3)；</p>
+<p>5) n = n时，会有n种跳的方式，1阶、2阶…n阶，得出结论：</p>
+<pre><code>f(n) = f(n-1)+f(n-2)+...+f(n-(n-1)) + f(n-n) =&gt; f(0) + f(1) + f(2) + f(3) + ... + f(n-1)
+</code></pre><p>6) 得出最终结论,在n阶台阶，一次有1、2、…n阶的跳的方式时，总得跳法为：</p>
+<p> f(n) =       | 1       ,(n=1 )</p>
+<pre><code>          | 2*f(n-1),(n&gt;=2)
+
+
+    public class Solution {
+        public int JumpFloorII(int target) {
+            if (target &lt;= 0) {
+                return -1;
+            } else if (target == 1) {
+                return 1;
+            } else {
+                return 2 * JumpFloorII(target - 1);
+            }
+        }
+    }
+
+
+
+
+利用动态规划：每次计算都是将f（n）+f(n-1)+f(n-2)...的和记录下来，下一次加上n阶跳法
+也就是1
+public int JumpFloorII(int target) {
+    int n=target;
+    if(n==1){
+        return 1;
+    }
+    int fibN=0;//当前跳法次数
+    int prefib=1;//记录f(n)+f(n-1)...的和，n+1时跳法次数只需要加上1。
+    for(int i=2;i&lt;=n;i++){
+        fibN=prefib+1;
+        prefib=fibN+prefib;//统计最新的数据
+    }
+    return fibN;
+}
+</code></pre><h2 id="矩形覆盖"><a href="#矩形覆盖" class="headerlink" title="矩形覆盖"></a>矩形覆盖</h2><p>我们可以用2<em>1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2</em>1的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方法？</p>
+<pre><code>斐波那契类型
+第一次摆放一块 2*1 的小矩阵，则摆放方法总共为f(target - 1)
+第一次摆放一块1*2的小矩阵，则摆放方法总共为f(target-2)
+public int RectCover(int target) {
+    int n=target;
+
+    if(n==1){
+        return 1;
+    }
+    int fibPreOne=1;//前一个
+    int fibPreTwo=1;//前俩个
+    int fibN=0;
+    for(int i=2;i&lt;=n;i++){
+        fibN=fibPreOne+fibPreTwo;
+        fibPreTwo=fibPreOne;
+        fibPreOne=fibN;
+    }
+    return fibN;
+}
+</code></pre><h1 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h1><h2 id="计算1的个数"><a href="#计算1的个数" class="headerlink" title="计算1的个数"></a>计算1的个数</h2><p>输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。</p>
+<pre><code>n&amp;n-1是将n的二进制最右位1变为0
+    public int NumberOf1(int n) {
+    int count =0;
+    while(n!=0){
+         n&amp;=n-1;
+         count++;
+    }
+    return count;
+    }
+
+
+位运算，第一次用一做&amp;运算，后面将1左移继续算1的数量
+    private static int NumberOf1_low(int n) {
+        int count = 0;
+        int flag = 1;
+        while (flag != 0) {
+            if ((n &amp; flag) != 0) {
+                count++;
+            }
+            flag = flag &lt;&lt; 1;
+        }
+        return count;
+            }
+
+    如果将n做右移运算，当n为负值时会出现死循环，因为负数的最高位永远是1
+             if ((n &amp; 1) == 1) {
+                count++;
+            }
+            //把n的2进制形式往右推一位
+            n = n &gt;&gt; 1;
+</code></pre><h2 id="数组中只出现一次的数字"><a href="#数组中只出现一次的数字" class="headerlink" title="数组中只出现一次的数字"></a>数组中只出现一次的数字</h2><p>一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字。</p>
+<pre><code>用^异或运算符：n异或0等于其本身
+             n异或n等于0；
+            所以可以将数组中的所有数字异或一遍，最后相同的俩个值消去，剩下的结果是俩个只
+            出现一次的值异或的结果，又因为俩个不同的值异或，值肯定不同，所以肯定Num1的
+            二进制中肯定有一位为1是俩个数字异或的结果。我们找到最低位为1的角标k。
+
+            然后我们在进行第二次遍历，对所有数组中角标为k的值在进行一次异或，所求的值为
+            俩个只出现一次的数中的其中一个
+            例：Num1=a^b
+               Num2=a或者b
+               Num2^Num1=a或者b              
+ public void FindNumsAppearOnce(int [] array,int num1[] , int num2[]) {
+    int Num1=0;int index=0;int Num2=0;
+    for(int i=0;i&lt;array.length;i++){
+        Num1^=array[i];     //这里Num1是所求俩个数的异或结果
+    }
+    int temp=Num1;
+    while((temp&amp;1)==0){
+        temp=temp&gt;&gt;1;
+        index++;            //求出a^b结果最低位的1
+    }
+    for(int i=0;i&lt;array.length;i++){
+        if(((array[i]&gt;&gt;index)&amp;1)==1){   //根据index第二次遍历
+            Num2^=array[i];
+        }
+    }
+    num1[0]=Num2;
+    num2[0]=Num1^Num2;
+}
+</code></pre><h2 id="求数值的正数次方"><a href="#求数值的正数次方" class="headerlink" title="求数值的正数次方"></a>求数值的正数次方</h2><p>给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。</p>
+<pre><code>这里考虑一下base=0的情况，不能让其为分母，还有快速幂乘，提升效率
+
+public double Power(double base, int exponent) {
+     if(base==0){
+     return 0;
+     }
+    int p = Math.abs(exponent);
+    double r = 1.0;
+    while(p&gt;0){//快速幂乘，
+        if((p&amp;1)==1){
+            r*=base;
+        }
+        base*=base;
+        p&gt;&gt;=1;
+    }
+
+return exponent&lt;0?1/r :r;
+</code></pre><p>  }        </p>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h2 id="字符串的排列"><a href="#字符串的排列" class="headerlink" title="字符串的排列"></a>字符串的排列</h2><p>输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。</p>
+<pre><code>public class Solution {
+
+public ArrayList&lt;String&gt; Permutation(String str) {
+    ArrayList&lt;String&gt; result = new ArrayList&lt;String&gt;() ;
+    if(str==null || str.length()==0) { return result ; }
+
+    char[] chars = str.toCharArray() ;
+    TreeSet&lt;String&gt; temp = new TreeSet&lt;&gt;() ;
+    Permutation(chars, 0, temp);
+    result.addAll(temp) ;
+    return result ;
+}
+public void Permutation(char[] chars, int begin, TreeSet&lt;String&gt; result) {
+    if(chars==null || chars.length==0 || begin&lt;0 || begin&gt;chars.length-1) { return ; }
+
+    if(begin == chars.length-1) {
+        result.add(String.valueOf(chars)) ;
+    }else {
+        for(int i=begin ; i&lt;=chars.length-1 ; i++) {
+            swap(chars, begin, i) ;
+
+            Permutation(chars, begin+1, result);
+
+            swap(chars, begin, i) ;
+        }
+    }
+}
+
+public void swap(char[] x, int a, int b) {
+    char t = x[a];
+    x[a] = x[b];
+    x[b] = t;
+}
+</code></pre><p>}</p>
+<h2 id="反转单词顺序"><a href="#反转单词顺序" class="headerlink" title="反转单词顺序"></a>反转单词顺序</h2><pre><code>I am a student. --student. a am I
+
+反转俩遍
+ public String ReverseSentence(String str) {
+    if(str==null||str.length()==0){
+        return &quot;&quot;;
+    }
+    char[] chars = str.toCharArray();
+    reverse(chars,0,chars.length - 1);
+    int i=0;
+    while(i&lt;str.length()){
+        while(i&lt;str.length()&amp;&amp;chars[i]==&apos; &apos;){//     寻找单词的初始坐标，空格跳过
+            i++;
+        }
+        int start=i;
+        while(i&lt;str.length()&amp;&amp;chars[i]!=&apos; &apos;){//     寻找单词下一个空格的坐标。
+            i++;
+        }
+        reverse(chars,start,i-1);
+    }
+    return new String(chars);
+
+}
+
+     public void reverse(char[] chars,int low,int high){
+        while(low &lt; high){
+            char temp = chars[low];
+            chars[low] = chars[high];
+            chars[high] = temp;
+            low++;
+            high--;
+        }
+    }
+</code></pre><h2 id="把字符串换成正数"><a href="#把字符串换成正数" class="headerlink" title="把字符串换成正数"></a>把字符串换成正数</h2><pre><code>输入一个字符串,包括数字字母符号,可以为空，如果是合法的数值表达则返回该数字，否则返回0
+1.判断为空
+2.判断正负号
+3.累加  
+public int StrToInt(String str) {
+    if(str.length()==0||str==null){
+        return 0;
+    }
+    char[] ch=str.trim().toCharArray();
+    int fuhao=1,start=0;
+    if(ch[0]==&apos;-&apos;){
+        fuhao=-1;
+        start=1;
+    }
+    if(ch[0]==&apos;+&apos;){
+        fuhao=1;
+        start=1;
+    }
+    int sum=0;
+    for(int i=start;i&lt;ch.length;i++){
+        if(ch[i]&gt;&apos;9&apos;||ch[i]&lt;&apos;0&apos;){
+            return 0;
+        }
+        sum=sum*10+(int)(ch[i]-&apos;0&apos;);
+    }
+    sum=sum*fuhao;
+    return sum;
+}
+</code></pre><h1 id="抽象问题简单化"><a href="#抽象问题简单化" class="headerlink" title="抽象问题简单化"></a>抽象问题简单化</h1><h2 id="扑克牌顺子"><a href="#扑克牌顺子" class="headerlink" title="扑克牌顺子"></a>扑克牌顺子</h2><pre><code>扑克牌顺子：五张牌判断是不是顺子，大小王可以充当任何数，大小王算做0。
+public boolean isContinuous(int [] numbers) {
+     if(numbers.length==0){
+         return false;
+     }
+     int count=0;
+     for(int i=0;i&lt;numbers.length;i++){
+         if(numbers[i]==0){
+             count++;
+         }
+     }
+     Arrays.sort(numbers);
+     int small=count;
+     int big=small+1;
+     int gap=0;
+     while(big&lt;numbers.length){
+         if(numbers[small]==numbers[big]){
+             return false;
+         }
+         gap+=numbers[big]-numbers[small]-1;
+         small=big;
+         big++;
+     }
+     return (gap&gt;count)?false:true;
+    }
+</code></pre><h2 id="求前n个数的和"><a href="#求前n个数的和" class="headerlink" title="求前n个数的和"></a>求前n个数的和</h2><pre><code>求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判
+断语句（A?B:C）。
+ 利用短路特性来作为条件终止递归
+ public int Sum_Solution(int n) {
+    int sum=n;
+        boolean b=(n&gt;0)&amp;&amp;((sum+=Sum_Solution(n-1))&gt;0);
+    return sum;
+} 
+</code></pre><h2 id="不用加减乘除做加法"><a href="#不用加减乘除做加法" class="headerlink" title="不用加减乘除做加法"></a>不用加减乘除做加法</h2><pre><code> public int Add(int num1,int num2) {
+    int sum=0;int cay=0;
+    if(num2==0){
+        return num1;
+    }
+    while(num2!=0){
+        sum=num1^num2;           //求和不进为
+        cay=(num1&amp;num2)&lt;&lt;1;        //找到进为的位置左移完成进位操作，然后循环相加，直到    
+        num1=sum;                                                没有进位产生。
+        num2=cay;
+    }
+    return sum;
+}  
+</code></pre><h2 id="构建数组乘积"><a href="#构建数组乘积" class="headerlink" title="构建数组乘积"></a>构建数组乘积</h2><p>给定一个数组A[0,1,…,n-1],请构建一个数组B[0,1,…,n-1],其中B中的元素B[i]=A[0]<em>A[1]</em>…<em>A[i-1]</em>A[i+1]<em>…</em>A[n-1]。不能使用除法。</p>
+<pre><code>int length=A.length;
+    int[] B=new int[length];
+    if(length!=0){
+        B[0]=1;
+        for(int i=1;i&lt;length;i++){
+            B[i]=B[i-1]*A[i-1];
+        }
+        int temp=1;
+        for(int j=length-2;j&gt;=0;j--){
+            temp*=A[j+1];
+            B[j]*=temp;
+        }
+    }
+    return B;
+}
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/反射20180519/" rel="next" title="反射机制">
+                <i class="fa fa-chevron-left"></i> 反射机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanglibei</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数组"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二位数组的查找"><span class="nav-number">1.1.</span> <span class="nav-text">二位数组的查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整数组顺序，奇数在前，偶数在后"><span class="nav-number">1.2.</span> <span class="nav-text">调整数组顺序，奇数在前，偶数在后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换空格"><span class="nav-number">1.3.</span> <span class="nav-text">替换空格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组中出现次数超过一半的数字"><span class="nav-number">1.4.</span> <span class="nav-text">数组中出现次数超过一半的数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续子数组的最大和"><span class="nav-number">1.5.</span> <span class="nav-text">连续子数组的最大和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和为s的连续正数序列"><span class="nav-number">1.6.</span> <span class="nav-text">和为s的连续正数序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和为s的俩个数"><span class="nav-number">1.7.</span> <span class="nav-text">和为s的俩个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小的k个数"><span class="nav-number">1.8.</span> <span class="nav-text">最小的k个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把数组排成最小的数"><span class="nav-number">1.9.</span> <span class="nav-text">把数组排成最小的数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字在排序数组中出现的次数"><span class="nav-number">1.10.</span> <span class="nav-text">数字在排序数组中出现的次数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#丑数的计算"><span class="nav-number">1.11.</span> <span class="nav-text">丑数的计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链表"><span class="nav-number">2.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入一个链表，从尾到头打印链表每个节点的值"><span class="nav-number">2.1.</span> <span class="nav-text">输入一个链表，从尾到头打印链表每个节点的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入一个链表，输出该链表中倒数第k个结点。"><span class="nav-number">2.2.</span> <span class="nav-text">输入一个链表，输出该链表中倒数第k个结点。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的反转输出-public-ListNode-ReverseList-ListNode-head"><span class="nav-number">2.3.</span> <span class="nav-text">链表的反转输出 ##public ListNode ReverseList(ListNode head) {</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#俩个链表的公共节点"><span class="nav-number">2.4.</span> <span class="nav-text">俩个链表的公共节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并俩个链表的排序"><span class="nav-number">2.5.</span> <span class="nav-text">合并俩个链表的排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树"><span class="nav-number">3.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重建二叉树"><span class="nav-number">3.1.</span> <span class="nav-text">重建二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树的子结构"><span class="nav-number">3.2.</span> <span class="nav-text">树的子结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的深度"><span class="nav-number">3.3.</span> <span class="nav-text">二叉树的深度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">3.4.</span> <span class="nav-text">平衡二叉树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#队列和栈"><span class="nav-number">4.</span> <span class="nav-text">队列和栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用俩个栈实现队列"><span class="nav-number">4.1.</span> <span class="nav-text">用俩个栈实现队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包含min函数的栈"><span class="nav-number">4.2.</span> <span class="nav-text">包含min函数的栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表中环的入口"><span class="nav-number">4.3.</span> <span class="nav-text">链表中环的入口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除链表中重复的点"><span class="nav-number">4.4.</span> <span class="nav-text">删除链表中重复的点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的压入、弹出序列"><span class="nav-number">4.5.</span> <span class="nav-text">栈的压入、弹出序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的后续搜索遍历"><span class="nav-number">4.6.</span> <span class="nav-text">二叉树的后续搜索遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树某一值和的所有路径"><span class="nav-number">4.7.</span> <span class="nav-text">二叉树某一值和的所有路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的下一个节点"><span class="nav-number">4.8.</span> <span class="nav-text">二叉树的下一个节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法和数据操作"><span class="nav-number">5.</span> <span class="nav-text">算法和数据操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#青蛙跳台阶"><span class="nav-number">5.1.</span> <span class="nav-text">青蛙跳台阶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#青蛙条台阶变态版"><span class="nav-number">5.2.</span> <span class="nav-text">青蛙条台阶变态版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩形覆盖"><span class="nav-number">5.3.</span> <span class="nav-text">矩形覆盖</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位运算"><span class="nav-number">6.</span> <span class="nav-text">位运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算1的个数"><span class="nav-number">6.1.</span> <span class="nav-text">计算1的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组中只出现一次的数字"><span class="nav-number">6.2.</span> <span class="nav-text">数组中只出现一次的数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求数值的正数次方"><span class="nav-number">6.3.</span> <span class="nav-text">求数值的正数次方</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串"><span class="nav-number">7.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串的排列"><span class="nav-number">7.1.</span> <span class="nav-text">字符串的排列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反转单词顺序"><span class="nav-number">7.2.</span> <span class="nav-text">反转单词顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把字符串换成正数"><span class="nav-number">7.3.</span> <span class="nav-text">把字符串换成正数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象问题简单化"><span class="nav-number">8.</span> <span class="nav-text">抽象问题简单化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#扑克牌顺子"><span class="nav-number">8.1.</span> <span class="nav-text">扑克牌顺子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求前n个数的和"><span class="nav-number">8.2.</span> <span class="nav-text">求前n个数的和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不用加减乘除做加法"><span class="nav-number">8.3.</span> <span class="nav-text">不用加减乘除做加法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建数组乘积"><span class="nav-number">8.4.</span> <span class="nav-text">构建数组乘积</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huanglibei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">快乐贝壳</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

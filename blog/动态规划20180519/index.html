@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Blog Of Huanglibei">
 <meta property="og:description" content="动态规划定义动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划 动态规划实际上是一类题目的总称，并不是指某个固定的算法。动态规划的意义就是通过采用递推（或者分而治之）的策略，通过解决大问题的子问题从而解决整体的做法。动态规划的核心思想是巧妙的将问题拆分成多个子问题，通过计算子问题而得到整体问">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-24T01:29:59.445Z">
+<meta property="og:updated_time" content="2018-05-28T12:31:21.227Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划">
 <meta name="twitter:description" content="动态规划定义动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划 动态规划实际上是一类题目的总称，并不是指某个固定的算法。动态规划的意义就是通过采用递推（或者分而治之）的策略，通过解决大问题的子问题从而解决整体的做法。动态规划的核心思想是巧妙的将问题拆分成多个子问题，通过计算子问题而得到整体问">
@@ -314,8 +314,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -481,7 +481,10 @@ public static void main(String[] args) {
         int[] B = new int[n+1]; B[1] = A[0];
         int len=1,start=0,end=len,mid;
         for(int i = 1;i&lt;n;i++){
-        if(A[i]&gt;B[len]) {len++;B[len] = A[i];}
+        if(A[i]&gt;B[len]) {
+            len++;
+            B[len] = A[i];
+        }
         else{
             start=1;end=len;
             while(start&lt;=end){
@@ -536,8 +539,8 @@ public static void main(String[] args) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/反射20180519/" rel="next" title="mysql数据库">
-                <i class="fa fa-chevron-left"></i> mysql数据库
+              <a href="/blog/电商项目环境部署20180518/" rel="next" title="电商项目ssh配置文件">
+                <i class="fa fa-chevron-left"></i> 电商项目ssh配置文件
               </a>
             
           </div>
@@ -545,6 +548,10 @@ public static void main(String[] args) {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/mysql20180519/" rel="prev" title="mysql数据库">
+                mysql数据库 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -621,7 +628,7 @@ public static void main(String[] args) {
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -632,7 +639,7 @@ public static void main(String[] args) {
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
