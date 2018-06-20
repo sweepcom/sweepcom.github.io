@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Blog Of Huanglibei">
 <meta property="og:description" content="数组二位数组的查找在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。 第一种：暴力查找，遍历全部数组 第二种：从左下或者右上开始查找 下面介绍从左下开始查找 从左下角来看，向上数字递减，向右数字递增， 当要查找数字比左下角数字大时。右移 要查找数字比左下角数字小时，上移 public">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-01T12:55:58.143Z">
+<meta property="og:updated_time" content="2018-06-05T02:01:04.178Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="剑指OFFER">
 <meta name="twitter:description" content="数组二位数组的查找在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。 第一种：暴力查找，遍历全部数组 第二种：从左下或者右上开始查找 下面介绍从左下开始查找 从左下角来看，向上数字递减，向右数字递增， 当要查找数字比左下角数字大时。右移 要查找数字比左下角数字小时，上移 public">
@@ -1009,6 +1009,27 @@ public static boolean doesTree1HaveTree2(TreeNode node1, TreeNode node2) {
     Mirror(Root.left);
     Mirror(Root.right);
    }   
+</code></pre><h2 id="对称二叉树"><a href="#对称二叉树" class="headerlink" title="对称二叉树"></a>对称二叉树</h2><p>请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。</p>
+<pre><code>对称二叉树其本身与其镜像二叉树是相同的，前序遍历是上左右，镜像是上右左，所以可以借此
+来比较是不是对称二叉树
+
+ boolean isSymmetrical(TreeNode pRoot)
+{
+    return isSymmetrical(pRoot,pRoot);
+
+}
+
+boolean isSymmetrical(TreeNode pRoot1,TreeNode pRoot2){
+    if(pRoot1==null&amp;&amp;pRoot2==null)
+        return true;
+    if(pRoot1==null||pRoot2==null)
+        return false;
+    if(pRoot1.val!=pRoot2.val)
+        return false;
+    return isSymmetrical(pRoot1.left,pRoot2.right) &amp;&amp; 
+            isSymmetrical(pRoot1.right,pRoot2.left);
+
+}
 </code></pre><h2 id="二叉树的深度"><a href="#二叉树的深度" class="headerlink" title="二叉树的深度"></a>二叉树的深度</h2><p>输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。</p>
 <pre><code>public int TreeDepth(TreeNode root) {
     if(root==null){
@@ -1054,7 +1075,199 @@ public static boolean doesTree1HaveTree2(TreeNode node1, TreeNode node2) {
             return -1;
         return Math.abs(left-right)&gt;1?-1:Math.max(left,right)+1;
     }
-</code></pre><h1 id="队列和栈"><a href="#队列和栈" class="headerlink" title="队列和栈"></a>队列和栈</h1><h2 id="用俩个栈实现队列"><a href="#用俩个栈实现队列" class="headerlink" title="用俩个栈实现队列"></a>用俩个栈实现队列</h2><pre><code>public class Solution {
+</code></pre><h2 id="二叉树的后续搜索遍历"><a href="#二叉树的后续搜索遍历" class="headerlink" title="二叉树的后续搜索遍历"></a>二叉树的后续搜索遍历</h2><p>输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。<br>后续遍历判断例：<br>    5，7，6 ，9，11，10，8<br>    最后的8是第一个根节点，前面从头开始遍历所有比8小的，找到角标，576，在找比8大的，<br>    576作为新的二叉树，6作为新根节点，找比6小的5是左节点，大的7是右节点，以此类推，如若<br>    7后面是比6小的数5，则说明其不符合搜索二叉树的后序遍历规律</p>
+<pre><code> public boolean VerifySquenceOfBST(int [] sequence) {
+    if(sequence.length == 0) return false;
+    return IsTreeBST(sequence, 0, sequence.length-1);
+}
+public boolean IsTreeBST(int [] sequence,int start,int end ){
+    if(end &lt;= start) return true;
+    int i = start;
+    for (; i &lt; end; i++) {
+        if(sequence[i] &gt; sequence[end]) break;
+    }
+    for (int j = i; j &lt; end; j++) {
+        if(sequence[j] &lt; sequence[end]) return false;
+    }
+    return IsTreeBST(sequence, start, i-1) &amp;&amp; IsTreeBST(sequence, i, end-1);
+}
+</code></pre><h2 id="二叉树某一值和的所有路径"><a href="#二叉树某一值和的所有路径" class="headerlink" title="二叉树某一值和的所有路径"></a>二叉树某一值和的所有路径</h2><p>输入一颗二叉树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。</p>
+<pre><code>public class Solution {
+        ArrayList&lt;ArrayList&lt;Integer&gt;&gt; arr=new ArrayList&lt;&gt;();
+        ArrayList&lt;Integer&gt; list=new ArrayList&lt;&gt;();
+        public ArrayList&lt;ArrayList&lt;Integer&gt;&gt; FindPath(TreeNode root,int target) {
+            if(root==null)return arr;
+            list.add(root.val);
+            target-=root.val;
+            if(target==0&amp;&amp;root.left==null&amp;&amp;root.right==null){
+                arr.add(new ArrayList&lt;&gt;(list));
+            }
+            FindPath(root.left, target);
+            FindPath(root.right, target);
+            list.remove(list.size()-1);
+            return arr;
+        }
+}
+
+分析：传入一个二叉树序列，和一个值，返回一个数组，要求数组中存放和为该值的所有路径情况
+    使用递归的方法，如果节点为空，返回上一层，如果，左右节点都为空，target=0，也就是
+    target等于之前遍历过的节点和，这是将该路径节点加入数组中，如若不是，继续遍历
+    arr.add(new ArrayList&lt;&gt;(list));这里要新建数组，因为是引用数组，所以要新建。
+    list.remove(list.size()-1);每次遍历完都删除本节点返回上一层寻找其他符合的路径
+</code></pre><h2 id="二叉树的下一个节点"><a href="#二叉树的下一个节点" class="headerlink" title="二叉树的下一个节点"></a>二叉树的下一个节点</h2><p>给定一个二叉树和其中的一个结点node，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。</p>
+<pre><code>复杂度高的节点：先向上找到根节点，然后中序遍历，找出节点
+
+最优解法：
+情况一：如果node有右子树，那么后继节点就是右子树最左边的节点
+情况2：如果node没有右子树，那么先看node是不是父节点的左孩子，如果是左孩子，那么此时node的
+父节点就是node的后继节点，如果是右孩子，就向上继续node的后继节点，假设向上移动的节点记为
+s，s的父节点记为P，如果s是p的左孩子，那么节点P就是node的后继节点，否则一直向上移动
+情况三：一直向上到空节点，则没有node的后继节点，返回空
+
+ public TreeLinkNode GetNext(TreeLinkNode pNode)
+{
+    if(pNode==null)
+        return null;
+    if(pNode.right!=null){
+        pNode=pNode.right;
+        while(pNode.left!=null){
+            pNode=pNode.left;
+        }
+        return pNode;
+    }
+
+    if(pNode.right==null){
+        while(pNode.next!=null&amp;&amp;pNode!=pNode.next.left){
+            pNode=pNode.next;
+        }
+        return pNode.next;
+    }
+    return null;
+}
+</code></pre><h2 id="二叉树按层打印并且按行打印"><a href="#二叉树按层打印并且按行打印" class="headerlink" title="二叉树按层打印并且按行打印"></a>二叉树按层打印并且按行打印</h2><p>从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。</p>
+<pre><code>二叉树按行打印，记录行数，用队列进行打印
+1.第一行一个值，记录当前行（也就是队列的长度）为now=1；next为0；没弹出一个，队列减1，
+  然后添加该点的左右子树，每添加一个，next数目加1；当当前行为空时，将next也就是下一行
+  的队列值数目赋给当前要打印的行，一直循环，每当now为 0时，就将新的next给与now
+ArrayList&lt;ArrayList&lt;Integer&gt; &gt; Print(TreeNode pRoot) {
+    ArrayList&lt;ArrayList&lt;Integer&gt;&gt; list=new ArrayList&lt;&gt;();
+    Queue&lt;TreeNode&gt; q=new LinkedList&lt;&gt;();
+    ArrayList&lt;Integer&gt; temp=new ArrayList&lt;&gt;(); 
+    if(pRoot == null){
+        return list;
+    }
+     q.add(pRoot);
+    int nowLine=1;int nextLine=0;  //第一行一个值
+     TreeNode nlast=pRoot;
+     while(!q.isEmpty()){
+         TreeNode node=q.remove();
+         nowLine--;                    //每弹出一个，队列长度减一
+         temp.add(node.val);
+         if(node.left!=null){
+             q.add(node.left);
+             nextLine++;            //每添加一个，下一行队列长度加1
+         }
+         if(node.right!=null){
+             q.add(node.right);
+             nextLine++;
+         }
+         if(nowLine==0){        //当前行为0，打印完了，开始打印下一行，将next给now
+             list.add(new ArrayList&lt;Integer&gt;(temp));
+             temp.clear();        //清除当前数组。
+             nowLine=nextLine;
+             nextLine=0;
+         }
+     }
+    return list;
+}
+</code></pre><h2 id="二叉树的按之字层序遍历"><a href="#二叉树的按之字层序遍历" class="headerlink" title="二叉树的按之字层序遍历"></a>二叉树的按之字层序遍历</h2><p>请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。</p>
+<pre><code>按层遍历用队列，之字遍历需要反转，所以需要俩个队列（画图模拟，很重要！！）
+根据行的状态，一行从左到右添加，一行从右到左添加。
+public ArrayList&lt;ArrayList&lt;Integer&gt; &gt; Print(TreeNode pRoot) {
+     ArrayList&lt;ArrayList&lt;Integer&gt;&gt; list=new ArrayList&lt;&gt;();
+     Stack&lt;TreeNode&gt; s1=new Stack&lt;&gt;();
+     Stack&lt;TreeNode&gt; s2=new Stack&lt;&gt;();
+     s1.push(pRoot);
+     boolean status=true;
+     while(!s1.isEmpty()||!s2.isEmpty()){
+         if(status==true){
+             ArrayList&lt;Integer&gt; temp=new ArrayList&lt;&gt;();
+             while(!s1.isEmpty()){        //ture时为奇数行，左右打印
+                 TreeNode node=s1.pop();
+                 if(node!=null){
+                     temp.add(node.val);
+                     s2.push(node.left);
+                     s2.push(node.right);
+                 }
+             }
+             if(!temp.isEmpty()){
+                 list.add(temp);
+                 status=false;       //改变状态为false，下一行为偶数行
+             }
+         }else{
+             ArrayList&lt;Integer&gt; temp=new ArrayList&lt;&gt;();
+             while(!s2.isEmpty()){
+                 TreeNode node=s2.pop();      //偶数行从右向左打印
+                 if(node!=null){
+                     temp.add(node.val);
+                     s1.push(node.right);
+                     s1.push(node.left);
+                 }
+             }
+             if(!temp.isEmpty()){
+                 list.add(temp);
+                 status=true;
+             }
+         }
+     }
+    return list;
+    }
+</code></pre><h2 id="序列化二叉树"><a href="#序列化二叉树" class="headerlink" title="序列化二叉树"></a>序列化二叉树</h2><p>请实现两个函数，分别用来序列化和反序列化二叉树<br>    序列化的时候如下1，2，3，#，#，#，4，5，#，#</p>
+<pre><code> String Serialize(TreeNode root) {
+    StringBuffer sb=new StringBuffer();
+    if(root==null){
+        sb.append(&quot;#,&quot;);
+        return sb.toString();
+    }
+    sb.append(root.val+&quot;,&quot;);
+    sb.append(Serialize(root.left));
+    sb.append(Serialize(root.right));
+    return sb.toString();
+ }
+
+int index=-1;
+TreeNode Deserialize(String str) {
+   index++;
+   String[] s=str.split(&quot;,&quot;);
+    TreeNode node=null;
+   if(!s[index].equals(&quot;#&quot;)){
+       node=new TreeNode(Integer.valueOf(s[index]));
+       node.left=Deserialize(str);
+       node.right=Deserialize(str);
+    }
+    return node;
+}
+</code></pre><h2 id="二叉搜索树的第k个节点"><a href="#二叉搜索树的第k个节点" class="headerlink" title="二叉搜索树的第k个节点"></a>二叉搜索树的第k个节点</h2><pre><code>使用中序遍历的递归方法：用index来计数和k比，凡是该位置计数后不等于k的，全部返回null，
+                                        一样了，返回该节点，一路返回！
+public class Solution {
+   int index = 0; //计数器
+TreeNode KthNode(TreeNode root, int k)
+{
+    if(root != null){ //中序遍历寻找第k个
+        TreeNode node = KthNode(root.left,k);
+        if(node != null)
+            return node;
+        index ++;
+        if(index == k)
+            return root;
+        node = KthNode(root.right,k);
+        if(node != null)
+            return node;
+    }
+    return null;
+}
+</code></pre><p>}</p>
+<h1 id="队列和栈"><a href="#队列和栈" class="headerlink" title="队列和栈"></a>队列和栈</h1><h2 id="用俩个栈实现队列"><a href="#用俩个栈实现队列" class="headerlink" title="用俩个栈实现队列"></a>用俩个栈实现队列</h2><pre><code>public class Solution {
 Stack&lt;Integer&gt; stack1 = new Stack&lt;Integer&gt;();
 Stack&lt;Integer&gt; stack2 = new Stack&lt;Integer&gt;();
 
@@ -1198,55 +1411,7 @@ public boolean IsPopOrder(int [] pushA,int [] popA) {
 <p>此时栈顶5=5，出栈5,弹出序列向后一位，此时为3，,辅助栈里面是1,2,3</p>
 <p>….</p>
 <p>依次执行，最后辅助栈为空。如果不为空说明弹出序列不是该栈的弹出顺序</p>
-<h2 id="二叉树的后续搜索遍历"><a href="#二叉树的后续搜索遍历" class="headerlink" title="二叉树的后续搜索遍历"></a>二叉树的后续搜索遍历</h2><p>输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。<br>后续遍历判断例：<br>    5，7，6 ，9，11，10，8<br>    最后的8是第一个根节点，前面从头开始遍历所有比8小的，找到角标，576，在找比8大的，<br>    576作为新的二叉树，6作为新根节点，找比6小的5是左节点，大的7是右节点，以此类推，如若<br>    7后面是比6小的数5，则说明其不符合搜索二叉树的后序遍历规律</p>
-<pre><code> public boolean VerifySquenceOfBST(int [] sequence) {
-    if(sequence.length == 0) return false;
-    return IsTreeBST(sequence, 0, sequence.length-1);
-}
-public boolean IsTreeBST(int [] sequence,int start,int end ){
-    if(end &lt;= start) return true;
-    int i = start;
-    for (; i &lt; end; i++) {
-        if(sequence[i] &gt; sequence[end]) break;
-    }
-    for (int j = i; j &lt; end; j++) {
-        if(sequence[j] &lt; sequence[end]) return false;
-    }
-    return IsTreeBST(sequence, start, i-1) &amp;&amp; IsTreeBST(sequence, i, end-1);
-}
-</code></pre><h2 id="二叉树某一值和的所有路径"><a href="#二叉树某一值和的所有路径" class="headerlink" title="二叉树某一值和的所有路径"></a>二叉树某一值和的所有路径</h2><p>输入一颗二叉树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。</p>
-<pre><code>public class Solution {
-        ArrayList&lt;ArrayList&lt;Integer&gt;&gt; arr=new ArrayList&lt;&gt;();
-        ArrayList&lt;Integer&gt; list=new ArrayList&lt;&gt;();
-        public ArrayList&lt;ArrayList&lt;Integer&gt;&gt; FindPath(TreeNode root,int target) {
-            if(root==null)return arr;
-            list.add(root.val);
-            target-=root.val;
-            if(target==0&amp;&amp;root.left==null&amp;&amp;root.right==null){
-                arr.add(new ArrayList&lt;&gt;(list));
-            }
-            FindPath(root.left, target);
-            FindPath(root.right, target);
-            list.remove(list.size()-1);
-            return arr;
-        }
-}
-
-分析：传入一个二叉树序列，和一个值，返回一个数组，要求数组中存放和为该值的所有路径情况
-    使用递归的方法，如果节点为空，返回上一层，如果，左右节点都为空，target=0，也就是
-    target等于之前遍历过的节点和，这是将该路径节点加入数组中，如若不是，继续遍历
-    arr.add(new ArrayList&lt;&gt;(list));这里要新建数组，因为是引用数组，所以要新建。
-    list.remove(list.size()-1);每次遍历完都删除本节点返回上一层寻找其他符合的路径
-</code></pre><h2 id="二叉树的下一个节点"><a href="#二叉树的下一个节点" class="headerlink" title="二叉树的下一个节点"></a>二叉树的下一个节点</h2><p>给定一个二叉树和其中的一个结点node，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。</p>
-<pre><code>复杂度高的节点：先向上找到根节点，然后中序遍历，找出节点
-
-最优解法：
-情况一：如果node有右子树，那么后继节点就是右子树最左边的节点
-情况2：如果node没有右子树，那么先看node是不是父节点的左孩子，如果是左孩子，那么此时node的
-父节点就是node的后继节点，如果是右孩子，就向上继续node的后继节点，假设向上移动的节点记为
-s，s的父节点记为P，如果s是p的左孩子，那么节点P就是node的后继节点，否则一直向上移动
-情况三：一直向上到空节点，则没有node的后继节点，返回空
-</code></pre><h1 id="算法和数据操作"><a href="#算法和数据操作" class="headerlink" title="算法和数据操作"></a>算法和数据操作</h1><p>斐波那契数列：</p>
+<h1 id="算法和数据操作"><a href="#算法和数据操作" class="headerlink" title="算法和数据操作"></a>算法和数据操作</h1><p>斐波那契数列：</p>
 <pre><code>0                        n=0
 </code></pre><p>  f(n)=  1                        n=1<br>        f(n-1)+f(n-2)             n&gt;1</p>
 <pre><code>方法一：最低级暴力的解决方法，重复计算太多时间久
@@ -1559,8 +1724,8 @@ public boolean isContinuous(int [] numbers) {
          }
      }
      Arrays.sort(numbers);
-     int small=count;
-     int big=small+1;
+     int small=count;        //0的个数
+     int big=small+1;         //从0的后一位开始计算
      int gap=0;
      while(big&lt;numbers.length){
          if(numbers[small]==numbers[big]){
@@ -1586,9 +1751,10 @@ public boolean isContinuous(int [] numbers) {
         return num1;
     }
     while(num2!=0){
-        sum=num1^num2;           //求和不进为
-        cay=(num1&amp;num2)&lt;&lt;1;        //找到进为的位置左移完成进位操作，然后循环相加，直到    
-        num1=sum;                                                没有进位产生。
+        sum=num1^num2;           //求和不进位
+        cay=(num1&amp;num2)&lt;&lt;1;        //找到进位的位置左移完成进位操作，然后循环相加，
+                                                    直到没有进位产生
+        num1=sum;                                                。
         num2=cay;
     }
     return sum;
@@ -1609,7 +1775,41 @@ public boolean isContinuous(int [] numbers) {
     }
     return B;
 }
-</code></pre>
+</code></pre><h2 id="数据流中的中位数"><a href="#数据流中的中位数" class="headerlink" title="数据流中的中位数"></a>数据流中的中位数</h2><p>如何得到一个数据流中的中位数？如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。</p>
+<pre><code>利用一个最大堆，一个最小堆，偶数时保持俩个堆数量一致，奇数时，小数堆多一个值
+每次读取值，偶数时各弹出一个取平均值，奇数时弹出最小堆的值
+public class Solution {
+int count=0;
+PriorityQueue&lt;Integer&gt; minHeap=new PriorityQueue&lt;&gt;();
+PriorityQueue&lt;Integer&gt; maxHeap=new PriorityQueue&lt;&gt;(new Comparator&lt;Integer&gt;() {
+    @Override
+    public int compare(Integer o1,Integer o2){
+        return o2-o1;
+    }
+});
+public void Insert(Integer num) {
+    if(count%2==0){
+        maxHeap.add(num);
+        int filterMinNumber=maxHeap.poll(); //因为大堆新插入一个值，需要将新的
+                                              最小值给与小堆
+        minHeap.add(filterMinNumber);
+    }else{
+        minHeap.add(num);
+        int filterMaxNumber=minHeap.poll();
+        maxHeap.add(filterMaxNumber);
+    }
+    count++;
+}
+
+public Double GetMedian() {
+    if(count%2==0)
+        return new Double((minHeap.peek() + maxHeap.peek())) / 2;
+    else
+        return new Double(minHeap.peek());
+
+}
+</code></pre><p>}</p>
+
       
     </div>
     
@@ -1639,8 +1839,8 @@ public boolean isContinuous(int [] numbers) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/华为机试20180519/" rel="next" title="HUAWEI">
-                <i class="fa fa-chevron-left"></i> HUAWEI
+              <a href="/blog/mysql20180519/" rel="next" title="mysql数据库">
+                <i class="fa fa-chevron-left"></i> mysql数据库
               </a>
             
           </div>
@@ -1728,7 +1928,7 @@ public boolean isContinuous(int [] numbers) {
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1783,7 +1983,7 @@ public boolean isContinuous(int [] numbers) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数组"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二位数组的查找"><span class="nav-number">1.1.</span> <span class="nav-text">二位数组的查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整数组顺序，奇数在前，偶数在后"><span class="nav-number">1.2.</span> <span class="nav-text">调整数组顺序，奇数在前，偶数在后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换空格"><span class="nav-number">1.3.</span> <span class="nav-text">替换空格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组中出现次数超过一半的数字"><span class="nav-number">1.4.</span> <span class="nav-text">数组中出现次数超过一半的数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续子数组的最大和"><span class="nav-number">1.5.</span> <span class="nav-text">连续子数组的最大和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和为s的连续正数序列"><span class="nav-number">1.6.</span> <span class="nav-text">和为s的连续正数序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和为s的俩个数"><span class="nav-number">1.7.</span> <span class="nav-text">和为s的俩个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小的k个数"><span class="nav-number">1.8.</span> <span class="nav-text">最小的k个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把数组排成最小的数"><span class="nav-number">1.9.</span> <span class="nav-text">把数组排成最小的数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字在排序数组中出现的次数"><span class="nav-number">1.10.</span> <span class="nav-text">数字在排序数组中出现的次数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#丑数的计算"><span class="nav-number">1.11.</span> <span class="nav-text">丑数的计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链表"><span class="nav-number">2.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入一个链表，从尾到头打印链表每个节点的值"><span class="nav-number">2.1.</span> <span class="nav-text">输入一个链表，从尾到头打印链表每个节点的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入一个链表，输出该链表中倒数第k个结点。"><span class="nav-number">2.2.</span> <span class="nav-text">输入一个链表，输出该链表中倒数第k个结点。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的反转输出-public-ListNode-ReverseList-ListNode-head"><span class="nav-number">2.3.</span> <span class="nav-text">链表的反转输出 ##public ListNode ReverseList(ListNode head) {</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#俩个链表的公共节点"><span class="nav-number">2.4.</span> <span class="nav-text">俩个链表的公共节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并俩个链表的排序"><span class="nav-number">2.5.</span> <span class="nav-text">合并俩个链表的排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树"><span class="nav-number">3.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重建二叉树"><span class="nav-number">3.1.</span> <span class="nav-text">重建二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树的子结构"><span class="nav-number">3.2.</span> <span class="nav-text">树的子结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的深度"><span class="nav-number">3.3.</span> <span class="nav-text">二叉树的深度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">3.4.</span> <span class="nav-text">平衡二叉树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#队列和栈"><span class="nav-number">4.</span> <span class="nav-text">队列和栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用俩个栈实现队列"><span class="nav-number">4.1.</span> <span class="nav-text">用俩个栈实现队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包含min函数的栈"><span class="nav-number">4.2.</span> <span class="nav-text">包含min函数的栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表中环的入口"><span class="nav-number">4.3.</span> <span class="nav-text">链表中环的入口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除链表中重复的点"><span class="nav-number">4.4.</span> <span class="nav-text">删除链表中重复的点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的压入、弹出序列"><span class="nav-number">4.5.</span> <span class="nav-text">栈的压入、弹出序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的后续搜索遍历"><span class="nav-number">4.6.</span> <span class="nav-text">二叉树的后续搜索遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树某一值和的所有路径"><span class="nav-number">4.7.</span> <span class="nav-text">二叉树某一值和的所有路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的下一个节点"><span class="nav-number">4.8.</span> <span class="nav-text">二叉树的下一个节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法和数据操作"><span class="nav-number">5.</span> <span class="nav-text">算法和数据操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#青蛙跳台阶"><span class="nav-number">5.1.</span> <span class="nav-text">青蛙跳台阶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#青蛙条台阶变态版"><span class="nav-number">5.2.</span> <span class="nav-text">青蛙条台阶变态版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩形覆盖"><span class="nav-number">5.3.</span> <span class="nav-text">矩形覆盖</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位运算"><span class="nav-number">6.</span> <span class="nav-text">位运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算1的个数"><span class="nav-number">6.1.</span> <span class="nav-text">计算1的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组中只出现一次的数字"><span class="nav-number">6.2.</span> <span class="nav-text">数组中只出现一次的数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求数值的正数次方"><span class="nav-number">6.3.</span> <span class="nav-text">求数值的正数次方</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串"><span class="nav-number">7.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串的排列"><span class="nav-number">7.1.</span> <span class="nav-text">字符串的排列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反转单词顺序"><span class="nav-number">7.2.</span> <span class="nav-text">反转单词顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把字符串换成正数"><span class="nav-number">7.3.</span> <span class="nav-text">把字符串换成正数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象问题简单化"><span class="nav-number">8.</span> <span class="nav-text">抽象问题简单化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#扑克牌顺子"><span class="nav-number">8.1.</span> <span class="nav-text">扑克牌顺子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求前n个数的和"><span class="nav-number">8.2.</span> <span class="nav-text">求前n个数的和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不用加减乘除做加法"><span class="nav-number">8.3.</span> <span class="nav-text">不用加减乘除做加法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建数组乘积"><span class="nav-number">8.4.</span> <span class="nav-text">构建数组乘积</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数组"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二位数组的查找"><span class="nav-number">1.1.</span> <span class="nav-text">二位数组的查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整数组顺序，奇数在前，偶数在后"><span class="nav-number">1.2.</span> <span class="nav-text">调整数组顺序，奇数在前，偶数在后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换空格"><span class="nav-number">1.3.</span> <span class="nav-text">替换空格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组中出现次数超过一半的数字"><span class="nav-number">1.4.</span> <span class="nav-text">数组中出现次数超过一半的数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续子数组的最大和"><span class="nav-number">1.5.</span> <span class="nav-text">连续子数组的最大和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和为s的连续正数序列"><span class="nav-number">1.6.</span> <span class="nav-text">和为s的连续正数序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和为s的俩个数"><span class="nav-number">1.7.</span> <span class="nav-text">和为s的俩个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小的k个数"><span class="nav-number">1.8.</span> <span class="nav-text">最小的k个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把数组排成最小的数"><span class="nav-number">1.9.</span> <span class="nav-text">把数组排成最小的数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字在排序数组中出现的次数"><span class="nav-number">1.10.</span> <span class="nav-text">数字在排序数组中出现的次数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#丑数的计算"><span class="nav-number">1.11.</span> <span class="nav-text">丑数的计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链表"><span class="nav-number">2.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入一个链表，从尾到头打印链表每个节点的值"><span class="nav-number">2.1.</span> <span class="nav-text">输入一个链表，从尾到头打印链表每个节点的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入一个链表，输出该链表中倒数第k个结点。"><span class="nav-number">2.2.</span> <span class="nav-text">输入一个链表，输出该链表中倒数第k个结点。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的反转输出-public-ListNode-ReverseList-ListNode-head"><span class="nav-number">2.3.</span> <span class="nav-text">链表的反转输出 ##public ListNode ReverseList(ListNode head) {</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#俩个链表的公共节点"><span class="nav-number">2.4.</span> <span class="nav-text">俩个链表的公共节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并俩个链表的排序"><span class="nav-number">2.5.</span> <span class="nav-text">合并俩个链表的排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树"><span class="nav-number">3.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重建二叉树"><span class="nav-number">3.1.</span> <span class="nav-text">重建二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树的子结构"><span class="nav-number">3.2.</span> <span class="nav-text">树的子结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对称二叉树"><span class="nav-number">3.3.</span> <span class="nav-text">对称二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的深度"><span class="nav-number">3.4.</span> <span class="nav-text">二叉树的深度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">3.5.</span> <span class="nav-text">平衡二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的后续搜索遍历"><span class="nav-number">3.6.</span> <span class="nav-text">二叉树的后续搜索遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树某一值和的所有路径"><span class="nav-number">3.7.</span> <span class="nav-text">二叉树某一值和的所有路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的下一个节点"><span class="nav-number">3.8.</span> <span class="nav-text">二叉树的下一个节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树按层打印并且按行打印"><span class="nav-number">3.9.</span> <span class="nav-text">二叉树按层打印并且按行打印</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的按之字层序遍历"><span class="nav-number">3.10.</span> <span class="nav-text">二叉树的按之字层序遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化二叉树"><span class="nav-number">3.11.</span> <span class="nav-text">序列化二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉搜索树的第k个节点"><span class="nav-number">3.12.</span> <span class="nav-text">二叉搜索树的第k个节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#队列和栈"><span class="nav-number">4.</span> <span class="nav-text">队列和栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用俩个栈实现队列"><span class="nav-number">4.1.</span> <span class="nav-text">用俩个栈实现队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包含min函数的栈"><span class="nav-number">4.2.</span> <span class="nav-text">包含min函数的栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表中环的入口"><span class="nav-number">4.3.</span> <span class="nav-text">链表中环的入口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除链表中重复的点"><span class="nav-number">4.4.</span> <span class="nav-text">删除链表中重复的点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的压入、弹出序列"><span class="nav-number">4.5.</span> <span class="nav-text">栈的压入、弹出序列</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法和数据操作"><span class="nav-number">5.</span> <span class="nav-text">算法和数据操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#青蛙跳台阶"><span class="nav-number">5.1.</span> <span class="nav-text">青蛙跳台阶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#青蛙条台阶变态版"><span class="nav-number">5.2.</span> <span class="nav-text">青蛙条台阶变态版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩形覆盖"><span class="nav-number">5.3.</span> <span class="nav-text">矩形覆盖</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位运算"><span class="nav-number">6.</span> <span class="nav-text">位运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算1的个数"><span class="nav-number">6.1.</span> <span class="nav-text">计算1的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组中只出现一次的数字"><span class="nav-number">6.2.</span> <span class="nav-text">数组中只出现一次的数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求数值的正数次方"><span class="nav-number">6.3.</span> <span class="nav-text">求数值的正数次方</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串"><span class="nav-number">7.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串的排列"><span class="nav-number">7.1.</span> <span class="nav-text">字符串的排列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反转单词顺序"><span class="nav-number">7.2.</span> <span class="nav-text">反转单词顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把字符串换成正数"><span class="nav-number">7.3.</span> <span class="nav-text">把字符串换成正数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象问题简单化"><span class="nav-number">8.</span> <span class="nav-text">抽象问题简单化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#扑克牌顺子"><span class="nav-number">8.1.</span> <span class="nav-text">扑克牌顺子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求前n个数的和"><span class="nav-number">8.2.</span> <span class="nav-text">求前n个数的和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不用加减乘除做加法"><span class="nav-number">8.3.</span> <span class="nav-text">不用加减乘除做加法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建数组乘积"><span class="nav-number">8.4.</span> <span class="nav-text">构建数组乘积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据流中的中位数"><span class="nav-number">8.5.</span> <span class="nav-text">数据流中的中位数</span></a></li></ol></li></ol></div>
             
 
           </div>

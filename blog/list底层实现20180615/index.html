@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="happyshell.top, sweepcom blog" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="ArrayList实现ArrayList 是一个动态数组，它是线程不安全的，允许元素为null ArrayList可以以O(1)的时间复杂度去根据下标访问元素。 当集合中的元素超出数组容量，便会进行扩容操作。扩容操作也是ArrayList 的一个性能消耗比较大的地方，所以若我们可以提前预知数据的规模，应该通过public ArrayList(int initialCapacity) {}构造方法，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="List子类的实现">
+<meta property="og:url" content="happyshell.top/blog/list底层实现20180615/index.html">
+<meta property="og:site_name" content="Blog Of Huanglibei">
+<meta property="og:description" content="ArrayList实现ArrayList 是一个动态数组，它是线程不安全的，允许元素为null ArrayList可以以O(1)的时间复杂度去根据下标访问元素。 当集合中的元素超出数组容量，便会进行扩容操作。扩容操作也是ArrayList 的一个性能消耗比较大的地方，所以若我们可以提前预知数据的规模，应该通过public ArrayList(int initialCapacity) {}构造方法，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-19T14:02:05.270Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="List子类的实现">
+<meta name="twitter:description" content="ArrayList实现ArrayList 是一个动态数组，它是线程不安全的，允许元素为null ArrayList可以以O(1)的时间复杂度去根据下标访问元素。 当集合中的元素超出数组容量，便会进行扩容操作。扩容操作也是ArrayList 的一个性能消耗比较大的地方，所以若我们可以提前预知数据的规模，应该通过public ArrayList(int initialCapacity) {}构造方法，">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="happyshell.top/blog/list底层实现20180615/"/>
+
+
+
+
+
+  <title>List子类的实现 | Blog Of Huanglibei</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog Of Huanglibei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">快乐贝壳</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/list底层实现20180615/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">List子类的实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-15T16:24:53+08:00">
+                2018-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ArrayList实现"><a href="#ArrayList实现" class="headerlink" title="ArrayList实现"></a>ArrayList实现</h1><p>ArrayList 是一个动态数组，它是线程不安全的，允许元素为null</p>
+<p>ArrayList可以以O(1)的时间复杂度去根据下标访问元素。</p>
+<p>当集合中的元素超出数组容量，便会进行扩容操作。扩容操作也是ArrayList 的一个性能消耗比较大的地方，所以若我们可以提前预知数据的规模，应该通过public ArrayList(int initialCapacity) {}构造方法，指定集合的大小，去构建ArrayList实例，以减少扩容次数，提高效率</p>
+<pre><code>public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;
+implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable
+</code></pre><h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><pre><code>1.初始大小为10
+private static final int DEFAULT_CAPACITY = 10;
+
+2.空的Object数组，当初始化容量为0时，就构造这样一个空的Objcet类型数组。
+private static final Object[] EMPTY_ELEMENTDATA = {}; 
+
+3.默认的空的Object数组，构造函数里应用
+ private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+
+4.真正用于保存数组的对象数组
+ transient Object[] elementData;
+
+5.ArrayList 大小Size
+ private int size;
+
+6.默认的空的构造函数
+根据这个方法的注释，默认的构造方法构造的是构造了一个容量为10的List，但是从源代码来
+看，实际上在这个地方只是构造了一个空的对象数组，那么为什么说是十呢，看后面add方法。
+
+public ArrayList() {  
+    this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;  
+} 
+
+7.带有初始化容量的构造函数
+根据指定的容量构造一个空的对象数组。如果容量为负数，抛出异常。应该注意的是，当指定容
+量为0时，构造时使用的就是前面的全局变量，即为一个空的对象数组。
+public ArrayList(int initialCapacity) {  
+    if (initialCapacity &gt; 0) {  
+        this.elementData = new Object[initialCapacity];  
+    } else if (initialCapacity == 0) {  
+        this.elementData = EMPTY_ELEMENTDATA;  
+    } else {  
+        throw new IllegalArgumentException(&quot;Illegal Capacity: &quot;+  
+                                           initialCapacity);  
+    }  
+}   
+
+8.利用一个已有的Collection来构造
+public ArrayList(Collection&lt;? extends E&gt; c) {
+    elementData = c.toArray();
+    if ((size = elementData.length) != 0) {
+        // c.toArray might (incorrectly) not return Object[] (see 6260652)
+        if (elementData.getClass() != Object[].class)
+            elementData = Arrays.copyOf(elementData, size, Object[].class);
+    } else {
+        // replace with empty array.
+        this.elementData = EMPTY_ELEMENTDATA;
+    }
+}
+</code></pre><h2 id="add方法"><a href="#add方法" class="headerlink" title="add方法"></a>add方法</h2><p>(1)Add(E e)可以看到这个方法永远返回true，所以不应该通过add的返回值来判断是否添加成功</p>
+<pre><code>public boolean add(E e) {  
+    ensureCapacityInternal(size + 1);  //每次添加要判断size+1的容量是否满足 
+    elementData[size++] = e;  
+    return true;  
+} 这个方法一共只有三行，其中第一行的才是关键。这里面是在确定ArrayList的容量能否再多加一个 
+
+private void ensureCapacityInternal(int minCapacity) {  
+    if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {  
+        minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);  
+    }  
+
+    ensureExplicitCapacity(minCapacity);  
+}  
+
+ensureCapacityInternal这个方法首先判断了当前的对象数组是不是默认的空数组，如果是
+的话，那么就在默认容量（10）和需要的容量中取一个最大值，然后把得到的这个值传递给下一个
+函数ensureExplicitCapacity。
+从这个地方就可以解答了前面的疑问了，如果使用默认的构造方法，那么elementData 就
+是DEFAULTCAPACITY_EMPTY_ELEMENTDATA，当首次插入对象时，取最大值的时候一定是10，再
+经过后面的扩容，实际上就相当于构造了一个长度为10的对象数组。
+
+private void ensureExplicitCapacity(int minCapacity) {  
+    modCount++;  
+
+    // overflow-conscious code  
+    if (minCapacity - elementData.length &gt; 0)  
+        grow(minCapacity);  
+}//这里判断需要的容量minCapacity和现在的用来存储的对象的数组（elementData）哪个
+   更大，如果现在已有的不够大了，那就扩容，如果容量够，直接返回执行elementData[size++] = e; 
+
+private void grow(int minCapacity) {  
+    // overflow-conscious code  
+    int oldCapacity = elementData.length;  
+    int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);  
+    if (newCapacity - minCapacity &lt; 0)  
+        newCapacity = minCapacity;  
+    if (newCapacity - MAX_ARRAY_SIZE &gt; 0)  
+        newCapacity = hugeCapacity(minCapacity);  
+    // minCapacity is usually close to size, so this is a win:  
+    elementData = Arrays.copyOf(elementData, newCapacity);  
+}  
+
+private static int hugeCapacity(int minCapacity) {  
+    if (minCapacity &lt; 0) // overflow  
+        throw new OutOfMemoryError();  
+    return (minCapacity &gt; MAX_ARRAY_SIZE) ?  
+        Integer.MAX_VALUE :  
+        MAX_ARRAY_SIZE;  
+} 
+</code></pre><p>这段代码进行了扩容，可以看到扩容通过newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);这段代码实现，实际上就是将新的容量变为原来容量的1.5倍。</p>
+<p>但是需要对扩容后的容量进行检验。共有两种可能，</p>
+<p>1得到的容量比需要的容量小，为什么会有这种情况呢，溢出了。</p>
+<p>2得到的容量超过了规定的最大容量，进入hugeCapacity中，如果需要的容量小于0，抛出内存溢出异常，如果需要的容量比规定的最大容量大，那么最大容量只能是 Integer.MAX_VALUE。</p>
+<p>最后将elementData 通过Array的复制拷贝方法进行了扩容。</p>
+<p>从这个过程可以看出，ArrayList也并不是无限大的，它指定了一个最大容量 是Integer.MAX_VALUE - 8，实际最大只能是Integer.MAX_VALUE这个值了。</p>
+<p><strong>2.add(int index, E element)</strong></p>
+<p>这个方法是在指定的位置插入元素 element</p>
+<pre><code>public void add(int index, E element) {  
+    rangeCheckForAdd(index);  
+
+    ensureCapacityInternal(size + 1);  // Increments modCount!!  
+    System.arraycopy(elementData, index, elementData, index + 1,  
+                     size - index);  
+    elementData[index] = element;  
+    size++;  
+}  
+第一行是检验index是否合法
+private void rangeCheckForAdd(int index) {  
+    if (index &gt; size || index &lt; 0)  
+        throw new IndexOutOfBoundsException(outOfBoundsMsg(index));  
+} 
+
+第二行与前面add方法一致，检验容量并扩容
+第三行是arraycopy的方法，在这里面实现的就是将原来的数组从index位置开始，每个元素向后
+移一位。这是一个本地方法，看不到源代码
+
+第四行比较简单啦，就是把要插入的元素放在他应该出现的位置上。
+</code></pre><h2 id="remove方法"><a href="#remove方法" class="headerlink" title="remove方法"></a>remove方法</h2><p>从指定的位置删除元素。实现原理就是把index后面的数据都向前移位。O(n)<br>    public E remove(int index) {<br>        rangeCheck(index);  </p>
+<pre><code>    modCount++;  
+    E oldValue = elementData(index);  
+
+    int numMoved = size - index - 1;  
+    if (numMoved &gt; 0)  
+        System.arraycopy(elementData, index+1, elementData, index,  
+                         numMoved);  
+    elementData[--size] = null; // clear to let GC do its work  
+
+    return oldValue;  
+}  
+
+private void rangeCheck(int index) {  
+    if (index &gt;= size)  
+        throw new IndexOutOfBoundsException(outOfBoundsMsg(index));  
+}  
+</code></pre><h2 id="get、set"><a href="#get、set" class="headerlink" title="get、set"></a>get、set</h2><pre><code>get  获取指定位置的的元素
+public E get(int index) {  
+   rangeCheck(index);  
+
+   return elementData(index);  
+} 
+
+private void rangeCheck(int index) {  
+    if (index &gt;= size)  
+        throw new IndexOutOfBoundsException(outOfBoundsMsg(index));  
+}  
+
+set将指定位置的元素替换
+public E set(int index, E element) {  
+    rangeCheck(index);  
+
+    E oldValue = elementData(index);  
+    elementData[index] = element;  
+    return oldValue;  
+}  
+</code></pre><h2 id="contains-、indexOf、lastIndexOf"><a href="#contains-、indexOf、lastIndexOf" class="headerlink" title="contains 、indexOf、lastIndexOf"></a>contains 、indexOf、lastIndexOf</h2><p>这三个方法功能很相近</p>
+<p>第一个是查看ArrayList中是否含有指定元素</p>
+<p>第二个是返回指定元素的第一个出现的索引位置</p>
+<p>第三个返回指定元素的最后一个出现的索引位置</p>
+<p>这是一组依赖的方法，实际上执行的是同一段代码。</p>
+<pre><code>public boolean contains(Object o) {  
+    return indexOf(o) &gt;= 0;  
+}  
+
+
+public int indexOf(Object o) {  
+    if (o == null) {  
+        for (int i = 0; i &lt; size; i++)  
+            if (elementData[i]==null)  
+                return i;  
+    } else {  
+        for (int i = 0; i &lt; size; i++)  
+            if (o.equals(elementData[i]))  
+                return i;  
+    }  
+    return -1;  
+}  
+
+public int lastIndexOf(Object o) {  
+       if (o == null) {  
+           for (int i = size-1; i &gt;= 0; i--)  
+               if (elementData[i]==null)  
+                   return i;  
+       } else {  
+           for (int i = size-1; i &gt;= 0; i--)  
+               if (o.equals(elementData[i]))  
+                   return i;  
+       }  
+       return -1;  
+   }  
+</code></pre><p>总结：</p>
+<pre><code>（1） ArrayList是用Object数组来实现了，所谓的动态扩容，实际上就是在不断地产生新的
+    数组，然后进行复制。
+
+（2）在使用ArrayList插入大量元素时，应该有选择的申请一个容量，而不是使用默认的容量。
+    扩容也是会消耗时间的
+
+（3） ArrayList不是线程安全的，它的操作中没有使用同步方法。如果想使用线程安全的，
+    可以用Vector,也可以使用Collections.synchronizedList来创建线程安全的list。
+</code></pre><p><a href="https://blog.csdn.net/u010723709/article/details/45647447" target="_blank" rel="noopener">https://blog.csdn.net/u010723709/article/details/45647447</a></p>
+<h1 id="linkedList"><a href="#linkedList" class="headerlink" title="linkedList"></a>linkedList</h1><p>LinkedList 是线程不安全的，允许元素为null的双向链表。</p>
+<p>时间效率较高。不需要批量扩容，也不需要预留空间，所以空间效率比ArrayList高</p>
+<p>缺点就是需要随机访问元素时，时间效率很低</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/java面试小结20180601/" rel="next" title="面试小结">
+                <i class="fa fa-chevron-left"></i> 面试小结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/map底层实现20180620/" rel="prev" title="Map子类的实现">
+                Map子类的实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanglibei</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ArrayList实现"><span class="nav-number">1.</span> <span class="nav-text">ArrayList实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#属性"><span class="nav-number">1.1.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#add方法"><span class="nav-number">1.2.</span> <span class="nav-text">add方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#remove方法"><span class="nav-number">1.3.</span> <span class="nav-text">remove方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get、set"><span class="nav-number">1.4.</span> <span class="nav-text">get、set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#contains-、indexOf、lastIndexOf"><span class="nav-number">1.5.</span> <span class="nav-text">contains 、indexOf、lastIndexOf</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#linkedList"><span class="nav-number">2.</span> <span class="nav-text">linkedList</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huanglibei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">快乐贝壳</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

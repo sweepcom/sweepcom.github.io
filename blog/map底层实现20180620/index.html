@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="happyshell.top, sweepcom blog" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1HashMap实现原理数据结构1.7：数组+链表     在JDK1.7中我们使用的是Entry&amp;lt;K,V&amp;gt;类来存储数据，Entry&amp;lt;K,V&amp;gt;实现了Map.Entry&amp;lt;K,V&amp;gt;。     这个Map.Entry&amp;lt;K,V&amp;gt;，也就是Entry&amp;lt;K,V&amp;gt;是Map的一个内部接口--&amp;gt;Map$Entry.class。 1.8：数组+链表+红黑">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Map子类的实现">
+<meta property="og:url" content="happyshell.top/blog/map底层实现20180620/index.html">
+<meta property="og:site_name" content="Blog Of Huanglibei">
+<meta property="og:description" content="1HashMap实现原理数据结构1.7：数组+链表     在JDK1.7中我们使用的是Entry&amp;lt;K,V&amp;gt;类来存储数据，Entry&amp;lt;K,V&amp;gt;实现了Map.Entry&amp;lt;K,V&amp;gt;。     这个Map.Entry&amp;lt;K,V&amp;gt;，也就是Entry&amp;lt;K,V&amp;gt;是Map的一个内部接口--&amp;gt;Map$Entry.class。 1.8：数组+链表+红黑">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/OMSxZat.png">
+<meta property="og:image" content="https://i.imgur.com/1CEmDaF.png">
+<meta property="og:image" content="https://i.imgur.com/WKOf4Z0.png">
+<meta property="og:image" content="https://i.imgur.com/HJddoDZ.jpg">
+<meta property="og:image" content="https://i.imgur.com/mORUzsD.jpg">
+<meta property="og:updated_time" content="2018-06-20T07:44:10.737Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Map子类的实现">
+<meta name="twitter:description" content="1HashMap实现原理数据结构1.7：数组+链表     在JDK1.7中我们使用的是Entry&amp;lt;K,V&amp;gt;类来存储数据，Entry&amp;lt;K,V&amp;gt;实现了Map.Entry&amp;lt;K,V&amp;gt;。     这个Map.Entry&amp;lt;K,V&amp;gt;，也就是Entry&amp;lt;K,V&amp;gt;是Map的一个内部接口--&amp;gt;Map$Entry.class。 1.8：数组+链表+红黑">
+<meta name="twitter:image" content="https://i.imgur.com/OMSxZat.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="happyshell.top/blog/map底层实现20180620/"/>
+
+
+
+
+
+  <title>Map子类的实现 | Blog Of Huanglibei</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog Of Huanglibei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">快乐贝壳</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/map底层实现20180620/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Map子类的实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T15:44:08+08:00">
+                2018-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1HashMap实现原理"><a href="#1HashMap实现原理" class="headerlink" title="1HashMap实现原理"></a>1HashMap实现原理</h1><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><pre><code>1.7：数组+链表
+    在JDK1.7中我们使用的是Entry&lt;K,V&gt;类来存储数据，Entry&lt;K,V&gt;实现了Map.Entry&lt;K,V&gt;。
+    这个Map.Entry&lt;K,V&gt;，也就是Entry&lt;K,V&gt;是Map的一个内部接口--&gt;Map$Entry.class。
+1.8：数组+链表+红黑树
+    在JDK1.8中也开始使用Node&lt;K,V&gt;来存储数据。但是要注意，这个Node&lt;K,V&gt;实现了Map.Entry接口的。
+    table[]也存放的是Node&lt;K,V&gt; : transient Node&lt;K,V&gt;[] table;
+</code></pre><p>总结：</p>
+<pre><code>1.Java8中hash计算是通过key的hashCode()的高16位异或低16位实现的，既保证高低bit都能
+参与到hash的计算中，又不会有太大的开销。
+2.数组大小n总是2的整数次幂，计算下标时直接( hash &amp; n-1)
+3.分配内存统一放在resize()中，包括创建后首次put时初始化数组和存放元素个数超过阈值时
+扩容。
+4.Java8引入红黑树，当链表长度达到8， 执行treeifyBin，当桶数量达到64时，将链表转为
+红黑树，否则，执行resize()。
+5.判断Node是否符合，首先判断哈希值要相等，但因为哈希值不是唯一的，所以还要对比key是
+否相等，最好是同一个对象，能用＝＝对比，否则要用equals()
+</code></pre><p><img src="https://i.imgur.com/OMSxZat.png" alt=""><br><img src="https://i.imgur.com/1CEmDaF.png" alt=""></p>
+<h2 id="类的属性"><a href="#类的属性" class="headerlink" title="类的属性"></a>类的属性</h2><pre><code>public class HashMap&lt;K,V&gt; extends AbstractMap&lt;K,V&gt; implements Map&lt;K,V&gt;, Cloneable, Serializable {
+// 序列号
+private static final long serialVersionUID = 362498820763181265L;    
+// 默认的初始容量是16
+static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4;   
+// 最大容量
+static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30; 
+// 默认的填充因子
+static final float DEFAULT_LOAD_FACTOR = 0.75f;
+// 当桶(bucket)上的结点数大于8时会转成红黑树
+static final int TREEIFY_THRESHOLD = 8; 
+// 当桶(bucket)上的结点数小于6时树转链表
+static final int UNTREEIFY_THRESHOLD = 6;
+// 桶中结构转化为红黑树对应的数组的最小大小，如果当前容量小于它，就不会将链表转化为红黑树，而是用resize()代替
+static final int MIN_TREEIFY_CAPACITY = 64;
+// 存储元素的数组，总是2的幂
+transient Node&lt;k,v&gt;[] table; 
+// 存放具体元素的集
+transient Set&lt;map.entry&lt;k,v&gt;&gt; entrySet;
+// 存放元素的个数，注意这个不等于数组的长度。
+transient int size;
+// 每次扩容和更改map结构的计数器
+transient int modCount;   
+// 临界值 当实际节点个数超过临界值(容量*填充因子)时，会进行扩容
+int threshold;
+// 填充因子
+final float loadFactor;
+}
+</code></pre><h2 id="put方法解析"><a href="#put方法解析" class="headerlink" title="put方法解析"></a>put方法解析</h2><pre><code>具体步骤
+1. 判断table[]是否为null或者table.length==0,若为true，进行resize();
+2. 根据要插入的Node&lt;K,V&gt;的K，调用K.hash()，调用K的hashCode高16位与低16位进行异或，
+   得到K的hash值，得到hash值后，hash&amp;(table.length-1)，得到要插入Node&lt;K,V&gt;
+   在 table[]中的角标i。        
+3. 如果table[i]为null，直接进行插入，也就是table[i] = new Node(hash,K,V,null);
+4. 如果table[i]不为null：
+    4.2 定义Node&lt;K,V&gt; e,e作为插入表示节点
+    4.1 插入Node&lt;K,V&gt;与table[i]处的节点相同，e = p;
+    4.3 插入Node&lt;K,V&gt;与table[i]处的节点不同：
+        4.3.1 table[i]链的是一个红黑树，那么直接插入。e = putTreeVal
+        4.3.2 table[i]链的是只是一个链表：
+            4.3.2.1 开始遍历，e = p.next
+            4.3.2.2 如果e为null，直接进行插入，p.next = new Node
+                 (hash,K,V,null)；插入后，判断当前链表长度，如果为8,链表转红黑树，
+                  然后break。
+            4.3.2.3 如果e直接等于了我们插入的Node，那么直接break。
+            4.3.2.4 如果e不为null，而且也不是我们要的，那么p = e，寻找下一节点。
+    4.4 判断完了，如果e不为null，那么就说明在table[]中查到了和插入Node的K相同的
+        对象，那么返回原来对象的值，把新的value给e。
+5. 如果没有找到相同的，那么++modCount，++size，一旦size大于threshold，进行
+   resize(),最后返回null    
+6.无重复值插入成功返回的是null！，有重复的key返回最新的value
+</code></pre><p>hash值和数组角标的获取</p>
+<pre><code>static final int hash(Object key) {
+    int h;
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);
+}
+</code></pre><p><img src="https://i.imgur.com/WKOf4Z0.png" alt=""></p>
+<p>这里就是table[5]</p>
+<p>代码解析：</p>
+<pre><code>//put方法的具体实现也是在putVal方法中，所以我们重点看下面的putVal方法
+public V put(K key, V value) {
+    return putVal(hash(key), key, value, false, true);
+}
+
+final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+               boolean evict) {
+    //定义Node数组以及指针p，n为数组长度，i为数组下标
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;
+    //如果哈希表为空，则先创建一个哈希表
+    if ((tab = table) == null || (n = tab.length) == 0)
+        n = (tab = resize()).length;
+    //如果当前桶也就是算出来的数组角标所存的值为空时，直接插入
+    if ((p = tab[i = (n - 1) &amp; hash]) == null)
+        tab[i] = newNode(hash, key, value, null);
+    else {
+        Node&lt;K,V&gt; e; K k;
+        //如果桶上节点的key与当前key重复，那你就是我要找的节点了
+        if (p.hash == hash &amp;&amp;
+            ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))
+            e = p;
+        //如果是采用红黑树的方式处理冲突，则通过红黑树的putTreeVal方法去插入这个键值对
+        else if (p instanceof TreeNode)
+            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);
+        //否则就是传统的链式结构
+        else {
+            //采用循环遍历的方式，判断链中是否有重复的key
+            for (int binCount = 0; ; ++binCount) {
+                //到了链尾还没找到重复的key，则说明HashMap没有包含该键
+                if ((e = p.next) == null) {                    
+                    //创建一个新节点插入到尾部
+                    p.next = newNode(hash, key, value, null);
+
+                    //如果链的长度大于TREEIFY_THRESHOLD这个临界值，则把链变为红黑树
+                    if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st
+                        treeifyBin(tab, hash);
+                    break;
+                }
+                //找到了重复的key
+                if (e.hash == hash &amp;&amp;
+                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+                    break;
+                p = e;
+            }
+        }
+        //这里表示在上面的操作中找到了重复的键，所以这里把该键的值替换为新值
+        if (e != null) { // existing mapping for key
+            V oldValue = e.value;
+            if (!onlyIfAbsent || oldValue == null)
+                e.value = value;
+            afterNodeAccess(e);
+            return oldValue;
+        }
+    }
+    ++modCount;
+    //判断是否需要进行扩容
+    if (++size &gt; threshold)
+        resize();
+    afterNodeInsertion(evict);
+    return null;
+}
+</code></pre><h2 id="get方法解析"><a href="#get方法解析" class="headerlink" title="get方法解析"></a>get方法解析</h2><pre><code> //get方法主要调用的是getNode方法，所以重点要看getNode方法的实现
+public V get(Object key) {
+    Node&lt;K,V&gt; e;
+    return (e = getNode(hash(key), key)) == null ? null : e.value;
+}
+
+final Node&lt;K,V&gt; getNode(int hash, Object key) {
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k;
+    //如果哈希表不为空 &amp;&amp; key对应的桶上不为空
+    if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp;
+        (first = tab[(n - 1) &amp; hash]) != null) {
+        //是否直接命中
+        if (first.hash == hash &amp;&amp; // always check first node
+            ((k = first.key) == key || (key != null &amp;&amp; key.equals(k))))
+            return first;
+        //判断是否有后续节点
+        if ((e = first.next) != null) {
+            //如果当前的桶是采用红黑树处理冲突，则调用红黑树的get方法去获取节点
+            if (first instanceof TreeNode)
+                return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);
+            //不是红黑树的话，那就是传统的链式结构了，通过循环的方法判断链中是否存在该key
+            do {
+                if (e.hash == hash &amp;&amp;
+                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+                    return e;
+            } while ((e = e.next) != null);
+        }
+    }
+    return null;
+}
+</code></pre><h2 id="remove方法解析"><a href="#remove方法解析" class="headerlink" title="remove方法解析"></a>remove方法解析</h2><pre><code> public V remove(Object key) {
+    Node&lt;K,V&gt; e;
+    return (e = removeNode(hash(key), key, null, false, true)) == null ?
+        null : e.value;
+}
+
+final Node&lt;K,V&gt; removeNode(int hash, Object key, Object value,
+                           boolean matchValue, boolean movable) {
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, index;
+    if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp;
+        (p = tab[index = (n - 1) &amp; hash]) != null) {
+        Node&lt;K,V&gt; node = null, e; K k; V v;
+        // 直接命中
+        if (p.hash == hash &amp;&amp;
+            ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))
+            node = p;
+        else if ((e = p.next) != null) {
+            if (p instanceof TreeNode) // 在红黑树中查找
+                node = ((TreeNode&lt;K,V&gt;)p).getTreeNode(hash, key);
+            else { // 在链表中查找
+                do {
+                    if (e.hash == hash &amp;&amp;
+                        ((k = e.key) == key ||
+                         (key != null &amp;&amp; key.equals(k)))) {
+                        node = e;
+                        break;
+                    }
+                    p = e;
+                } while ((e = e.next) != null);
+            }
+        }
+        // 命中后删除
+        if (node != null &amp;&amp; (!matchValue || (v = node.value) == value ||
+                             (value != null &amp;&amp; value.equals(v)))) {
+            if (node instanceof TreeNode) // 在红黑树中删除节点
+                ((TreeNode&lt;K,V&gt;)node).removeTreeNode(this, tab, movable);
+            else if (node == p) // 链表首节点删除
+                tab[index] = node.next;
+            else // 多节点链表删除
+                p.next = node.next;
+            ++modCount;
+            --size;
+            afterNodeRemoval(node);
+            return node;
+        }
+    }
+    return null;
+}
+</code></pre><h2 id="resize方法"><a href="#resize方法" class="headerlink" title="resize方法"></a>resize方法</h2><p>HashMap在进行扩容时，使用的rehash方式非常巧妙，因为每次扩容都是翻倍，与原来计算（n-1）&amp;hash的结果相比，只是多了一个bit位，所以节点要么就在原来的位置，要么就被分配到“原位置+旧容量”这个位置。</p>
+<p>例如，原来的容量为32，那么应该拿hash跟31（0x11111）做与操作；在扩容扩到了64的容量之后，应该拿hash跟63（0x111111）做与操作。新容量跟原来相比只是多了一个bit位，假设原来的位置在23，那么当新增的那个bit位的计算结果为0时，那么该节点还是在23；相反，计算结果为1时，则该节点会被分配到23+31的桶上。</p>
+<p>正是因为这样巧妙的rehash方式，保证了rehash之后每个桶上的节点数必定小于等于原来桶上的节点数，即保证了rehash之后不会出现更严重的冲突。</p>
+<pre><code>final Node&lt;K,V&gt;[] resize() {
+// 当前table保存
+Node&lt;K,V&gt;[] oldTab = table;
+// 保存table大小
+int oldCap = (oldTab == null) ? 0 : oldTab.length;
+// 保存当前阈值 
+int oldThr = threshold;
+int newCap, newThr = 0;
+// 之前table大小大于0
+if (oldCap &gt; 0) {
+    // 之前table大于最大容量
+    if (oldCap &gt;= MAXIMUM_CAPACITY) {
+        // 阈值为最大整形
+        threshold = Integer.MAX_VALUE;
+        return oldTab;
+    }
+    // 容量翻倍，使用左移，效率更高
+    else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;
+        oldCap &gt;= DEFAULT_INITIAL_CAPACITY)
+        // 阈值翻倍
+        newThr = oldThr &lt;&lt; 1; // double threshold
+}
+// 之前阈值大于0
+else if (oldThr &gt; 0)
+    newCap = oldThr;
+// oldCap = 0并且oldThr = 0，使用缺省值（如使用HashMap()构造函数，之后再插入一个
+元素会调用resize函数，会进入这一步）
+else {           
+    newCap = DEFAULT_INITIAL_CAPACITY;
+    newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);
+}
+// 新阈值为0
+if (newThr == 0) {
+    float ft = (float)newCap * loadFactor;
+    newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?
+              (int)ft : Integer.MAX_VALUE);
+}
+threshold = newThr;
+@SuppressWarnings({&quot;rawtypes&quot;,&quot;unchecked&quot;})
+// 初始化table
+Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap];
+table = newTab;
+// 之前的table已经初始化过
+if (oldTab != null) {
+    // 复制元素，重新进行hash
+    for (int j = 0; j &lt; oldCap; ++j) {
+        Node&lt;K,V&gt; e;
+        if ((e = oldTab[j]) != null) {
+            oldTab[j] = null;
+            if (e.next == null)
+                newTab[e.hash &amp; (newCap - 1)] = e;
+            else if (e instanceof TreeNode)
+                ((TreeNode&lt;K,V&gt;)e).split(this, newTab, j, oldCap);
+            else { // preserve order
+                Node&lt;K,V&gt; loHead = null, loTail = null;
+                Node&lt;K,V&gt; hiHead = null, hiTail = null;
+                Node&lt;K,V&gt; next;
+                // 将同一桶中的元素根据(e.hash &amp; oldCap)是否为0进行分割，
+                分成两个不同的链表，完成rehash
+                do {
+                    next = e.next;
+                    if ((e.hash &amp; oldCap) == 0) {
+                        if (loTail == null)
+                            loHead = e;
+                        else
+                            loTail.next = e;
+                        loTail = e;
+                    }
+                    else {
+                        if (hiTail == null)
+                            hiHead = e;
+                        else
+                            hiTail.next = e;
+                        hiTail = e;
+                    }
+                } while ((e = next) != null);
+                if (loTail != null) {
+                    loTail.next = null;
+                    newTab[j] = loHead;
+                }
+                if (hiTail != null) {
+                    hiTail.next = null;
+                    newTab[j + oldCap] = hiHead;
+                }
+            }
+        }
+    }
+}
+return newTab;
+</code></pre><h1 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h1><p>概括的说，LinkedHashMap 是一个关联数组、哈希表，它是线程不安全的，允许key为null,value为null。<br>它继承自HashMap，实现了Map&lt;K,V&gt;接口。其内部还维护了一个双向链表，在每次插入数据，或者访问、修改数据时，会增加节点、或调整链表的节点顺序。以决定迭代时输出的顺序。</p>
+<p>默认情况，遍历时的顺序是按照插入节点的顺序。这也是其与HashMap最大的区别。<br>也可以在构造时传入accessOrder参数，使得其遍历顺序按照访问的顺序输出。</p>
+<p>因继承自HashMap,所以HashMap上文分析的特点，除了输出无序，其他LinkedHashMap都有，比如扩容的策略，哈希桶长度一定是2的N次方等等。<br>LinkedHashMap在实现时，就是重写override了几个方法。以满足其输出序列有序的需求。</p>
+<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><p>LinkedHashMap的节点Entry&lt;K,V&gt;继承自HashMap.Node&lt;K,V&gt;，在其基础上扩展了一下。改成了一个双向链表。</p>
+<pre><code>static class Entry&lt;K,V&gt; extends HashMap.Node&lt;K,V&gt; {
+    Entry&lt;K,V&gt; before, after;
+    Entry(int hash, K key, V value, Node&lt;K,V&gt; next) {
+        super(hash, key, value, next);
+    }
+}
+
+ //双向链表的头结点
+transient LinkedHashMap.Entry&lt;K,V&gt; head;
+
+//双向链表的尾节点
+transient LinkedHashMap.Entry&lt;K,V&gt; tail;
+</code></pre><p>HashMap专门预留给LinkedHashMap的afterNodeAccess() afterNodeInsertion() afterNodeRemoval() 方法。</p>
+<pre><code> // Callbacks to allow LinkedHashMap post-actions
+void afterNodeAccess(Node&lt;K,V&gt; p) { }
+void afterNodeInsertion(boolean evict) { }
+void afterNodeRemoval(Node&lt;K,V&gt; p) { }
+</code></pre><h2 id="put方法"><a href="#put方法" class="headerlink" title="put方法"></a>put方法</h2><p>LinkedHashMap并没有重写任何put方法。但是其重写了构建新节点的newNode()方法. </p>
+<p>newNode()会在HashMap的putVal()方法里被调用，putVal()方法会在批量插入数据</p>
+<p>putMapEntries(Map&lt;? extends K, ? extends V&gt; m, boolean evict)或者插入单个数据public V put(K key, V value)时被调用。</p>
+<p>LinkedHashMap重写了newNode(),在每次构建新节点时，通过linkNodeLast(p);将新节点链接在内部双向链表的尾部。</p>
+<pre><code> //在构建新节点时，构建的是`LinkedHashMap.Entry` 不再是`Node`.
+Node&lt;K,V&gt; newNode(int hash, K key, V value, Node&lt;K,V&gt; e) {
+    LinkedHashMap.Entry&lt;K,V&gt; p =
+        new LinkedHashMap.Entry&lt;K,V&gt;(hash, key, value, e);
+    linkNodeLast(p);
+    return p;
+}
+//将新增的节点，连接在链表的尾部
+private void linkNodeLast(LinkedHashMap.Entry&lt;K,V&gt; p) {
+    LinkedHashMap.Entry&lt;K,V&gt; last = tail;
+    tail = p;
+    //集合之前是空的
+    if (last == null)
+        head = p;
+    else {//将新节点连接在链表的尾部
+        p.before = last;
+        last.after = p;
+    }
+}
+</code></pre><h2 id="删"><a href="#删" class="headerlink" title="删"></a>删</h2><p>就是在hashMap删除节点的基础上，在最后执行afterNodeRemoval方法在双向链表中也将其删除</p>
+<pre><code>LinkedHashMap也没有重写remove()方法，因为它的删除逻辑和HashMap并无区别。 
+但它重写了afterNodeRemoval()这个回调方法。该方法会在Node&lt;K,V&gt; removeNode
+(int hash, Object key, Object value,
+boolean matchValue, boolean movable)方法中回调，removeNode()会在所有涉及到删
+除节点的方法中被调用，上文分析过，是删除节点操作的真正执行者。
+
+这个方法在hashMap的remove方法最后会调用。
+ //在删除节点e时，同步将e从双向链表上删除
+void afterNodeRemoval(Node&lt;K,V&gt; e) { // unlink
+    LinkedHashMap.Entry&lt;K,V&gt; p =
+        (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;
+    //待删除节点 p 的前置后置节点都置空
+    p.before = p.after = null;
+    //如果前置节点是null，则现在的头结点应该是后置节点a
+    if (b == null)
+        head = a;
+    else//否则将前置节点b的后置节点指向a
+        b.after = a;
+    //同理如果后置节点时null ，则尾节点应是b
+    if (a == null)
+        tail = b;
+    else//否则更新后置节点a的前置节点为b
+        a.before = b;
+}
+</code></pre><h2 id="查"><a href="#查" class="headerlink" title="查"></a>查</h2><p>总结起来就是先将节点调用afterNodeAccess(e)移到尾部在返回。<br>LinkedHashMap重写了get()和getOrDefault()方法：</p>
+<pre><code> public V get(Object key) {
+    Node&lt;K,V&gt; e;
+    if ((e = getNode(hash(key), key)) == null)
+        return null;
+    if (accessOrder)
+        afterNodeAccess(e);
+    return e.value;
+}
+public V getOrDefault(Object key, V defaultValue) {
+   Node&lt;K,V&gt; e;
+   if ((e = getNode(hash(key), key)) == null)
+       return defaultValue;
+   if (accessOrder)
+       afterNodeAccess(e);
+   return e.value;
+</code></pre><p>   }</p>
+<p>对比HashMap中的实现,LinkedHashMap只是增加了在成员变量(构造函数时赋值)accessOrder为true的情况下，要去回调void afterNodeAccess(Node&lt;K,V&gt; e)函数。</p>
+<pre><code>public V get(Object key) {
+    Node&lt;K,V&gt; e;
+    return (e = getNode(hash(key), key)) == null ? null : e.value;
+}
+</code></pre><p>在afterNodeAccess()函数中，会将当前被访问到的节点e，移动至内部的双向链表的尾部。</p>
+<pre><code> void afterNodeAccess(Node&lt;K,V&gt; e) { // move node to last
+    LinkedHashMap.Entry&lt;K,V&gt; last;//原尾节点
+    //如果accessOrder 是true ，且原尾节点不等于e
+    if (accessOrder &amp;&amp; (last = tail) != e) {
+        //节点e强转成双向链表节点p
+        LinkedHashMap.Entry&lt;K,V&gt; p =
+            (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;
+        //p现在是尾节点， 后置节点一定是null
+        p.after = null;
+        //如果p的前置节点是null，则p以前是头结点，所以更新现在的头结点是p的后置节点a
+        if (b == null)
+            head = a;
+        else//否则更新p的前直接点b的后置节点为 a
+            b.after = a;
+        //如果p的后置节点不是null，则更新后置节点a的前置节点为b
+        if (a != null)
+            a.before = b;
+        else//如果原本p的后置节点是null，则p就是尾节点。 此时 更新last的引用为 p的前置节点b
+            last = b;
+        if (last == null) //原本尾节点是null  则，链表中就一个节点
+            head = p;
+        else {//否则 更新 当前节点p的前置节点为 原尾节点last， last的后置节点是p
+            p.before = last;
+            last.after = p;
+        }
+        //尾节点的引用赋值成p
+        tail = p;
+        //修改modCount。
+        ++modCount;
+    }
+}
+</code></pre><h2 id="containsValue"><a href="#containsValue" class="headerlink" title="containsValue"></a>containsValue</h2><p>它重写了该方法，相比HashMap的实现，更为高效。</p>
+<pre><code>public boolean containsValue(Object value) {
+    //遍历一遍链表，去比较有没有value相等的节点，并返回
+    for (LinkedHashMap.Entry&lt;K,V&gt; e = head; e != null; e = e.after) {
+        V v = e.value;
+        if (v == value || (value != null &amp;&amp; value.equals(v)))
+            return true;
+    }
+    return false;
+}
+</code></pre><p>对比HashMap，是用两个for循环遍历，相对低效。</p>
+<pre><code>public boolean containsValue(Object value) {
+    Node&lt;K,V&gt;[] tab; V v;
+    if ((tab = table) != null &amp;&amp; size &gt; 0) {
+        for (int i = 0; i &lt; tab.length; ++i) {
+            for (Node&lt;K,V&gt; e = tab[i]; e != null; e = e.next) {
+                if ((v = e.value) == value ||
+                    (value != null &amp;&amp; value.equals(v)))
+                    return true;
+            }
+        }
+    }
+    return false;
+}
+</code></pre><p>总结<br>LinkedHashMap相对于HashMap的源码比，是很简单的。因为大树底下好乘凉。它继承了HashMap，仅重写了几个方法，以改变它迭代遍历时的顺序。这也是其与HashMap相比最大的不同。<br>在每次插入数据，或者访问、修改数据时，会增加节点、或调整链表的节点顺序。以决定迭代时输出的顺序。</p>
+<p>accessOrder ,默认是false，则迭代时输出的顺序是插入节点的顺序。若为true，则输出的顺序是按照访问节点的顺序。为true时，可以在这基础之上构建一个LruCache.</p>
+<p>LinkedHashMap并没有重写任何put方法。但是其重写了构建新节点的newNode()方法.在每次构建新节点时，将新节点链接在内部双向链表的尾部</p>
+<p>accessOrder=true的模式下,在afterNodeAccess()函数中，会将当前被访问到的节点e，移动至内部的双向链表的尾部。值得注意的是，afterNodeAccess()函数中，会修改modCount,因此当你正在accessOrder=true的模式下,迭代LinkedHashMap时，如果同时查询访问数据，也会导致fail-fast，因为迭代的顺序已经改变。</p>
+<p>nextNode() 就是迭代器里的next()方法 。<br>该方法的实现可以看出，迭代LinkedHashMap，就是从内部维护的双链表的表头开始循环输出。<br>而双链表节点的顺序在LinkedHashMap的增、删、改、查时都会更新。以满足按照插入顺序输出，还是访问顺序输出。</p>
+<p>它与HashMap比，还有一个小小的优化，重写了containsValue()方法，直接遍历内部链表去比对value值是否相等。</p>
+<h1 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h1><p>TreeMap 是一个有序的key-value集合，它是通过红黑树实现的。</p>
+<p>TreeMap可以对添加进来的元素进行排序，可以按照默认的排序方式，也可以自己指定排序方式。</p>
+<pre><code>一种方式是User类去实现java.lang.Comparable接口，并实现其compareTo()方法
+另一种方式是写一个类（如MyCompatator）去实现java.util.Comparator接口，并实现compare()方法，
+可以使用匿名内部类
+
+public class TreeMap&lt;K,V&gt;extends AbstractMap&lt;K,V&gt;
+implements NavigableMap&lt;K,V&gt;, Cloneable, java.io.Serializable
+1.TreeMap 继承于AbstractMap，所以它是一个Map，即一个key-value集合。
+2.TreeMap 实现了NavigableMap接口，意味着它支持一系列的导航方法。比如返回有序的key集合
+3.TreeMap 实现了Cloneable接口，意味着它能被克隆。
+4.TreeMap 实现了java.io.Serializable接口，意味着它支持序列化。
+</code></pre><p><img src="https://i.imgur.com/HJddoDZ.jpg" alt=""></p>
+<h2 id="成员属性"><a href="#成员属性" class="headerlink" title="成员属性"></a>成员属性</h2><pre><code> // 比较器对象
+private final Comparator&lt;? super K&gt; comparator;
+
+// 根节点
+private transient Entry&lt;K,V&gt; root;
+
+// 集合大小
+private transient int size = 0;
+
+// 树结构被修改的次数
+private transient int modCount = 0;
+
+// 静态内部类用来表示节点类型
+static final class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {
+    K key;     // 键
+    V value;   // 值
+    Entry&lt;K,V&gt; left;    // 指向左子树的引用（指针）
+    Entry&lt;K,V&gt; right;   // 指向右子树的引用（指针）
+    Entry&lt;K,V&gt; parent;  // 指向父节点的引用（指针）
+    boolean color = BLACK; // 
+
+    Entry(K key, V value, Entry&lt;K,V&gt; parent) {
+        this.key = key;
+        this.value = value;
+        this.parent = parent;
+    }
+}
+</code></pre><h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><pre><code>public TreeMap() {   // 1,无参构造方法
+    comparator = null; // 默认比较机制
+}
+
+public TreeMap(Comparator&lt;? super K&gt; comparator) { // 2，自定义比较器的构造方法
+    this.comparator = comparator;
+}
+
+public TreeMap(Map&lt;? extends K, ? extends V&gt; m) {  // 3，构造已知Map对象为TreeMap
+    comparator = null; // 默认比较机制
+    putAll(m);
+}
+
+public TreeMap(SortedMap&lt;K, ? extends V&gt; m) { // 4，构造已知的SortedMap对象为TreeMap
+    comparator = m.comparator(); // 使用已知对象的构造器
+    try {
+        buildFromSorted(m.size(), m.entrySet().iterator(), null, null);
+    } catch (java.io.IOException cannotHappen) {
+    } catch (ClassNotFoundException cannotHappen) {
+    }
+}
+</code></pre><h2 id="put方法-1"><a href="#put方法-1" class="headerlink" title="put方法"></a>put方法</h2><p>主要是找父节点，然后判断该节点是父节点的左节点还是右节点</p>
+<pre><code>public V put(K key, V value) {
+    Entry&lt;K,V&gt; t = root;  // 获取根节点
+
+    // 如果根节点为空，则该元素置为根节点 
+    if (t == null) {
+        compare(key, key); // type (and possibly null) check
+
+        root = new Entry&lt;&gt;(key, value, null);
+        size = 1;    // 集合大小为1
+        modCount++;  // 结构修改次数自增
+        return null;
+    }
+
+    int cmp;
+    Entry&lt;K,V&gt; parent;
+    Comparator&lt;? super K&gt; cpr = comparator;  // 比较器对象
+
+    // 如果比较器对象不为空，也就是自定义了比较器
+    if (cpr != null) {   
+        do { // 循环比较并确定元素应插入的位置(也就是找到该元素的父节点)
+            parent = t;  // t就是root
+
+            // 调用比较器对象的compare()方法，该方法返回一个整数
+            cmp = cpr.compare(key, t.key); 
+            if (cmp &lt; 0)      // 待插入元素的key&quot;小于&quot;当前位置元素的key，则查询左子树
+                t = t.left;
+            else if (cmp &gt; 0) // 待插入元素的key&quot;大于&quot;当前位置元素的key，则查询右子树
+                t = t.right;
+            else              // &quot;相等&quot;则替换其value。
+                return t.setValue(value);
+        } while (t != null);
+    }
+
+    // 如果比较器对象为空，使用默认的比较机制
+    else {
+        if (key == null)
+            throw new NullPointerException();
+        @SuppressWarnings(&quot;unchecked&quot;)
+            Comparable&lt;? super K&gt; k = (Comparable&lt;? super K&gt;) key; // 取出比较器对象
+        do {  // 同样是循环比较并确定元素应插入的位置(也就是找到该元素的父节点)
+            parent = t;
+            cmp = k.compareTo(t.key); // 同样调用比较方法并返回一个整数
+            if (cmp &lt; 0)       // 待插入元素的key&quot;小于&quot;当前位置元素的key，则查询左子树
+                t = t.left;
+            else if (cmp &gt; 0)  // 待插入元素的key&quot;大于&quot;当前位置元素的key，则查询右子树
+                t = t.right;
+            else               // &quot;相等&quot;则替换其value。
+                return t.setValue(value);
+        } while (t != null);
+    }
+
+    Entry&lt;K,V&gt; e = new Entry&lt;&gt;(key, value, parent);  // 根据key找到父节点后新建一个节点
+    if (cmp &lt; 0)  // 根据比较的结果来确定放在左子树还是右子树
+        parent.left = e;
+    else
+        parent.right = e;
+    红黑树执行插入操作之后，要执行“插入修正操作”。
+    目的是：保红黑树在进行插入节点之后，仍然是一颗红黑树
+    fixAfterInsertion(e);
+    size++;      // 集合大小+1
+    modCount++;  // 集合结构被修改次数+1
+    return null;
+}
+</code></pre><h2 id="get方法"><a href="#get方法" class="headerlink" title="get方法"></a>get方法</h2><p>一帮以getEntry()方法为基础的获取元素的方法，其中包括containsKey()，get()，remove()等。</p>
+<pre><code>public V get(Object key) {
+    Entry&lt;K,V&gt; p = getEntry(key);
+    return (p==null ? null : p.value);
+}
+
+// 返回TreeMap中是否保护“键(key)”
+  public boolean containsKey(Object key) {
+       return getEntry(key) != null;
+  }
+
+final Entry&lt;K,V&gt; getEntry(Object key) {
+    // 如果有自定义比较器对象，就按照自定义规则遍历二叉树
+    if (comparator != null)
+        return getEntryUsingComparator(key);
+    if (key == null)
+        throw new NullPointerException();
+    @SuppressWarnings(&quot;unchecked&quot;)
+        Comparable&lt;? super K&gt; k = (Comparable&lt;? super K&gt;) key;
+    Entry&lt;K,V&gt; p = root;
+    while (p != null) {    // 按照默认比较规则遍历二叉树
+        int cmp = k.compareTo(p.key);
+        if (cmp &lt; 0)
+            p = p.left;
+        else if (cmp &gt; 0)
+            p = p.right;
+        else
+            return p;
+    }
+    return null;
+}
+
+final Entry&lt;K,V&gt; getEntryUsingComparator(Object key) {
+    @SuppressWarnings(&quot;unchecked&quot;)
+        K k = (K) key;
+    Comparator&lt;? super K&gt; cpr = comparator;//自定义的比较器
+    if (cpr != null) {
+        Entry&lt;K,V&gt; p = root;
+        while (p != null) {
+            int cmp = cpr.compare(k, p.key);
+            if (cmp &lt; 0)
+                p = p.left;
+            else if (cmp &gt; 0)
+                p = p.right;
+            else
+                return p;
+        }
+    }
+    return null;
+}
+</code></pre><h2 id="其他方法简单介绍"><a href="#其他方法简单介绍" class="headerlink" title="其他方法简单介绍"></a>其他方法简单介绍</h2><pre><code>// 返回小于key的最大的键值对，没有的话返回null
+ public Map.Entry&lt;K,V&gt; lowerEntry(K key) {
+     return exportEntry(getLowerEntry(key));
+ }
+
+ // 返回小于key的最大的键值对所对应的KEY，没有的话返回null
+ public K lowerKey(K key) {
+     return keyOrNull(getLowerEntry(key));
+ }
+
+ // 返回不大于key的最大的键值对，没有的话返回null
+ public Map.Entry&lt;K,V&gt; floorEntry(K key) {
+     return exportEntry(getFloorEntry(key));
+ }
+
+ // 返回不大于key的最大的键值对所对应的KEY，没有的话返回null
+ public K floorKey(K key) {
+     return keyOrNull(getFloorEntry(key));
+ }
+
+ // 返回不小于key的最小的键值对，没有的话返回null
+ public Map.Entry&lt;K,V&gt; ceilingEntry(K key) {
+     return exportEntry(getCeilingEntry(key));
+ }
+
+ // 返回不小于key的最小的键值对所对应的KEY，没有的话返回null
+ public K ceilingKey(K key) {
+     return keyOrNull(getCeilingEntry(key));
+ }
+
+ // 返回大于key的最小的键值对，没有的话返回null
+ public Map.Entry&lt;K,V&gt; higherEntry(K key) {
+     return exportEntry(getHigherEntry(key));
+ }
+
+ // 返回大于key的最小的键值对所对应的KEY，没有的话返回null
+ public K higherKey(K key) {
+     return keyOrNull(getHigherEntry(key));
+ }
+</code></pre><h1 id="Hashtable"><a href="#Hashtable" class="headerlink" title="Hashtable"></a>Hashtable</h1><p>和HashMap一样，Hashtable 也是一个散列表，它存储的内容是键值对(key-value)映射。</p>
+<h2 id="Hashtable数据结构"><a href="#Hashtable数据结构" class="headerlink" title="Hashtable数据结构"></a>Hashtable数据结构</h2><p><img src="https://i.imgur.com/mORUzsD.jpg" alt="">    </p>
+<pre><code>从图中可以看出： 
+(01) Hashtable继承于Dictionary类，实现了Map接口。Map是&quot;key-value键值对&quot;接
+    口，Dictionary是声明了操作&quot;键值对&quot;函数接口的抽象类。 
+(02) Hashtable是通过&quot;拉链法&quot;实现的哈希表。它包括几个重要的成员变量：table, 
+    count, threshold, loadFactor, modCount。
+　　table是一个Entry[]数组类型，而Entry实际上就是一个单向链表。哈希表的&quot;key-value
+    键值对&quot;都是存储在Entry数组中的。 
+　　count是Hashtable的大小，它是Hashtable保存的键值对的数量。 
+　　threshold是Hashtable的阈值，用于判断是否需要调整Hashtable的容量。threshold的
+    值=&quot;容量*加载因子&quot;。
+　　loadFactor就是加载因子。 
+　　modCount是用来实现fail-fast机制的
+</code></pre><h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><pre><code>// 默认构造函数。
+public Hashtable() 
+    this(11, 0.75f);
+// 指定“容量大小”的构造函数
+public Hashtable(int initialCapacity) 
+    this(initialCapacity, 0.75f);
+// 指定“容量大小”和“加载因子”的构造函数
+public Hashtable(int initialCapacity, float loadFactor) 
+
+// 包含“子Map”的构造函数
+public Hashtable(Map&lt;? extends K, ? extends V&gt; t)
+</code></pre><h2 id="成员属性-1"><a href="#成员属性-1" class="headerlink" title="成员属性"></a>成员属性</h2><pre><code>  public class Hashtable&lt;K,V&gt;
+       extends Dictionary&lt;K,V&gt;
+       implements Map&lt;K,V&gt;, Cloneable, java.io.Serializable {
+// Hashtable保存key-value的数组。
+ 9     // Hashtable是采用拉链法实现的，每一个Entry本质上是一个单向链表
+10     private transient Entry[] table;
+11 
+12     // Hashtable中元素的实际数量
+13     private transient int count;
+14 
+15     // 阈值，用于判断是否需要调整Hashtable的容量（threshold = 容量*加载因子）
+16     private int threshold;
+17 
+18     // 加载因子
+19     private float loadFactor;
+20 
+21     // Hashtable被改变的次数
+22     private transient int modCount = 0;
+23 
+24     // 序列版本号
+25     private static final long serialVersionUID = 1421746759512286392L;
+</code></pre><h2 id="put方法-2"><a href="#put方法-2" class="headerlink" title="put方法"></a>put方法</h2><p>根据hash值得到index，遍历链表，每次插入成功都将新节点作为头结点</p>
+<pre><code>//确保key不在hashtable中
+//首先，通过hash方法计算key的哈希值，并计算得出index值，确定其在table[]中的位置
+//其次，迭代index索引位置的链表，如果该位置处的链表存在相同的key，则替换value，返回旧的value
+public synchronized V put(K key, V value) {
+    // Make sure the value is not null
+    if (value == null) {
+        throw new NullPointerException();
+    }
+
+    // Makes sure the key is not already in the hashtable.
+    Entry&lt;?,?&gt; tab[] = table;
+    int hash = key.hashCode();
+    int index = (hash &amp; 0x7FFFFFFF) % tab.length;  //确定索引位置
+    @SuppressWarnings(&quot;unchecked&quot;)
+    Entry&lt;K,V&gt; entry = (Entry&lt;K,V&gt;)tab[index];
+    for(; entry != null ; entry = entry.next) {
+        if ((entry.hash == hash) &amp;&amp; entry.key.equals(key)) {
+            V old = entry.value;
+            entry.value = value;
+            return old;  //如果key之前存在了，就替换value
+        }
+    }
+
+    addEntry(hash, key, value, index);//此处插入一个新节点
+    return null;
+}
+
+private void addEntry(int hash, K key, V value, int index) {
+    modCount++;
+
+    Entry&lt;?,?&gt; tab[] = table;
+    if (count &gt;= threshold) {
+        // Rehash the table if the threshold is exceeded
+        rehash();
+
+        tab = table;
+        hash = key.hashCode();
+        index = (hash &amp; 0x7FFFFFFF) % tab.length;
+    }
+
+    // Creates the new entry.
+    @SuppressWarnings(&quot;unchecked&quot;)
+    Entry&lt;K,V&gt; e = (Entry&lt;K,V&gt;) tab[index];
+    tab[index] = new Entry&lt;&gt;(hash, key, value, e);
+    //新节点放最桶最前面当作头结点，next连接之前的头结点
+    count++;
+}
+</code></pre><h2 id="get方法-1"><a href="#get方法-1" class="headerlink" title="get方法"></a>get方法</h2><pre><code>先用hash值寻找角标，然后遍历寻找，没有返回空
+public synchronized V get(Object key) {
+    Entry tab[] = table;
+    int hash = hash(key);
+    int index = (hash &amp; 0x7FFFFFFF) % tab.length;
+    for (Entry&lt;K,V&gt; e = tab[index] ; e != null ; e = e.next) {
+        if ((e.hash == hash) &amp;&amp; e.key.equals(key)) {
+            return e.value;
+        }
+    }
+    return null;
+}
+</code></pre><h2 id="rehash"><a href="#rehash" class="headerlink" title="rehash"></a>rehash</h2><pre><code>protected void rehash() {  
+    int oldCapacity = table.length;  
+    //元素  
+    Entry&lt;K,V&gt;[] oldMap = table;  
+
+    //新容量=旧容量 * 2 + 1  
+    int newCapacity = (oldCapacity &lt;&lt; 1) + 1;  
+    if (newCapacity - MAX_ARRAY_SIZE &gt; 0) {  
+        if (oldCapacity == MAX_ARRAY_SIZE)  
+            return;  
+        newCapacity = MAX_ARRAY_SIZE;  
+    }  
+
+    //新建一个size = newCapacity 的HashTable  
+    Entry&lt;K,V&gt;[] newMap = new Entry[];  
+
+    modCount++;  
+    //重新计算阀值  
+    threshold = (int)Math.min(newCapacity * loadFactor, MAX_ARRAY_SIZE + 1);  
+    //重新计算hashSeed  
+    boolean rehash = initHashSeedAsNeeded(newCapacity);  
+
+    table = newMap;  
+    //将原来的元素拷贝到新的HashTable中  
+    for (int i = oldCapacity ; i-- &gt; 0 ;) {  
+        for (Entry&lt;K,V&gt; old = oldMap[i] ; old != null ; ) {  
+            Entry&lt;K,V&gt; e = old;  
+            old = old.next;  
+
+            if (rehash) {  
+                e.hash = hash(e.key);  
+            }  
+            int index = (e.hash &amp; 0x7FFFFFFF) % newCapacity;  
+            e.next = newMap[index];  
+            newMap[index] = e;  
+        }  
+    }  
+}  
+</code></pre><p> 在这个rehash()方法中我们可以看到容量扩大两倍+1，同时需要将原来HashTable中的元素一一复制到新的HashTable中，这个过程是比较消耗时间的，同时还需要重新计算hashSeed的，毕竟容量已经变了。这里对阀值啰嗦一下：比如初始值11、加载因子默认0.75，那么这个时候阀值threshold=8，当容器中的元素达到8时，HashTable进行一次扩容操作，容量 = 8 <em> 2 + 1 =17，而阀值threshold=17</em>0.75 = 13，当容器元素再一次达到阀值时，HashTable还会进行扩容操作，一次类推。</p>
+<h2 id="遍历方式"><a href="#遍历方式" class="headerlink" title="遍历方式"></a>遍历方式</h2><pre><code>//1、使用keys()
+Enumeration&lt;String&gt; en1 = table.keys();
+    while(en1.hasMoreElements()) {
+    en1.nextElement();
+}
+
+//2、使用elements()
+Enumeration&lt;String&gt; en2 = table.elements();
+    while(en2.hasMoreElements()) {
+    en2.nextElement();
+}
+
+//3、使用keySet()
+Iterator&lt;String&gt; it1 = table.keySet().iterator();
+    while(it1.hasNext()) {
+    it1.next();
+}
+
+//4、使用entrySet()
+Iterator&lt;Entry&lt;String, String&gt;&gt; it2 = table.entrySet().iterator();
+    while(it2.hasNext()) {
+    it2.next();
+}
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/list底层实现20180615/" rel="next" title="List子类的实现">
+                <i class="fa fa-chevron-left"></i> List子类的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanglibei</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1HashMap实现原理"><span class="nav-number">1.</span> <span class="nav-text">1HashMap实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构"><span class="nav-number">1.1.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的属性"><span class="nav-number">1.2.</span> <span class="nav-text">类的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#put方法解析"><span class="nav-number">1.3.</span> <span class="nav-text">put方法解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get方法解析"><span class="nav-number">1.4.</span> <span class="nav-text">get方法解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#remove方法解析"><span class="nav-number">1.5.</span> <span class="nav-text">remove方法解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resize方法"><span class="nav-number">1.6.</span> <span class="nav-text">resize方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LinkedHashMap"><span class="nav-number">2.</span> <span class="nav-text">LinkedHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#节点"><span class="nav-number">2.1.</span> <span class="nav-text">节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#put方法"><span class="nav-number">2.2.</span> <span class="nav-text">put方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删"><span class="nav-number">2.3.</span> <span class="nav-text">删</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查"><span class="nav-number">2.4.</span> <span class="nav-text">查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#containsValue"><span class="nav-number">2.5.</span> <span class="nav-text">containsValue</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TreeMap"><span class="nav-number">3.</span> <span class="nav-text">TreeMap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#成员属性"><span class="nav-number">3.1.</span> <span class="nav-text">成员属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造方法"><span class="nav-number">3.2.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#put方法-1"><span class="nav-number">3.3.</span> <span class="nav-text">put方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get方法"><span class="nav-number">3.4.</span> <span class="nav-text">get方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他方法简单介绍"><span class="nav-number">3.5.</span> <span class="nav-text">其他方法简单介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hashtable"><span class="nav-number">4.</span> <span class="nav-text">Hashtable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hashtable数据结构"><span class="nav-number">4.1.</span> <span class="nav-text">Hashtable数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数"><span class="nav-number">4.2.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成员属性-1"><span class="nav-number">4.3.</span> <span class="nav-text">成员属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#put方法-2"><span class="nav-number">4.4.</span> <span class="nav-text">put方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get方法-1"><span class="nav-number">4.5.</span> <span class="nav-text">get方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rehash"><span class="nav-number">4.6.</span> <span class="nav-text">rehash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历方式"><span class="nav-number">4.7.</span> <span class="nav-text">遍历方式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huanglibei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">快乐贝壳</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

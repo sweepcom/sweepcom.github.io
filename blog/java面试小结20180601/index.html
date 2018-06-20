@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="https://blog.csdn.net/hotpots/article/details/76775731 1、面向对象的特征有哪些方面？">
+<meta name="description" content="https://blog.csdn.net/hotpots/article/details/76775731 什么是java虚拟机？为什么java被称为”平台无关的编程语言”java虚拟机是一个可以执行java字节码的虚拟机进程，java源文件被编译成java虚拟机执行的字节码文件。 Java虚拟机（Java Virtual Machine，JVM）是一个可以执行Java字节码的虚拟机进程（软件）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试小结">
 <meta property="og:url" content="happyshell.top/blog/java面试小结20180601/index.html">
 <meta property="og:site_name" content="Blog Of Huanglibei">
-<meta property="og:description" content="https://blog.csdn.net/hotpots/article/details/76775731 1、面向对象的特征有哪些方面？">
+<meta property="og:description" content="https://blog.csdn.net/hotpots/article/details/76775731 什么是java虚拟机？为什么java被称为”平台无关的编程语言”java虚拟机是一个可以执行java字节码的虚拟机进程，java源文件被编译成java虚拟机执行的字节码文件。 Java虚拟机（Java Virtual Machine，JVM）是一个可以执行Java字节码的虚拟机进程（软件）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-01T12:52:40.109Z">
+<meta property="og:updated_time" content="2018-06-11T09:01:08.312Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试小结">
-<meta name="twitter:description" content="https://blog.csdn.net/hotpots/article/details/76775731 1、面向对象的特征有哪些方面？">
+<meta name="twitter:description" content="https://blog.csdn.net/hotpots/article/details/76775731 什么是java虚拟机？为什么java被称为”平台无关的编程语言”java虚拟机是一个可以执行java字节码的虚拟机进程，java源文件被编译成java虚拟机执行的字节码文件。 Java虚拟机（Java Virtual Machine，JVM）是一个可以执行Java字节码的虚拟机进程（软件）">
 
 
 
@@ -352,7 +352,123 @@
 
       
         <p><a href="https://blog.csdn.net/hotpots/article/details/76775731" target="_blank" rel="noopener">https://blog.csdn.net/hotpots/article/details/76775731</a></p>
-<h1 id="1、面向对象的特征有哪些方面？"><a href="#1、面向对象的特征有哪些方面？" class="headerlink" title="1、面向对象的特征有哪些方面？"></a>1、面向对象的特征有哪些方面？</h1>
+<h1 id="什么是java虚拟机？为什么java被称为”平台无关的编程语言”"><a href="#什么是java虚拟机？为什么java被称为”平台无关的编程语言”" class="headerlink" title="什么是java虚拟机？为什么java被称为”平台无关的编程语言”"></a>什么是java虚拟机？为什么java被称为”平台无关的编程语言”</h1><p>java虚拟机是一个可以执行java字节码的虚拟机进程，java源文件被编译成java虚拟机执行的字节码文件。</p>
+<p>Java虚拟机（Java Virtual Machine，JVM）是一个可以执行Java字节码的虚拟机进程（软件）。Java源文件（.java）能够被编译成被Java虚拟机执行的字节码文件。（.class）</p>
+<p>字节码文件（.class）可不是直接可以在硬件平台上执行的代码，不用的硬件平台安装不同的JVM，由JVM把字节码翻译成硬件平台可以用的机器码。</p>
+<p>所以Java源码是有平台无关性，但是JVM却和硬件平台有关。</p>
+<h1 id="JDK和JRE有什么区别"><a href="#JDK和JRE有什么区别" class="headerlink" title="JDK和JRE有什么区别"></a>JDK和JRE有什么区别</h1><p>JRE：java运行时环境，包括java虚拟机、java核心类库和支持文件，它不包含（JDK）编译器、调试器和其他工具<br>JDK：Java开发工具包（JDK）是完整的软件开发包，包含了JRE，编译器和其他的工具（如JavaDoc，java调试器）可以让开发者开发、编译执行java应用程序。</p>
+<h1 id="static”关键字是什么意思？Java中是否可以覆盖-override-一个private或者是static的方法？"><a href="#static”关键字是什么意思？Java中是否可以覆盖-override-一个private或者是static的方法？" class="headerlink" title="static”关键字是什么意思？Java中是否可以覆盖(override)一个private或者是static的方法？"></a>static”关键字是什么意思？Java中是否可以覆盖(override)一个private或者是static的方法？</h1><pre><code>一般用在四种情况:成员变量，成员方法，代码快和内部类
+这里主要说一下内部类。平时用的较少:
+    static修饰内部类时：内部类不能访问外部类的非静态成员，只能访问静态成员（包括私有）
+    static所修饰的变量或者方法可以在类没有实例化的情况下被使用，类名.方法或变量名
+    static可以为某一个数据类型或者对象分配单一的存储空间，与所创建对象无关。
+    静态成员属于类，在内存中只有一个复制（所有实例都指向同一个内存地址）
+    只要类被加载，静态变量就会被分配空间，静态代码快会被执行（单例模式）
+
+Java中static方法不能被覆盖，因为方法覆盖是基于运行时动态绑定的，而static方法是
+编译时静态绑定的。static方法跟类的任何实例都不相关，所以概念上不适用。
+</code></pre><h1 id="Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？"><a href="#Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？" class="headerlink" title="Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？"></a>Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？</h1><p>当新对象被创建的时候，构造方法会被调用。每一个类都有构造方法。在程序员没有给类提供构造方法的情况下，Java编译器会为这个类创建一个默认的构造方法。<br>Java中构造方法重载和方法重载很相似。可以为一个类创建多个构造方法。每一个构造方法必须有它自己唯一的参数列表。</p>
+<h1 id="接口和抽象类的区别是什么"><a href="#接口和抽象类的区别是什么" class="headerlink" title="接口和抽象类的区别是什么"></a>接口和抽象类的区别是什么</h1><pre><code>抽象方法以分号结尾，不能带花括号。
+1.接口不能含有非抽象方法而抽象类可以含有非抽象方法和非抽象方法。
+2.接口不可以有成员变量，抽象类可以，接口中的变量默认为public static final的。
+3.类可以实现多个接口，但只能继承一个抽象类
+4.类可以不实现抽象类和接口声明的所有方法，当然，在这种情况下，类也必须得声明成是抽象的。
+5.Java接口中的成员函数默认是public abstract的，而且只能被这俩个关键字修饰。
+    抽象类的成员函数默认是（default本包可见）
+    也可以被定义是private，protected或者是public。
+6.接口和抽象类不可以被实例化
+7.抽象类可以含有构造方法，接口不能含有构造方法。
+</code></pre><h1 id="什么是值传递和引用传递"><a href="#什么是值传递和引用传递" class="headerlink" title="什么是值传递和引用传递"></a>什么是值传递和引用传递</h1><pre><code>1.值传递：在方法调用中，形参只是实参的值初始化的时候一个临时的存储单元，因此对形参的
+改变不会影响实参值
+2.引用传递：传递的是对象，这是实参与形参的的对象指向同一个地址，因此对形参的改变会影响
+实参的值。
+一般认为,java内的传递都是值传递. java中实例对象的传递是引用传递  
+</code></pre><h1 id="进程和线程有什么区别"><a href="#进程和线程有什么区别" class="headerlink" title="进程和线程有什么区别"></a>进程和线程有什么区别</h1><pre><code>进程指的是执行的应用程序，而线程是进程内部一个执行序列，一个进程可以有多个线程，线程又
+叫做轻量级进程，进程是程序的一种动态形式，是CPU、内存等资源占用的基本单位，而线程是不
+能占有这些资源的。 进程之间相互独立，通信比较困难，而线程之间共享一块内存区域，通信比
+较方便。 进程在执行的过程中，包含比较固定的入口，执行顺序，出口，而线程的这些过程会被
+应用程序所控制。
+</code></pre><h1 id="hashMap工作原理"><a href="#hashMap工作原理" class="headerlink" title="hashMap工作原理"></a>hashMap工作原理</h1><pre><code>Java中的HashMap是以键值对(key-value)的形式存储元素的。HashMap需要一个hash函数
+它使用hashCode()和equals()方法来向集合/从集合添加和检索元素。当调用put()方法的时
+候HashMap会计算key的hash值，然后把键值对存储在集合中合适的索引上。如果key已经存在
+了value会被更新成新值。HashMap的一些重要的特性是它的容量(capacity)，负载因子
+(load factor)和扩容极限(threshold resizing)
+</code></pre><h1 id="hashCode-和equals-方法的重要性体现在什么地方？"><a href="#hashCode-和equals-方法的重要性体现在什么地方？" class="headerlink" title="hashCode()和equals()方法的重要性体现在什么地方？"></a>hashCode()和equals()方法的重要性体现在什么地方？</h1><pre><code>可以重写hashCode()和equals()方法来判断键值。
+Java中的HashMap使用hashCode()和equals()方法来确定键值对的索引，当根据键获取值的时
+候也会用到这两个方法。如果没有正确的实现这两个方法，两个不同的键可能会有相同的hash
+值，因此，可能会被集合认为是相等的。而且，这两个方法也用来发现重复元素。所以这两个方法
+的实现对HashMap的精确性和正确性是至关重要的。
+</code></pre><h1 id="HashMap和Hashtable的区别"><a href="#HashMap和Hashtable的区别" class="headerlink" title="HashMap和Hashtable的区别"></a>HashMap和Hashtable的区别</h1><pre><code>1.hashMap是线程不安全的，hashtable是线程安全的
+2.hashMao允许null作为键值，而hashtable不允许
+3.hashtable的数字默认大小是11，增加方式是old*2+1，hashMap中，默认大小是16，是2的指数
+4.HashMap提供了迭代器，HashMap则用    Enumeration提供了对键的列举
+5.hashMap把hashtable的contains方法去掉了，改成了containsvalue和containkey
+6.HashMap中计算hahs值，是把K的hashCode算出来，高8位和低8位进行&amp;运算，而Hashtable
+  却不是，是直接把K的hashCode作为hash值
+7.HashMap是直接父类是AbstractMap，实现接口是Map，而Hashtable的父类是Dictionary，
+  也实现了Map接口。
+</code></pre><h1 id="数组-Array-和列表-ArrayList-有什么区别？什么时候应该使用Array而不是ArrayList？"><a href="#数组-Array-和列表-ArrayList-有什么区别？什么时候应该使用Array而不是ArrayList？" class="headerlink" title="数组(Array)和列表(ArrayList)有什么区别？什么时候应该使用Array而不是ArrayList？"></a>数组(Array)和列表(ArrayList)有什么区别？什么时候应该使用Array而不是ArrayList？</h1><pre><code>下面列出了Array和ArrayList的不同点：
+Array可以包含基本类型和对象类型，ArrayList只能包含对象类型。
+Array大小是固定的，ArrayList的大小是动态变化的。
+ArrayList提供了更多的方法和特性，比如：addAll()，removeAll()，iterator()等等。
+对于基本类型数据，集合使用自动装箱来减少编码工作量。但是，当处理固定大小的基本数据类型
+的时候，这种方式相对比较慢。
+</code></pre><p>#ArrayList和LinkedList有什么区别？#</p>
+<pre><code>ArrayList和LinkedList都实现了List接口，他们有以下的不同点：
+ArrayList是基于索引的数据接口，它的底层是数组。它可以以O(1)时间复杂度对元素进行
+随机访问。与此对应，LinkedList是以元素列表的形式存储它的数据，每一个元素都和它的
+前一个和后一个元素链接在一起，在这种情况下，查找某个元素的时间复杂度是O(n)。
+相对于ArrayList，LinkedList的插入，添加，删除操作速度更快，因为当元素被添加到集
+合任意位置的时候，不需要像数组那样重新计算大小或者是更新索引。
+LinkedList比ArrayList更占内存，因为LinkedList底层为双向链表，一个指
+向前一个元素，一个指向下一个元素。
+</code></pre><h1 id="Comparable和Comparator接口是干什么的？列出它们的区别"><a href="#Comparable和Comparator接口是干什么的？列出它们的区别" class="headerlink" title="Comparable和Comparator接口是干什么的？列出它们的区别"></a>Comparable和Comparator接口是干什么的？列出它们的区别</h1><pre><code>Comparable接口用来给俩个对象进行排序，重写compareto方法
+Comparator接口包含俩个方法：compare用来对俩个参数进行排序，
+equals用来给来俩个对象排序，
+equals()方法需要一个对象作为参数，它用来决定输入参数是否和comparator相等。只有当
+输入参数也是一个comparator并且输入参数和当前comparator的排序结果是相同的时候，这个
+方法才返回true、
+</code></pre><h1 id="什么是Java优先级队列-Priority-Queue-？"><a href="#什么是Java优先级队列-Priority-Queue-？" class="headerlink" title="什么是Java优先级队列(Priority Queue)？"></a>什么是Java优先级队列(Priority Queue)？</h1><pre><code>PriorityQueue是一个基于优先级堆的无界队列，它的元素是按照自然顺序(natural order)
+排序的。在创建的时候，我们可以给它提供一个负责给元素排序的比较器。PriorityQueue不允
+许null值，因为他们没有自然顺序，或者说他们没有任何的相关联的比较器。
+最后，PriorityQueue不是线程安全的，入队和出队的时间复杂度是O(log(n))。
+</code></pre><h1 id="HashSet和TreeSet有什么区别？"><a href="#HashSet和TreeSet有什么区别？" class="headerlink" title="HashSet和TreeSet有什么区别？"></a>HashSet和TreeSet有什么区别？</h1><pre><code>Set集合中的元素是无序的，不可重复的。这个接口下有两个常用集合的实现，HashSet和TreeSet。
+
+HashSet：底层数据结构是哈希表，无序
+        保证唯一性的原理：hashcode和equals
+
+TreeSet：底层是二叉树结构（红黑树），有序
+        实现了Comparable接口，复写了compareTo方法
+
+HashSet在源代码内是如何实现不add相同的元素的？
+public boolean add(E e ) {  
+    return m.put(e, PRESENT)== null;  
+}  
+理论上我们都知道，它的内部是根据equals()返回值和hashCode()的值是否相同两个方法来判
+断两个对象是否相同的。而源代码上，HashSet内部用了一个HashMap作存储，add()方法内是调
+用了map的put()方法，map的put()方法会检查这个键是否已存在，若是则返回该键之前的值，
+并更新成新值，若不是则返回null，但这个键是不会发生改变的。所以，在源代码里，HashSet
+的add()方法是根据map的put返回值来判断添加元素是否成功的。
+</code></pre><h1 id="异常的分类"><a href="#异常的分类" class="headerlink" title="异常的分类"></a>异常的分类</h1><pre><code>异常的继承结构:基类为 Throwable,   Error 和 Exception 继
+承Throwable,RuntimeException 和 IOException 等继承 Exception
+</code></pre><p>1.Exception（异常）:是程序本身可以处理的异常。</p>
+<p>2.Error（错误）: 是程序无法处理的错误。这些错误表示故障发生于虚拟机自身、或者发生在虚拟机试图执行应用时，一般不需要程序处理。（属于非检查异常）</p>
+<p>3.检查异常（编译器要求必须处置的异常） ：  除了Error，RuntimeException及其子类以外，其他的Exception类及其子类都属于可查异常。这种异常的特点是Java编译器会检查它，也就是说，当程序中可能出现这类异常，要么用try-catch语句捕获它，要么用throws子句声明抛出它，否则编译不会通过。，throw抛出异常对象</p>
+<p>如:IOException,SQLException</p>
+<p>4.非检查异常(编译器不要求处置的异常): 包括运行时异常（RuntimeException与其子类）和错误（Error）</p>
+<p>如：空指针异常，角标越界异常</p>
+<p>throw和throws有什么区别？</p>
+<p>1、Throw用于方法内部，Throws用于方法声明上</p>
+<p>2、Throw后跟异常对象，Throws后跟异常类型</p>
+<p>3、Throw后只能跟一个异常对象，Throws后可以一次声明多种异常类型</p>
+<h1 id="Overload和Override的区别"><a href="#Overload和Override的区别" class="headerlink" title="Overload和Override的区别"></a>Overload和Override的区别</h1><pre><code>Overload和Override都是多态的表现事项，Overload是编译时多态的体现，Override是运行时多态的体现。
+
+Overload只要求方法名一致和形参列表不同。其他的例如方法访问权限，返回值类型和抛出的异常都没有影响。
+Override要求两同，两小，一大。
+两同：方法名、形参列表
+两小：返回值和抛出异常是被重写方法的子类或者相同。（返回值是基本数据类型时，必须相同）
+一大：访问修饰符大于等于被重写的方法。
+</code></pre>
       
     </div>
     
@@ -385,6 +501,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/list底层实现20180615/" rel="prev" title="List子类的实现">
+                List子类的实现 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -461,7 +581,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -516,7 +636,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、面向对象的特征有哪些方面？"><span class="nav-number">1.</span> <span class="nav-text">1、面向对象的特征有哪些方面？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是java虚拟机？为什么java被称为”平台无关的编程语言”"><span class="nav-number">1.</span> <span class="nav-text">什么是java虚拟机？为什么java被称为”平台无关的编程语言”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK和JRE有什么区别"><span class="nav-number">2.</span> <span class="nav-text">JDK和JRE有什么区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#static”关键字是什么意思？Java中是否可以覆盖-override-一个private或者是static的方法？"><span class="nav-number">3.</span> <span class="nav-text">static”关键字是什么意思？Java中是否可以覆盖(override)一个private或者是static的方法？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？"><span class="nav-number">4.</span> <span class="nav-text">Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口和抽象类的区别是什么"><span class="nav-number">5.</span> <span class="nav-text">接口和抽象类的区别是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是值传递和引用传递"><span class="nav-number">6.</span> <span class="nav-text">什么是值传递和引用传递</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程和线程有什么区别"><span class="nav-number">7.</span> <span class="nav-text">进程和线程有什么区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hashMap工作原理"><span class="nav-number">8.</span> <span class="nav-text">hashMap工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hashCode-和equals-方法的重要性体现在什么地方？"><span class="nav-number">9.</span> <span class="nav-text">hashCode()和equals()方法的重要性体现在什么地方？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap和Hashtable的区别"><span class="nav-number">10.</span> <span class="nav-text">HashMap和Hashtable的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组-Array-和列表-ArrayList-有什么区别？什么时候应该使用Array而不是ArrayList？"><span class="nav-number">11.</span> <span class="nav-text">数组(Array)和列表(ArrayList)有什么区别？什么时候应该使用Array而不是ArrayList？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Comparable和Comparator接口是干什么的？列出它们的区别"><span class="nav-number">12.</span> <span class="nav-text">Comparable和Comparator接口是干什么的？列出它们的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Java优先级队列-Priority-Queue-？"><span class="nav-number">13.</span> <span class="nav-text">什么是Java优先级队列(Priority Queue)？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashSet和TreeSet有什么区别？"><span class="nav-number">14.</span> <span class="nav-text">HashSet和TreeSet有什么区别？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常的分类"><span class="nav-number">15.</span> <span class="nav-text">异常的分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Overload和Override的区别"><span class="nav-number">16.</span> <span class="nav-text">Overload和Override的区别</span></a></li></ol></div>
             
 
           </div>

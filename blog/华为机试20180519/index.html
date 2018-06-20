@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Blog Of Huanglibei">
 <meta property="og:description" content="String类型题计算字符串最后一个单词的长度，单词以空格隔开public class test1 { public static void main(String[] args){         Scanner in=new Scanner(System.in);     while(in.hasNextLine()){         String str=in.nextLine();">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-24T01:39:10.931Z">
+<meta property="og:updated_time" content="2018-06-13T08:07:19.178Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HUAWEI">
 <meta name="twitter:description" content="String类型题计算字符串最后一个单词的长度，单词以空格隔开public class test1 { public static void main(String[] args){         Scanner in=new Scanner(System.in);     while(in.hasNextLine()){         String str=in.nextLine();">
@@ -481,6 +481,110 @@ while(in.hasNext()){
         System.out.println();
     }
 } 
+</code></pre><h2 id="单词倒排"><a href="#单词倒排" class="headerlink" title="单词倒排"></a>单词倒排</h2><p>对字符串中的所有单词进行倒排。</p>
+<p>说明：</p>
+<p>1、每个单词是以26个大写或小写英文字母构成；</p>
+<p>2、非构成单词的字符均视为单词间隔符；</p>
+<p>3、要求倒排后的单词间隔符以一个空格表示；如果原字符串中相邻单词间有多个间隔符时，倒排转换后也只允许出现一个空格间隔符；</p>
+<p>4、每个单词最长20个字母；</p>
+<pre><code>  public static void main(String[] args) {
+    Scanner in=new Scanner(System.in);
+    String s=in.nextLine();
+    s=s.replaceAll(&quot;[^a-zA-Z]+&quot;, &quot; &quot;);        
+    String[] str=s.split(&quot; &quot;);
+    StringBuffer sb=new StringBuffer();
+    for(int i=str.length-1;i&gt;=0;i--){
+        sb.append(str[i]+&quot; &quot;);
+    }
+    System.out.println(sb.toString().trim());
+}
+</code></pre><h2 id="字符串应用密码截取"><a href="#字符串应用密码截取" class="headerlink" title="字符串应用密码截取"></a>字符串应用密码截取</h2><p>找出最大回文子串的长度：abaaab–&gt;baaab长度为5</p>
+<pre><code>回文字符串，需要判断奇数和偶数类型：如aba和abba
+
+public static void main(String[] args) {
+    Scanner in=new Scanner(System.in);
+    while(in.hasNext()){
+    String s=in.nextLine();
+    System.out.println(getMaxlen(s));
+    }
+}
+public static int getMaxlen(String s){
+    int len=s.length();
+    if(len==1)
+        return 1;
+    int max=0;
+    for(int i=1;i&lt;len-1;i++){
+        int j=0;
+        for(j=1;i-j&gt;=0&amp;&amp;i+j&lt;len;j++){
+            if(s.charAt(i-j)!=s.charAt(i+j))
+                break;
+        }
+        max=Math.max(max, 2*j-1);
+
+        if(s.charAt(i)==s.charAt(i+1)){     //判断是否是偶数回文
+            for(j=1;i-j&gt;=0&amp;&amp;i+j+1&lt;len;j++){
+                if(s.charAt(i-j)!=s.charAt(i+j+1))
+                    break;
+            }
+            max=Math.max(max, 2*j);
+        }
+    }
+    return max;
+}
+</code></pre><h2 id="正数与IP地址之间的转换"><a href="#正数与IP地址之间的转换" class="headerlink" title="正数与IP地址之间的转换"></a>正数与IP地址之间的转换</h2><p>原理：ip地址的每段可以看成是一个0-255的整数，把每段拆分成一个二进制形式组合起来，然后把这个二进制数转变成<br>一个长整数。</p>
+<pre><code>举例：一个ip地址为10.0.3.193
+每段数字             相对应的二进制数
+10                   00001010
+0                    00000000
+3                    00000011
+193                  11000001
+组合起来即为：00001010 00000000 00000011 11000001,转换为10进制数就是
+：167773121，即该IP地址转换后的数字就是它了。
+
+先是IP转正数：将其按.分割，然后第一个数左移8位加上第二位，再左移8位加第三位~~~
+正数转IP：先将正数转为2进制的字符串，然后判断是否满32位，不够前位补0；在按8位分割
+        分割后将每8位二进制在转为十进制，用.进行连接
+
+知识总结：进制的转换
+        Integer.parseInt(&quot;string&quot;,2/8/16)   将指定进制的字符串数转为十进制
+        Integer.toString(60,2/8/16);        将int数值转为指定进制的字符串。    
+        Long.parseLong()...
+
+ public static void main(String[] args) {
+         Scanner in=new Scanner(System.in);
+         while(in.hasNext()){
+             String ip=in.nextLine();
+             String addIp=in.nextLine();
+             ipToTen(ip);
+             tenToIp(addIp);
+         }
+    }
+ public static void ipToTen(String ip){
+     String[] s=ip.split(&quot;\\.&quot;);
+     long n=Long.parseLong(s[0]);
+     for(int i=1;i&lt;s.length;i++){
+         n=n&lt;&lt;8;
+         n+=Long.parseLong(s[i]);
+     }
+     System.out.println(n);
+ }
+ public static void tenToIp(String addIp){
+     Long n=Long.parseLong(addIp);
+     String ip=Long.toBinaryString(n);
+     StringBuilder sb=new StringBuilder();
+     if(ip.length()&lt;32){
+         for(int i=0;i&lt;32-ip.length();i++){
+             sb.append(0);
+         }
+     }
+     sb.append(ip);
+     String IP=sb.toString();
+     long a=Long.parseLong(sb.substring(0,8),2);
+     long b=Long.parseLong(sb.substring(8,16),2);
+     long c=Long.parseLong(sb.substring(16,24),2);
+     long d=Long.parseLong(sb.substring(24),2);
+     System.out.println(a + &quot;.&quot; + b + &quot;.&quot; + c + &quot;.&quot; + d);
+ }
 </code></pre><h1 id="其他类型"><a href="#其他类型" class="headerlink" title="其他类型"></a>其他类型</h1><h2 id="输出质数因子"><a href="#输出质数因子" class="headerlink" title="输出质数因子"></a>输出质数因子</h2><p>功能:输入一个正整数，按照从小到大的顺序输出它的所有质数的因子（如180的质数因子为2 2 3 3 5 ）</p>
 <pre><code>  public static void main(String[] args){
     Scanner in=new Scanner(System.in);
@@ -499,6 +603,33 @@ public static void getResult(long x){
         }
     }
 }
+</code></pre><h2 id="完全数计算"><a href="#完全数计算" class="headerlink" title="完全数计算"></a>完全数计算</h2><p>完全数（Perfect number），又称完美数或完备数，是一些特殊的自然数。</p>
+<p>它所有的真因子（即除了自身以外的约数）的和（即因子函数），恰好等于它本身。</p>
+<p>例如：28，它有约数1、2、4、7、14、28，除去它本身28外，其余5个数相加，1+2+4+7+14=28。</p>
+<p>给定函数count(int n),用于计算n以内(含n)完全数的个数。计算范围, 0 &lt; n &lt;= 500000</p>
+<p>返回n以内完全数的个数。 异常情况返回-1</p>
+<pre><code>public static void main(String[] args){
+       Scanner in=new Scanner(System.in);
+      while(in.hasNext()){
+       int n=in.nextInt();
+       int count=0;
+       for(int i=2;i&lt;=n;i++){
+           if(isPerfectNum(i))
+           count++;    
+       }
+       System.out.println(count);
+      }
+      in.close();
+
+   }
+   public static boolean isPerfectNum(int n){
+      int sum=0;
+      for(int i=1;i&lt;n;i++){
+          if(n%i==0)
+              sum+=i;
+      }
+      return sum==n;
+   }
 </code></pre><h2 id="合并数据表"><a href="#合并数据表" class="headerlink" title="合并数据表"></a>合并数据表</h2><p>数据表记录包含表索引和数值，请对表索引相同的记录进行合并，即将相同索引的数值进行求和运算，输出按照key值升序进行输出。</p>
 <pre><code>public static void main(String[] args){
         Scanner in=new Scanner(System.in);
@@ -632,6 +763,68 @@ public static boolean f(String s){//3.不能有相同长度超2的子串重复
 }
     return true;
 }
+</code></pre><h2 id="任意一个偶数（大于2）都可以由2个素数组成，组成偶数的2个素数有很多种情况，本题目要求输出组成指定偶数的两个素数差值最小的素数对"><a href="#任意一个偶数（大于2）都可以由2个素数组成，组成偶数的2个素数有很多种情况，本题目要求输出组成指定偶数的两个素数差值最小的素数对" class="headerlink" title="任意一个偶数（大于2）都可以由2个素数组成，组成偶数的2个素数有很多种情况，本题目要求输出组成指定偶数的两个素数差值最小的素数对"></a>任意一个偶数（大于2）都可以由2个素数组成，组成偶数的2个素数有很多种情况，本题目要求输出组成指定偶数的两个素数差值最小的素数对</h2><pre><code> 从数的中间开始往俩边找。
+public static void main(String[] args){
+       Scanner in=new Scanner(System.in);
+       while(in.hasNext()){
+           int n=in.nextInt();
+           int temp=n/2;
+           while(temp&gt;0){
+               if(isSushu(temp)&amp;&amp;isSushu(n-temp)){
+                   System.out.println(temp);
+                   System.out.println(n-temp);
+                   break;
+               }else
+                   temp--;
+           }
+       }
+       in.close();
+    }
+ public static boolean isSushu(int num){
+    for(int i=2;i&lt;num/2+1;i++){
+        if(num%i==0)
+            return false;
+    }
+    return true;
+ }
+</code></pre><h2 id="名字的漂亮度"><a href="#名字的漂亮度" class="headerlink" title="名字的漂亮度"></a>名字的漂亮度</h2><p>给出一个名字，该名字有26个字符串组成，定义这个字符串的“漂亮度”是其所有字母“漂亮度”的总和。<br>每个字母都有一个“漂亮度”，范围在1到26之间。没有任何两个字母拥有相同的“漂亮度”。字母忽略大小写。<br>给出多个名字，计算每个名字最大可能的“漂亮度”。<br>    输入：2<br>         zhangsan<br>         lisi<br>    输出：192<br>         101</p>
+<pre><code>public static void main(String[] args){
+           Scanner in=new Scanner(System.in);
+          while(in.hasNext()){
+            int n=in.nextInt();
+           in.nextLine();
+           int[] arr=new int[n];
+           for(int i=0;i&lt;n;i++){
+               String s=in.nextLine().toLowerCase();
+               arr[i]=getNum(s);
+           }
+           for(Integer x:arr){
+               System.out.println(x);
+           }
+          }
+        in.close();
+       }
+       public static int getNum(String str){
+           Map&lt;Character, Integer&gt; m=new HashMap&lt;Character, Integer&gt;();
+           for(int i=0;i&lt;str.length();i++){
+               char c=str.charAt(i);
+               if(m.containsKey(c))
+                   m.put(c, m.get(c)+1);
+               else
+                   m.put(c, 1);
+           }
+          List&lt;Integer&gt; list=new ArrayList&lt;&gt;();
+          for(Integer i:m.values()){
+              list.add(i);
+          }
+          Collections.sort(list);
+          int i=26+1-list.size();
+          int sum=0;
+          for(Integer count:list){
+              sum+=(count*i++);
+          }
+          return sum;
+       }
 </code></pre><h1 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h1><h2 id="求一个值的二进制中1的个数"><a href="#求一个值的二进制中1的个数" class="headerlink" title="求一个值的二进制中1的个数"></a>求一个值的二进制中1的个数</h2><p><strong>n&amp;n-1的妙用：</strong></p>
 <pre><code>  n&amp;(n-1)作用：将n的二进制表示中的最低位为1的改为0，先看一个简单的例子：
 
@@ -677,6 +870,94 @@ if((n&gt;0) &amp;&amp; (!(n&amp;(n-1))) == true)//2的幂都是100，1000，这�
     syso(&quot;是&quot;)
 else
     syso(&quot;不是&quot;)    ；
+</code></pre><h1 id="数组打印"><a href="#数组打印" class="headerlink" title="数组打印"></a>数组打印</h1><h2 id="蛇形矩阵"><a href="#蛇形矩阵" class="headerlink" title="蛇形矩阵"></a>蛇形矩阵</h2><p>样例输入</p>
+<p>5</p>
+<p>样例输出</p>
+<pre><code>1 3 6 10 15
+
+2 5 9 14
+
+4 8 13
+
+7 12
+
+11
+
+ public static void main(String[] args) {
+         Scanner in =new Scanner(System.in);
+         while(in.hasNext()){
+             int n=in.nextInt();
+            int k=n;
+             int[][] arr=new int[n][n];
+             getResult(arr);
+             for(int i=0;i&lt;n;i++){
+                 for(int j=0;j&lt;arr[i].length-i;j++){
+                     if(j==arr[i].length-i-1)
+                         System.out.print(arr[i][j]);
+                     else{
+                         System.out.print(arr[i][j]+&quot; &quot;);
+                     }
+                 }
+                 System.out.println();
+             }
+         }
+    }
+ public static void getResult(int[][] arr){
+     int num=1;
+     for(int i=0;i&lt;arr.length;i++){
+         int k=i;
+         for(int j=0;j&lt;=i&amp;&amp;k&gt;=0;j++,k--){
+            arr[k][j]=num++;
+         }
+     }
+ }
+</code></pre><h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="统计兔子个数-斐波那契数列"><a href="#统计兔子个数-斐波那契数列" class="headerlink" title="统计兔子个数(斐波那契数列)"></a>统计兔子个数(斐波那契数列)</h2><p>有一只兔子，从出生后第3个月起每个月都生一只兔子，小兔子长到第三个月后每个月又生一只兔子，假如兔子都不死，问每个月的兔子总数为多少？</p>
+<pre><code>重在分析：斐波那契数列
+每个月兔子等于上个月兔子加上前俩个月的兔子（前俩个月的兔子到了当月会生出新兔子）
+f（n）=f(n-1)+f(n-2)     (n&gt;3)
+
+public static void main(String[] args) {
+         Scanner in =new Scanner(System.in);
+         while(in.hasNext()){
+             int n=in.nextInt();
+            System.out.println(getNum(n));
+         }     
+    }
+public static int getNum(int month){
+    if(month==1||month==2)
+        return 1;
+    return getNum(month-1)+getNum(month-2);
+}
+</code></pre><h2 id="放苹果"><a href="#放苹果" class="headerlink" title="放苹果"></a>放苹果</h2><p>把M个同样的苹果放在N个同样的盘子里，允许有的盘子空着不放，问共有多少种不同的分法？（用K表示）5，1，1和1，5，1 是同一种分法。</p>
+<pre><code>/*  解题分析：
+        设f(m,n) 为m个苹果，n个盘子的放法数目，则先对n作讨论，
+        当n&gt;m：必定有n-m个盘子永远空着，去掉它们对摆放苹果方法数目不产生影响。即if(n&gt;m) f(m,n) = f(m,m)　　
+        当n&lt;=m：不同的放法可以分成两类：
+        1、有至少一个盘子空着，即相当于f(m,n) = f(m,n-1); 
+        2、所有盘子都有苹果，相当于可以从每个盘子中拿掉一个苹果，不影响不同放法的数目，即f(m,n) = f(m-n,n).
+        而总的放苹果的放法数目等于两者的和，即 f(m,n) =f(m,n-1)+f(m-n,n)
+    递归出口条件说明：
+        当n=1时，所有苹果都必须放在一个盘子里，所以返回１；
+        当没有苹果可放时，定义为１种放法；
+        递归的两条路，第一条n会逐渐减少，终会到达出口n==1;
+        第二条m会逐渐减少，因为n&gt;m时，我们会return f(m,m)　所以终会到达出口m==0．
+*/ 
+public static void main(String[] args){
+       Scanner in=new Scanner(System.in);
+       while(in.hasNext()){
+           int m=in.nextInt();
+           int n=in.nextInt();
+           System.out.println(setTimes(m, n));    
+       }
+       in.close();
+    }
+ public static int setTimes(int m,int n){
+    if(m&lt;0)
+        return 0;
+    if(m==1||n==1)
+        return 1;
+    return setTimes(m,n-1)+setTimes(m-n, n);
+ }
 </code></pre>
       
     </div>
@@ -707,8 +988,8 @@ else
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/mysql20180519/" rel="next" title="mysql数据库">
-                <i class="fa fa-chevron-left"></i> mysql数据库
+              <a href="/blog/regex20180518/" rel="next" title="正则表达式">
+                <i class="fa fa-chevron-left"></i> 正则表达式
               </a>
             
           </div>
@@ -717,8 +998,8 @@ else
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/剑指offer20180601/" rel="prev" title="剑指OFFER">
-                剑指OFFER <i class="fa fa-chevron-right"></i>
+              <a href="/blog/动态规划20180519/" rel="prev" title="动态规划">
+                动态规划 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -796,7 +1077,7 @@ else
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -851,7 +1132,7 @@ else
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#String类型题"><span class="nav-number">1.</span> <span class="nav-text">String类型题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算字符串最后一个单词的长度，单词以空格隔开"><span class="nav-number">1.1.</span> <span class="nav-text">计算字符串最后一个单词的长度，单词以空格隔开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入一个字符串和字符，输出字符串中包含字符的个数"><span class="nav-number">1.2.</span> <span class="nav-text">输入一个字符串和字符，输出字符串中包含字符的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入N个数，去重排序输出"><span class="nav-number">1.3.</span> <span class="nav-text">输入N个数，去重排序输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入字符串将其分割成长度为8的字符串数组，后续为0不处理，不足8补0"><span class="nav-number">1.4.</span> <span class="nav-text">输入字符串将其分割成长度为8的字符串数组，后续为0不处理，不足8补0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给定n个字符串，请对n个字符串按照字典序排列"><span class="nav-number">1.5.</span> <span class="nav-text">给定n个字符串，请对n个字符串按照字典序排列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单密码"><span class="nav-number">1.6.</span> <span class="nav-text">简单密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除字符串出现最少的字符"><span class="nav-number">1.7.</span> <span class="nav-text">删除字符串出现最少的字符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他类型"><span class="nav-number">2.</span> <span class="nav-text">其他类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输出质数因子"><span class="nav-number">2.1.</span> <span class="nav-text">输出质数因子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并数据表"><span class="nav-number">2.2.</span> <span class="nav-text">合并数据表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取不重复的正数"><span class="nav-number">2.3.</span> <span class="nav-text">提取不重复的正数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符个数统计"><span class="nav-number">2.4.</span> <span class="nav-text">字符个数统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坐标移动"><span class="nav-number">2.5.</span> <span class="nav-text">坐标移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#密码验证合格程序"><span class="nav-number">2.6.</span> <span class="nav-text">密码验证合格程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位运算"><span class="nav-number">3.</span> <span class="nav-text">位运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#求一个值的二进制中1的个数"><span class="nav-number">3.1.</span> <span class="nav-text">求一个值的二进制中1的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断一个数是不是2的幂"><span class="nav-number">3.2.</span> <span class="nav-text">判断一个数是不是2的幂</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#String类型题"><span class="nav-number">1.</span> <span class="nav-text">String类型题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算字符串最后一个单词的长度，单词以空格隔开"><span class="nav-number">1.1.</span> <span class="nav-text">计算字符串最后一个单词的长度，单词以空格隔开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入一个字符串和字符，输出字符串中包含字符的个数"><span class="nav-number">1.2.</span> <span class="nav-text">输入一个字符串和字符，输出字符串中包含字符的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入N个数，去重排序输出"><span class="nav-number">1.3.</span> <span class="nav-text">输入N个数，去重排序输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入字符串将其分割成长度为8的字符串数组，后续为0不处理，不足8补0"><span class="nav-number">1.4.</span> <span class="nav-text">输入字符串将其分割成长度为8的字符串数组，后续为0不处理，不足8补0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给定n个字符串，请对n个字符串按照字典序排列"><span class="nav-number">1.5.</span> <span class="nav-text">给定n个字符串，请对n个字符串按照字典序排列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单密码"><span class="nav-number">1.6.</span> <span class="nav-text">简单密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除字符串出现最少的字符"><span class="nav-number">1.7.</span> <span class="nav-text">删除字符串出现最少的字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单词倒排"><span class="nav-number">1.8.</span> <span class="nav-text">单词倒排</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串应用密码截取"><span class="nav-number">1.9.</span> <span class="nav-text">字符串应用密码截取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正数与IP地址之间的转换"><span class="nav-number">1.10.</span> <span class="nav-text">正数与IP地址之间的转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他类型"><span class="nav-number">2.</span> <span class="nav-text">其他类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输出质数因子"><span class="nav-number">2.1.</span> <span class="nav-text">输出质数因子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完全数计算"><span class="nav-number">2.2.</span> <span class="nav-text">完全数计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并数据表"><span class="nav-number">2.3.</span> <span class="nav-text">合并数据表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取不重复的正数"><span class="nav-number">2.4.</span> <span class="nav-text">提取不重复的正数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符个数统计"><span class="nav-number">2.5.</span> <span class="nav-text">字符个数统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坐标移动"><span class="nav-number">2.6.</span> <span class="nav-text">坐标移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#密码验证合格程序"><span class="nav-number">2.7.</span> <span class="nav-text">密码验证合格程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任意一个偶数（大于2）都可以由2个素数组成，组成偶数的2个素数有很多种情况，本题目要求输出组成指定偶数的两个素数差值最小的素数对"><span class="nav-number">2.8.</span> <span class="nav-text">任意一个偶数（大于2）都可以由2个素数组成，组成偶数的2个素数有很多种情况，本题目要求输出组成指定偶数的两个素数差值最小的素数对</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#名字的漂亮度"><span class="nav-number">2.9.</span> <span class="nav-text">名字的漂亮度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位运算"><span class="nav-number">3.</span> <span class="nav-text">位运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#求一个值的二进制中1的个数"><span class="nav-number">3.1.</span> <span class="nav-text">求一个值的二进制中1的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断一个数是不是2的幂"><span class="nav-number">3.2.</span> <span class="nav-text">判断一个数是不是2的幂</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组打印"><span class="nav-number">4.</span> <span class="nav-text">数组打印</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#蛇形矩阵"><span class="nav-number">4.1.</span> <span class="nav-text">蛇形矩阵</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法"><span class="nav-number">5.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计兔子个数-斐波那契数列"><span class="nav-number">5.1.</span> <span class="nav-text">统计兔子个数(斐波那契数列)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#放苹果"><span class="nav-number">5.2.</span> <span class="nav-text">放苹果</span></a></li></ol></li></ol></div>
             
 
           </div>
