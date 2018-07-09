@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="happyshell.top, sweepcom blog" />
+  <meta name="keywords" content="mysql," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta name="description" content="查询最晚入职员工的所有信息select * from employees where hire_date=(select max(hire_date)from employees); 查找入职员工时间排名倒数第三的员工所有信息select * from employees order by hire_date desc limit 2,1;  LIMIT m,n : 表示从第m+1条开始，取n条数">
+<meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="反射机制">
-<meta property="og:url" content="happyshell.top/blog/反射20180519/index.html">
+<meta property="og:title" content="SQL语句练习">
+<meta property="og:url" content="happyshell.top/blog/SQL语句练习20180519/index.html">
 <meta property="og:site_name" content="Blog Of Huanglibei">
-<meta property="og:description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta property="og:description" content="查询最晚入职员工的所有信息select * from employees where hire_date=(select max(hire_date)from employees); 查找入职员工时间排名倒数第三的员工所有信息select * from employees order by hire_date desc limit 2,1;  LIMIT m,n : 表示从第m+1条开始，取n条数">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T07:17:17.984Z">
+<meta property="og:updated_time" content="2018-07-08T07:51:16.623Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="反射机制">
-<meta name="twitter:description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta name="twitter:title" content="SQL语句练习">
+<meta name="twitter:description" content="查询最晚入职员工的所有信息select * from employees where hire_date=(select max(hire_date)from employees); 查找入职员工时间排名倒数第三的员工所有信息select * from employees order by hire_date desc limit 2,1;  LIMIT m,n : 表示从第m+1条开始，取n条数">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="happyshell.top/blog/反射20180519/"/>
+  <link rel="canonical" href="happyshell.top/blog/SQL语句练习20180519/"/>
 
 
 
 
 
-  <title>反射机制 | Blog Of Huanglibei</title>
+  <title>SQL语句练习 | Blog Of Huanglibei</title>
   
 
 
@@ -262,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/反射20180519/">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/SQL语句练习20180519/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Huanglibei">
@@ -279,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">反射机制</h1>
+          <h1 class="post-title" itemprop="name headline">SQL语句练习</h1>
         
 
         <div class="post-meta">
@@ -314,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaSE/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaSE</span>
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
                   </a>
                 </span>
 
@@ -351,10 +352,41 @@
       
 
       
-        <p>JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；<strong>这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。</strong><br>要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象.</p>
-<p><strong>反射就是把java类中的各种成分映射成一个个的Java对象</strong></p>
-<p>例如：一个类有：成员变量、方法、构造方法、包等等信息，利用反射技术可以对一个类进行解剖，把个个组成部分映射成一个个对象。</p>
+        <h1 id="查询最晚入职员工的所有信息"><a href="#查询最晚入职员工的所有信息" class="headerlink" title="查询最晚入职员工的所有信息"></a>查询最晚入职员工的所有信息</h1><pre><code>select * from employees where hire_date=(select max(hire_date)from employees);
+</code></pre><h1 id="查找入职员工时间排名倒数第三的员工所有信息"><a href="#查找入职员工时间排名倒数第三的员工所有信息" class="headerlink" title="查找入职员工时间排名倒数第三的员工所有信息"></a>查找入职员工时间排名倒数第三的员工所有信息</h1><pre><code>select * from employees order by hire_date desc limit 2,1;
 
+LIMIT m,n : 表示从第m+1条开始，取n条数据；
+LIMIT n ： 表示从第0条开始，取n条数据，是limit(0,n)的缩写。
+本题limit 2,1 表示从第（2+1=3）条数据开始，取m（1）条数据，即入职员工时间排名倒数第三的员工。
+</code></pre><h1 id="查找各个部门当前-to-date-’9999-01-01’-领导当前薪水详情以及其对应部门编号dept-no"><a href="#查找各个部门当前-to-date-’9999-01-01’-领导当前薪水详情以及其对应部门编号dept-no" class="headerlink" title="查找各个部门当前(to_date=’9999-01-01’)领导当前薪水详情以及其对应部门编号dept_no"></a>查找各个部门当前(to_date=’9999-01-01’)领导当前薪水详情以及其对应部门编号dept_no</h1><pre><code>隐式内链接
+select s.* , m.dept_no from salaries s,dept_manager m where s.emp_no=m.emp_no
+ and  m.to_date=&apos;9999-01-01&apos; and s.to_date=&apos;9999-01-01&apos;;
+
+普通内连接
+select s.* , m.dept_no from salaries s inner join  dept_manager m
+on s.emp_no=m.emp_no and（where）  m.to_date=&apos;9999-01-01&apos; and s.to_date=&apos;9999-01-01&apos;; 
+</code></pre><h1 id="查找所有员工的last-name和first-name以及对应部门编号dept-no，也包括展示没有分配具体部门的员工"><a href="#查找所有员工的last-name和first-name以及对应部门编号dept-no，也包括展示没有分配具体部门的员工" class="headerlink" title="查找所有员工的last_name和first_name以及对应部门编号dept_no，也包括展示没有分配具体部门的员工"></a>查找所有员工的last_name和first_name以及对应部门编号dept_no，也包括展示没有分配具体部门的员工</h1><pre><code>select e.last_name,e.first_name, d.dept_no from employees e left outer join
+ dept_emp d on e.emp_no=d.emp_no ;
+
+注意：
+INNER JOIN 两边表同时有对应的数据，即任何一边缺失数据就不显示。
+LEFT JOIN 会读取左边数据表的全部数据，即便右边表无对应数据。
+RIGHT JOIN 会读取右边数据表的全部数据，即便左边表无对应数据。
+上述不能用where隐式内链接来代替了，因为右表没有的时候，左表就不显示了。
+</code></pre><h1 id="查找薪水涨幅超过15次的员工号emp-no以及其对应的涨幅次数t"><a href="#查找薪水涨幅超过15次的员工号emp-no以及其对应的涨幅次数t" class="headerlink" title="查找薪水涨幅超过15次的员工号emp_no以及其对应的涨幅次数t"></a>查找薪水涨幅超过15次的员工号emp_no以及其对应的涨幅次数t</h1><pre><code>select s.emp_no ,count(emp_no) as t from salaries s group by emp_no having t&gt;15;
+
+group by与order by有什么区别，order by就是排序。而group by就是分组，
+举个例子好说点，group by 单位名称 
+这样的运行结果就是以“单位名称”为分类标志统计各单位的职工人数和工资总额。
+这样可以更好的分下类，更好看一些。
+还有就是为什么没有用where而是用的having，记住下面的两句话就好了。
+
+WHERE语句在GROUP BY语句之前；SQL会在分组之前计算WHERE语句。   
+HAVING语句在GROUP BY语句之后；SQL会在分组之后计算HAVING语句。
+</code></pre><h1 id="找出所有员工当前-to-date-’9999-01-01’-具体的薪水salary情况，对于相同的薪水只显示一次-并按照逆序显示"><a href="#找出所有员工当前-to-date-’9999-01-01’-具体的薪水salary情况，对于相同的薪水只显示一次-并按照逆序显示" class="headerlink" title="找出所有员工当前(to_date=’9999-01-01’)具体的薪水salary情况，对于相同的薪水只显示一次,并按照逆序显示"></a>找出所有员工当前(to_date=’9999-01-01’)具体的薪水salary情况，对于相同的薪水只显示一次,并按照逆序显示</h1><p>distinct 去重重复数据</p>
+<pre><code>select distinct s.salary from salaries s where s.to_date=&apos;9999-01-01&apos; order
+ by salary desc;
+</code></pre>
       
     </div>
     
@@ -369,6 +401,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
 
       
       
@@ -378,8 +416,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/SQL语句练习20180519/" rel="next" title="SQL语句练习">
-                <i class="fa fa-chevron-left"></i> SQL语句练习
+              <a href="/blog/mysql20180519/" rel="next" title="mysql数据库">
+                <i class="fa fa-chevron-left"></i> mysql数据库
               </a>
             
           </div>
@@ -388,8 +426,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/华为机试20180519/" rel="prev" title="HUAWEI">
-                HUAWEI <i class="fa fa-chevron-right"></i>
+              <a href="/blog/反射20180519/" rel="prev" title="反射机制">
+                反射机制 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -442,8 +480,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -503,6 +550,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#查询最晚入职员工的所有信息"><span class="nav-number">1.</span> <span class="nav-text">查询最晚入职员工的所有信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查找入职员工时间排名倒数第三的员工所有信息"><span class="nav-number">2.</span> <span class="nav-text">查找入职员工时间排名倒数第三的员工所有信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查找各个部门当前-to-date-’9999-01-01’-领导当前薪水详情以及其对应部门编号dept-no"><span class="nav-number">3.</span> <span class="nav-text">查找各个部门当前(to_date=’9999-01-01’)领导当前薪水详情以及其对应部门编号dept_no</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查找所有员工的last-name和first-name以及对应部门编号dept-no，也包括展示没有分配具体部门的员工"><span class="nav-number">4.</span> <span class="nav-text">查找所有员工的last_name和first_name以及对应部门编号dept_no，也包括展示没有分配具体部门的员工</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查找薪水涨幅超过15次的员工号emp-no以及其对应的涨幅次数t"><span class="nav-number">5.</span> <span class="nav-text">查找薪水涨幅超过15次的员工号emp_no以及其对应的涨幅次数t</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#找出所有员工当前-to-date-’9999-01-01’-具体的薪水salary情况，对于相同的薪水只显示一次-并按照逆序显示"><span class="nav-number">6.</span> <span class="nav-text">找出所有员工当前(to_date=’9999-01-01’)具体的薪水salary情况，对于相同的薪水只显示一次,并按照逆序显示</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

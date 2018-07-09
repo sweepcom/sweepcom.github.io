@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="1HashMap实现原理数据结构1.7：数组+链表     在JDK1.7中我们使用的是Entry&amp;lt;K,V&amp;gt;类来存储数据，Entry&amp;lt;K,V&amp;gt;实现了Map.Entry&amp;lt;K,V&amp;gt;。     这个Map.Entry&amp;lt;K,V&amp;gt;，也就是Entry&amp;lt;K,V&amp;gt;是Map的一个内部接口--&amp;gt;Map$Entry.class。 1.8：数组+链表+红黑">
+<meta name="description" content="1HashMap实现原理hash算法：https://blog.csdn.net/asdzheng/article/details/70226007 https://blog.csdn.net/tanggao1314/article/details/51457585 数据结构1.7：数组+链表     在JDK1.7中我们使用的是Entry&amp;lt;K,V&amp;gt;类来存储数据，Entry&amp;lt;K,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Map子类的实现">
 <meta property="og:url" content="happyshell.top/blog/map底层实现20180620/index.html">
 <meta property="og:site_name" content="Blog Of Huanglibei">
-<meta property="og:description" content="1HashMap实现原理数据结构1.7：数组+链表     在JDK1.7中我们使用的是Entry&amp;lt;K,V&amp;gt;类来存储数据，Entry&amp;lt;K,V&amp;gt;实现了Map.Entry&amp;lt;K,V&amp;gt;。     这个Map.Entry&amp;lt;K,V&amp;gt;，也就是Entry&amp;lt;K,V&amp;gt;是Map的一个内部接口--&amp;gt;Map$Entry.class。 1.8：数组+链表+红黑">
+<meta property="og:description" content="1HashMap实现原理hash算法：https://blog.csdn.net/asdzheng/article/details/70226007 https://blog.csdn.net/tanggao1314/article/details/51457585 数据结构1.7：数组+链表     在JDK1.7中我们使用的是Entry&amp;lt;K,V&amp;gt;类来存储数据，Entry&amp;lt;K,">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/OMSxZat.png">
 <meta property="og:image" content="https://i.imgur.com/1CEmDaF.png">
 <meta property="og:image" content="https://i.imgur.com/WKOf4Z0.png">
 <meta property="og:image" content="https://i.imgur.com/HJddoDZ.jpg">
 <meta property="og:image" content="https://i.imgur.com/mORUzsD.jpg">
-<meta property="og:updated_time" content="2018-06-20T07:44:10.737Z">
+<meta property="og:updated_time" content="2018-06-27T08:50:21.316Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Map子类的实现">
-<meta name="twitter:description" content="1HashMap实现原理数据结构1.7：数组+链表     在JDK1.7中我们使用的是Entry&amp;lt;K,V&amp;gt;类来存储数据，Entry&amp;lt;K,V&amp;gt;实现了Map.Entry&amp;lt;K,V&amp;gt;。     这个Map.Entry&amp;lt;K,V&amp;gt;，也就是Entry&amp;lt;K,V&amp;gt;是Map的一个内部接口--&amp;gt;Map$Entry.class。 1.8：数组+链表+红黑">
+<meta name="twitter:description" content="1HashMap实现原理hash算法：https://blog.csdn.net/asdzheng/article/details/70226007 https://blog.csdn.net/tanggao1314/article/details/51457585 数据结构1.7：数组+链表     在JDK1.7中我们使用的是Entry&amp;lt;K,V&amp;gt;类来存储数据，Entry&amp;lt;K,">
 <meta name="twitter:image" content="https://i.imgur.com/OMSxZat.png">
 
 
@@ -357,7 +357,9 @@
       
 
       
-        <h1 id="1HashMap实现原理"><a href="#1HashMap实现原理" class="headerlink" title="1HashMap实现原理"></a>1HashMap实现原理</h1><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><pre><code>1.7：数组+链表
+        <h1 id="1HashMap实现原理"><a href="#1HashMap实现原理" class="headerlink" title="1HashMap实现原理"></a>1HashMap实现原理</h1><p>hash算法：<a href="https://blog.csdn.net/asdzheng/article/details/70226007" target="_blank" rel="noopener">https://blog.csdn.net/asdzheng/article/details/70226007</a></p>
+<p><a href="https://blog.csdn.net/tanggao1314/article/details/51457585" target="_blank" rel="noopener">https://blog.csdn.net/tanggao1314/article/details/51457585</a></p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><pre><code>1.7：数组+链表
     在JDK1.7中我们使用的是Entry&lt;K,V&gt;类来存储数据，Entry&lt;K,V&gt;实现了Map.Entry&lt;K,V&gt;。
     这个Map.Entry&lt;K,V&gt;，也就是Entry&lt;K,V&gt;是Map的一个内部接口--&gt;Map$Entry.class。
 1.8：数组+链表+红黑树
@@ -421,7 +423,7 @@ final float loadFactor;
             4.3.2.3 如果e直接等于了我们插入的Node，那么直接break。
             4.3.2.4 如果e不为null，而且也不是我们要的，那么p = e，寻找下一节点。
     4.4 判断完了，如果e不为null，那么就说明在table[]中查到了和插入Node的K相同的
-        对象，那么返回原来对象的值，把新的value给e。
+        对象，那么返回新的value
 5. 如果没有找到相同的，那么++modCount，++size，一旦size大于threshold，进行
    resize(),最后返回null    
 6.无重复值插入成功返回的是null！，有重复的key返回最新的value
@@ -1078,6 +1080,9 @@ public Hashtable(Map&lt;? extends K, ? extends V&gt; t)
 24     // 序列版本号
 25     private static final long serialVersionUID = 1421746759512286392L;
 </code></pre><h2 id="put方法-2"><a href="#put方法-2" class="headerlink" title="put方法"></a>put方法</h2><p>根据hash值得到index，遍历链表，每次插入成功都将新节点作为头结点</p>
+<p>//新容量=旧容量 * 2 + 1  </p>
+<p>int index = (hash &amp; 0x7FFFFFFF) % tab.length; </p>
+<p>为什么要&amp;0x7FFFFFFF？因为某些对象的hashCode可能会为负值，与0x7FFFFFFF进行与运算可以确保index为一个正数。通过这步我可以直接定位某个对象的位置，所以从理论上来说我们是完全可以利用hashCode直接定位对象的散列表中的位置，但是为什么会存在一个key-value的键值对，利用key的hashCode来存入数据而不是直接存放value呢？这就关系HashTable性能问题的最重要的问题:Hash冲突！</p>
 <pre><code>//确保key不在hashtable中
 //首先，通过hash方法计算key的哈希值，并计算得出index值，确定其在table[]中的位置
 //其次，迭代index索引位置的链表，如果该位置处的链表存在相同的key，则替换value，返回旧的value
@@ -1223,8 +1228,8 @@ Iterator&lt;Entry&lt;String, String&gt;&gt; it2 = table.entrySet().iterator();
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/list底层实现20180615/" rel="next" title="List子类的实现">
-                <i class="fa fa-chevron-left"></i> List子类的实现
+              <a href="/blog/Set底层实现20180620/" rel="next" title="Set子类的实现">
+                <i class="fa fa-chevron-left"></i> Set子类的实现
               </a>
             
           </div>
@@ -1232,6 +1237,10 @@ Iterator&lt;Entry&lt;String, String&gt;&gt; it2 = table.entrySet().iterator();
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/计算机网络20180621/" rel="prev" title="计算机网络">
+                计算机网络 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -1308,7 +1317,7 @@ Iterator&lt;Entry&lt;String, String&gt;&gt; it2 = table.entrySet().iterator();
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1330,7 +1339,7 @@ Iterator&lt;Entry&lt;String, String&gt;&gt; it2 = table.entrySet().iterator();
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

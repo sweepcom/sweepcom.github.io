@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Blog Of Huanglibei">
 <meta property="og:description" content="https://blog.csdn.net/hotpots/article/details/76775731 什么是java虚拟机？为什么java被称为”平台无关的编程语言”java虚拟机是一个可以执行java字节码的虚拟机进程，java源文件被编译成java虚拟机执行的字节码文件。 Java虚拟机（Java Virtual Machine，JVM）是一个可以执行Java字节码的虚拟机进程（软件）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-11T09:01:08.312Z">
+<meta property="og:updated_time" content="2018-06-28T15:10:44.107Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试小结">
 <meta name="twitter:description" content="https://blog.csdn.net/hotpots/article/details/76775731 什么是java虚拟机？为什么java被称为”平台无关的编程语言”java虚拟机是一个可以执行java字节码的虚拟机进程，java源文件被编译成java虚拟机执行的字节码文件。 Java虚拟机（Java Virtual Machine，JVM）是一个可以执行Java字节码的虚拟机进程（软件）">
@@ -368,6 +368,18 @@
 Java中static方法不能被覆盖，因为方法覆盖是基于运行时动态绑定的，而static方法是
 编译时静态绑定的。static方法跟类的任何实例都不相关，所以概念上不适用。
 </code></pre><h1 id="Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？"><a href="#Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？" class="headerlink" title="Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？"></a>Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？</h1><p>当新对象被创建的时候，构造方法会被调用。每一个类都有构造方法。在程序员没有给类提供构造方法的情况下，Java编译器会为这个类创建一个默认的构造方法。<br>Java中构造方法重载和方法重载很相似。可以为一个类创建多个构造方法。每一个构造方法必须有它自己唯一的参数列表。</p>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><pre><code> String s =  new String(&quot;100&quot;);//会在常量池和堆中都生成100，常量池中若之前有了，不会生成
+ String s = new String(&quot;1&quot;)+new String(&quot;00&quot;);//会在常量池产生1，00，但不会产生100，
+                                                堆中产生1，00，100
+ String s=&quot;1&quot;+&quot;2&quot;;会在常量池中产生12，不会产生1，2
+ String s=new String(&quot;1&quot;)+&quot;2&quot;;常量池中没有12，堆中有12
+
+s =new String(&quot;100&quot;);
+s1=new String(&quot;100&quot;).intern();
+</code></pre><p>jdk7 版本对 intern 操作和常量池都做了一定的修改。主要包括2点：</p>
+<pre><code>将String常量池 从 Perm 区移动到了 Java Heap区
+String#intern 方法时，如果存在堆中的对象，会直接保存对象的引用，而不会（在常量池）重新创建对象。
+</code></pre><p>深入解析String#intern<br><a href="https://tech.meituan.com/in_depth_understanding_string_intern.html" target="_blank" rel="noopener">https://tech.meituan.com/in_depth_understanding_string_intern.html</a></p>
 <h1 id="接口和抽象类的区别是什么"><a href="#接口和抽象类的区别是什么" class="headerlink" title="接口和抽象类的区别是什么"></a>接口和抽象类的区别是什么</h1><pre><code>抽象方法以分号结尾，不能带花括号。
 1.接口不能含有非抽象方法而抽象类可以含有非抽象方法和非抽象方法。
 2.接口不可以有成员变量，抽象类可以，接口中的变量默认为public static final的。
@@ -468,6 +480,41 @@ Override要求两同，两小，一大。
 两同：方法名、形参列表
 两小：返回值和抛出异常是被重写方法的子类或者相同。（返回值是基本数据类型时，必须相同）
 一大：访问修饰符大于等于被重写的方法。
+</code></pre><h1 id="clone"><a href="#clone" class="headerlink" title="clone"></a>clone</h1><p>java中对象的引用都是引用传递，但是如果需要从A对象创建一个与B对象相同的对象B，并且B的修改不会影响A的状态，此时需要clone方法来满足这个需求</p>
+<pre><code>1.实现类首先需要实现Cloneable接口        
+2.重写clone方法
+3.调用super.clone方法
+
+clone分为浅复制，与深复制，浅复制只复制本类的基本类型，不包含其他对象的复制
+                深复制是复制所有的对象，包括内部对其他对象的引用
+
+public Object clone(){
+        Object o = null;
+        try {
+            o=(obj)super.clone(); //obj是要复制的对象类名称
+        } catch (CloneNotSupportedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        o.birth=(Date)this.getBirth().clone()//这句复制的是类对其他对象的引用复制
+        return o;
+}
+</code></pre><h1 id="什么是反射机制"><a href="#什么是反射机制" class="headerlink" title="什么是反射机制"></a>什么是反射机制</h1><pre><code>反射机制能够在运行时对类进行加载
+功能：得到一个对象所属的类，获取一个对象的所有成员变量和方法，在运行时创建对象，在运行时
+     调用对象的方法
+以下三种获取类名的方法
+    obj a=new obj();
+    System.out.println(a.getClass());  1.实例.getClass()；
+    System.out.println(obj.class);       2.类名.class,
+    Class b=Class.forName(&quot;test.obj&quot;); 3.Class.forName(&quot;类的路径，含包路径&quot;)；
+    System.out.println(b);
+
+
+    Class b=Class.forName(&quot;test.obj&quot;);   //1.获取对象所属的类
+    obj c=(obj) b.newInstance();         //新建一个对象实例 （无参构造函数）
+        Constructor con=b.getConstructor(String.class,int.class)
+        obj d=con.newInstance(&quot;xiaoming&quot;,28) //新建有参构造函数     
+    System.out.println(c.getA());        //调用对象的方法
 </code></pre>
       
     </div>
@@ -581,7 +628,7 @@ Override要求两同，两小，一大。
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -603,7 +650,7 @@ Override要求两同，两小，一大。
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -636,7 +683,7 @@ Override要求两同，两小，一大。
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是java虚拟机？为什么java被称为”平台无关的编程语言”"><span class="nav-number">1.</span> <span class="nav-text">什么是java虚拟机？为什么java被称为”平台无关的编程语言”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK和JRE有什么区别"><span class="nav-number">2.</span> <span class="nav-text">JDK和JRE有什么区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#static”关键字是什么意思？Java中是否可以覆盖-override-一个private或者是static的方法？"><span class="nav-number">3.</span> <span class="nav-text">static”关键字是什么意思？Java中是否可以覆盖(override)一个private或者是static的方法？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？"><span class="nav-number">4.</span> <span class="nav-text">Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口和抽象类的区别是什么"><span class="nav-number">5.</span> <span class="nav-text">接口和抽象类的区别是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是值传递和引用传递"><span class="nav-number">6.</span> <span class="nav-text">什么是值传递和引用传递</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程和线程有什么区别"><span class="nav-number">7.</span> <span class="nav-text">进程和线程有什么区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hashMap工作原理"><span class="nav-number">8.</span> <span class="nav-text">hashMap工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hashCode-和equals-方法的重要性体现在什么地方？"><span class="nav-number">9.</span> <span class="nav-text">hashCode()和equals()方法的重要性体现在什么地方？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap和Hashtable的区别"><span class="nav-number">10.</span> <span class="nav-text">HashMap和Hashtable的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组-Array-和列表-ArrayList-有什么区别？什么时候应该使用Array而不是ArrayList？"><span class="nav-number">11.</span> <span class="nav-text">数组(Array)和列表(ArrayList)有什么区别？什么时候应该使用Array而不是ArrayList？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Comparable和Comparator接口是干什么的？列出它们的区别"><span class="nav-number">12.</span> <span class="nav-text">Comparable和Comparator接口是干什么的？列出它们的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Java优先级队列-Priority-Queue-？"><span class="nav-number">13.</span> <span class="nav-text">什么是Java优先级队列(Priority Queue)？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashSet和TreeSet有什么区别？"><span class="nav-number">14.</span> <span class="nav-text">HashSet和TreeSet有什么区别？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常的分类"><span class="nav-number">15.</span> <span class="nav-text">异常的分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Overload和Override的区别"><span class="nav-number">16.</span> <span class="nav-text">Overload和Override的区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是java虚拟机？为什么java被称为”平台无关的编程语言”"><span class="nav-number">1.</span> <span class="nav-text">什么是java虚拟机？为什么java被称为”平台无关的编程语言”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK和JRE有什么区别"><span class="nav-number">2.</span> <span class="nav-text">JDK和JRE有什么区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#static”关键字是什么意思？Java中是否可以覆盖-override-一个private或者是static的方法？"><span class="nav-number">3.</span> <span class="nav-text">static”关键字是什么意思？Java中是否可以覆盖(override)一个private或者是static的方法？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？"><span class="nav-number">4.</span> <span class="nav-text">Java中，什么是构造方法？什么是构造方法重载？什么是复制构造方法？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串"><span class="nav-number">5.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口和抽象类的区别是什么"><span class="nav-number">6.</span> <span class="nav-text">接口和抽象类的区别是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是值传递和引用传递"><span class="nav-number">7.</span> <span class="nav-text">什么是值传递和引用传递</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程和线程有什么区别"><span class="nav-number">8.</span> <span class="nav-text">进程和线程有什么区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hashMap工作原理"><span class="nav-number">9.</span> <span class="nav-text">hashMap工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hashCode-和equals-方法的重要性体现在什么地方？"><span class="nav-number">10.</span> <span class="nav-text">hashCode()和equals()方法的重要性体现在什么地方？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap和Hashtable的区别"><span class="nav-number">11.</span> <span class="nav-text">HashMap和Hashtable的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组-Array-和列表-ArrayList-有什么区别？什么时候应该使用Array而不是ArrayList？"><span class="nav-number">12.</span> <span class="nav-text">数组(Array)和列表(ArrayList)有什么区别？什么时候应该使用Array而不是ArrayList？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Comparable和Comparator接口是干什么的？列出它们的区别"><span class="nav-number">13.</span> <span class="nav-text">Comparable和Comparator接口是干什么的？列出它们的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Java优先级队列-Priority-Queue-？"><span class="nav-number">14.</span> <span class="nav-text">什么是Java优先级队列(Priority Queue)？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashSet和TreeSet有什么区别？"><span class="nav-number">15.</span> <span class="nav-text">HashSet和TreeSet有什么区别？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常的分类"><span class="nav-number">16.</span> <span class="nav-text">异常的分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Overload和Override的区别"><span class="nav-number">17.</span> <span class="nav-text">Overload和Override的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#clone"><span class="nav-number">18.</span> <span class="nav-text">clone</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是反射机制"><span class="nav-number">19.</span> <span class="nav-text">什么是反射机制</span></a></li></ol></div>
             
 
           </div>

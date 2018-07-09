@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-编程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="树数的最小深度 public int run(TreeNode root) {     if(root==null){         return 0;     }     int nleft=run(root.left);     int nright=run(root.right);     if(nleft==0||nright==0)         return nleft+1+nri">
+<meta name="keywords" content="-编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="链表二叉树">
+<meta property="og:url" content="happyshell.top/blog/leetcode20180703/index.html">
+<meta property="og:site_name" content="Blog Of Huanglibei">
+<meta property="og:description" content="树数的最小深度 public int run(TreeNode root) {     if(root==null){         return 0;     }     int nleft=run(root.left);     int nright=run(root.right);     if(nleft==0||nright==0)         return nleft+1+nri">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-04T13:52:05.773Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="链表二叉树">
+<meta name="twitter:description" content="树数的最小深度 public int run(TreeNode root) {     if(root==null){         return 0;     }     int nleft=run(root.left);     int nright=run(root.right);     if(nleft==0||nright==0)         return nleft+1+nri">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="happyshell.top/blog/leetcode20180703/"/>
+
+
+
+
+
+  <title>链表二叉树 | Blog Of Huanglibei</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog Of Huanglibei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">快乐贝壳</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/leetcode20180703/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">链表二叉树</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-03T19:41:53+08:00">
+                2018-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程题/" itemprop="url" rel="index">
+                    <span itemprop="name">编程题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><h2 id="数的最小深度"><a href="#数的最小深度" class="headerlink" title="数的最小深度"></a>数的最小深度</h2><pre><code> public int run(TreeNode root) {
+    if(root==null){
+        return 0;
+    }
+    int nleft=run(root.left);
+    int nright=run(root.right);
+    if(nleft==0||nright==0)
+        return nleft+1+nright;  //这里要考虑斜树的状态
+                若左子树为空，则返回右子树的最小深度+1；
+                （加1是因为要加上根这一层，下同）
+                若右子树为空，则返回左子树的最小深度+1；
+
+    return Math.min(nleft,nright)+1;
+}
+
+按层遍历，第一个叶子节点就是最短路径
+
+ public int run(TreeNode root) {
+    if(root==null){
+        return 0;
+    }
+    int level=1;
+    TreeNode last=root;
+    LinkedList&lt;TreeNode&gt; q= new LinkedList();
+    int nowLine=1;int nextLine=0;
+    q.add(root);
+    while(!q.isEmpty()){
+        TreeNode now=q.poll();
+        nowLine--;
+        if(now.left==null&amp;&amp;now.right==null)
+            break;
+        if(now.left!=null){
+            q.add(now.left);
+            nextLine++;
+        }
+        if(now.right!=null){
+            q.add(now.right);
+            nextLine++;
+        }
+        if(nowLine==0){
+            level++;
+            nowLine=nextLine;
+            nextLine=0;
+        }
+    }
+    return level;
+}
+</code></pre><h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="从尾到头打印链表"><a href="#从尾到头打印链表" class="headerlink" title="从尾到头打印链表"></a>从尾到头打印链表</h2><p>利用栈后进先出的特点</p>
+<pre><code>public ArrayList&lt;Integer&gt; printListFromTailToHead(ListNode listNode) {
+ArrayList&lt;Integer&gt; arr=new ArrayList&lt;Integer&gt;();
+Stack&lt;Integer&gt; s=new Stack();
+while(listNode!=null){
+    s.push(listNode.val);
+    listNode=listNode.next;
+}
+ while (!s.isEmpty()) {
+    arr.add(s.pop());
+}
+
+return arr;
+}    
+</code></pre><h2 id="链表中倒数第K个点的值"><a href="#链表中倒数第K个点的值" class="headerlink" title="链表中倒数第K个点的值"></a>链表中倒数第K个点的值</h2><pre><code>public ListNode FindKthToTail(ListNode head,int k) {
+ if(k&lt;1|head==null){
+       return  null;
+   }
+   ListNode p1=head;
+   ListNode p2=head;
+   for(int i=0;i&lt;k-1&amp;&amp;p1!=null;i++){//让p1先走k-1步，为null时，说明长度不符合
+       p1=p1.next;
+       if(p1==null){
+           return null;
+       }
+   }
+   while(p1.next!=null){  //p1，p2一起走，p1走到末尾时p2就是倒数第K个值
+       p1=p1.next;
+       p2=p2.next;
+   }
+   return p2;
+</code></pre><h2 id="俩个合并的链表"><a href="#俩个合并的链表" class="headerlink" title="俩个合并的链表"></a>俩个合并的链表</h2><p>输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。</p>
+<pre><code>递归：每次都是表一和表2的值相比
+public ListNode Merge(ListNode list1,ListNode list2) {
+   if(list1 == null){
+       return list2;//结束条件，俩个表有一个为空了
+   }
+   if(list2 == null){
+       return list1;
+   }
+   if(list1.val &lt;= list2.val){
+       list1.next = Merge(list1.next, list2);
+       return list1;//每次list.next不是在表一就是在表二，所以可以递归实现在
+                       在每下一次递归时决定list.next是哪一个值
+   }else{
+       list2.next = Merge(list1, list2.next);
+       return list2;
+   }       
+</code></pre><p>   }</p>
+<pre><code>非递归：
+需要一个当前节点来记录最新的连接点，list1和list2每次更新比较
+1 3 5 7
+2 4 8
+current为1，list1为3，list2为2，2&lt;3
+current.next=2, current=2, list2=4,3和4比..一直循环
+
+       if(list1 == null){
+        return list2;
+    }
+    if(list2 == null){
+        return list1;
+    }
+    ListNode mergeHead = null;
+    ListNode current = null;     
+    while(list1!=null &amp;&amp; list2!=null){
+        if(list1.val &lt;= list2.val){
+            if(mergeHead == null){
+               mergeHead = current = list1;//这里为什么要用俩个节点，因为
+                    merge最后返回的是头结点，current是随时变化用来记录当前节点位置
+            }else{
+               current.next = list1;//当list1&lt;list2时，当前节点后连list1
+               current = current.next;  //然后当前节点更新到最新位置
+            }
+            list1 = list1.next;//   list1跳到下一个继续循环
+        }else{
+            if(mergeHead == null){
+               mergeHead = current = list2;
+            }else{
+               current.next = list2;
+               current = current.next;
+            }
+            list2 = list2.next;
+        }
+    }
+    if(list1 == null){
+        current.next = list2;
+    }else{
+        current.next = list1;
+    }
+    return mergeHead;
+</code></pre><h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a>复杂链表的复制</h2><pre><code> public RandomListNode Clone(RandomListNode pHead)
+{
+    if(pHead==null)
+        return null;
+    RandomListNode pcur=pHead;
+//第一步：复制next节点，如原来是A-&gt;B-&gt;C 变成A-&gt;A&apos;-&gt;B-&gt;B&apos;-&gt;C-&gt;C&apos;
+    while(pcur!=null){
+        RandomListNode temp=new RandomListNode(pcur.label);新建复制节点
+        temp.next=pcur.next;   
+        pcur.next=temp;     //将复制节点插入到原链表中
+        pcur=temp.next;     //移动节点继续复制
+    }
+    pcur=pHead;       //重新指向头结点
+//第二步：复制随机节点
+    while(pcur!=null){
+        if(pcur.random!=null){
+            pcur.next.random=pcur.random.next;  //随机节点复制（画图演示）
+        }
+        pcur=pcur.next.next;
+    }
+//第三部：链表的拆分
+    pcur=pHead;   //重新指向头结点
+    RandomListNode cloneHead=pHead.next;//用来返回的新节点头指针
+    RandomListNode cur=cloneHead;  //用来操作的可变换的节点指针
+    while(pcur!=null){
+    //A-&gt;A&apos;-&gt;B-&gt;B&apos;-&gt;C-&gt;C&apos;，所以拆分的时候隔俩个
+        pcur.next=pcur.next.next;  //
+        if(cur.next!=null)
+            cur.next=cur.next.next;
+        pcur=pcur.next;
+        cur=cur.next;
+    }
+    return cloneHead;
+}
+</code></pre><h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><pre><code> public ListNode ReverseList(ListNode head) {
+       ListNode p=head;  //记录当前节点
+       ListNode result=null;//记录最终返回节点，用来指向最后一个节点
+       ListNode pre=null;  //用来记录每次断开后的前一个节点
+       while(p!=null){
+            ListNode next=p.next;  //用来记录下一个节点，因为反转后链表断开了
+            if(next==null)
+                result=p;      //后节点为空时，说明是最后一个节点，可以在最后返回
+            p.next=pre;      //当前节点的下一节点应该是前一个节点
+            pre=p;           //更新下一次准备的前节点
+            p=next;          //更新当前节点为之前记录的next节点
+    }
+    return result;
+}
+</code></pre><h2 id="链表的环及入口"><a href="#链表的环及入口" class="headerlink" title="链表的环及入口"></a>链表的环及入口</h2><pre><code>判断是否有环并返回相遇节点。
+ public ListNode isLoop(ListNode pHead)
+{
+    if(pHead==null||pHead.next==null)
+        return null;
+     ListNode p1=pHead;
+     ListNode p2=pHead;
+     while(p1!=null&amp;&amp;p2!=null){
+         p1=p1.next;
+         p2=p2.next.next;
+         if(p1==p2)     //有环迟早会相遇  
+             return p2;
+     }
+     return null;
+}
+//找到入口节点
+public ListNode EntryNodeOfLoop(ListNode pHead){
+    ListNode mNode=isLoop(pHead);//先找到相遇节点
+    ListNode p1=mNode;         
+    if(p1==null)
+        return null;
+    ListNode p2=pHead;         //在设置一个指针指向头结点
+    while(p1!=p2){              //开始同步走，再次相遇就是入口节点
+        p1=p1.next;
+        p2=p2.next;
+    }
+    return p1;
+}
+</code></pre><h2 id="俩个链表的第一个公共节点"><a href="#俩个链表的第一个公共节点" class="headerlink" title="俩个链表的第一个公共节点"></a>俩个链表的第一个公共节点</h2><pre><code>第一步先计算俩个链表的长度，然后长度长的链表节点先走(len1-len2)步，此时俩个节点距离相
+交节点距离相同。然后开始一起走，直到遇到相同节点
+ public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
+ if(pHead1==null||pHead2==null){
+         return null;
+     }
+     int len1=1,len2=1;
+     1.计算长度
+     ListNode tail1=pHead1;
+     while(tail1.next!=null){
+         tail1=tail1.next;
+         len1++;
+     }
+     ListNode tail2=pHead2;
+     while(tail2.next!=null){
+         tail2=tail2.next;
+         len2++;
+     }
+     if(tail1!=tail2){
+         return null;
+     }
+     2.快的先走len1-len步
+     ListNode t1=pHead1,t2=pHead2;
+     if(len1&gt;len2){
+         int d=len1-len2;
+         while(d!=0){
+             t1=t1.next;
+             d--;
+         }
+     }else{
+         int d=len2-len1;
+         while(d!=0){
+             t2=t2.next;
+             d--;
+         }
+     }
+    3.起步相同然后一起走
+     while(t1!=t2){
+         t1=t1.next;
+         t2=t2.next;
+     }
+    return t1;
+    }
+</code></pre><h2 id="删除重复节点"><a href="#删除重复节点" class="headerlink" title="删除重复节点"></a>删除重复节点</h2><pre><code>保留原始节点去重：
+public void delete(Node head){
+    Node p=head;
+    while(p!=null){    //外循环，从头到尾
+        Node q=p;
+        while(q.next!=null){//内循环，每次遍历当前节点之后所有节点，有重复去除
+            if(p.data==q.next.data)
+                q.next=q.next.next;
+            else
+                q=q.next;
+        }
+        p=p.next;
+    }
+}
+
+对一个排序链表去重，不保留重复节点链表1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5 处理后为 1-&gt;2-&gt;5
+ public ListNode deleteDuplication(ListNode pHead)
+{
+    ListNode first=new ListNode(-1);  //防止头结点丢失
+    first.next=pHead;         
+    ListNode cur=first;     //用来记录当前确认没有重复的节点，如上面的1，2，5
+    ListNode p=pHead;       //用来遍历每一个节点，有重复就跳过
+    while(p!=null&amp;&amp;p.next!=null){
+        if(p.val==p.next.val){
+            int val=p.val;   
+            while(p!=null&amp;&amp;p.val==val) //有重复节点跳过
+                p=p.next;
+            cur.next=p;              //连接到新的数值，如2跳过3连到4
+        }else{
+            cur=cur.next;           //前后节点不重复，cur可以后移位置
+            p=p.next;               p每次都要后移判断，直到遍历完成
+        }
+    }
+     return first.next;      
+}
+</code></pre><h2 id="链表排序"><a href="#链表排序" class="headerlink" title="链表排序"></a>链表排序</h2><p>插入排序</p>
+<pre><code>public ListNode insertionSortList(ListNode head) {
+
+ListNode dumy = new ListNode(Integer.MIN_VALUE);//创建新链表
+ListNode cur = head;     
+ListNode pre = dumy;
+while (cur != null) {
+    //保存当前节点下一个节点
+    ListNode next = cur.next;
+    pre = dumy;//每次都从最开始的起点遍历
+    //寻找当前节点正确位置的一个节点
+    while (pre.next != null &amp;&amp; pre.next.val &lt; cur.val) {
+        pre = pre.next;
+    }
+    //将当前节点加入新链表中
+    cur.next = pre.next;
+    pre.next = cur;
+    //处理下一个节点
+    cur = next;
+}
+return dumy.next;
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># -编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/IO流20180625/" rel="next" title="IO流">
+                <i class="fa fa-chevron-left"></i> IO流
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/排序20180709/" rel="prev" title="8种排序方法">
+                8种排序方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanglibei</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#树"><span class="nav-number">1.</span> <span class="nav-text">树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数的最小深度"><span class="nav-number">1.1.</span> <span class="nav-text">数的最小深度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链表"><span class="nav-number">2.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#从尾到头打印链表"><span class="nav-number">2.1.</span> <span class="nav-text">从尾到头打印链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表中倒数第K个点的值"><span class="nav-number">2.2.</span> <span class="nav-text">链表中倒数第K个点的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#俩个合并的链表"><span class="nav-number">2.3.</span> <span class="nav-text">俩个合并的链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复杂链表的复制"><span class="nav-number">2.4.</span> <span class="nav-text">复杂链表的复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反转链表"><span class="nav-number">2.5.</span> <span class="nav-text">反转链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的环及入口"><span class="nav-number">2.6.</span> <span class="nav-text">链表的环及入口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#俩个链表的第一个公共节点"><span class="nav-number">2.7.</span> <span class="nav-text">俩个链表的第一个公共节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除重复节点"><span class="nav-number">2.8.</span> <span class="nav-text">删除重复节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表排序"><span class="nav-number">2.9.</span> <span class="nav-text">链表排序</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huanglibei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">快乐贝壳</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

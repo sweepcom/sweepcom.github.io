@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="Welcome to my blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Blog Of Huanglibei">
-<meta property="og:url" content="happyshell.top/archives/index.html">
+<meta name="description" content="HashSetpublic class HashSet&amp;lt;E&amp;gt; extends AbstractSet&amp;lt;E&amp;gt; implements Set&amp;lt;E&amp;gt;, Cloneable, java.io.Serializable HashSet底层是HashMap实现 我们知道，HashMap中key值是不能“重复”的（这个是否重复是通过hashcode和equals比较出来的，这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Set子类的实现">
+<meta property="og:url" content="happyshell.top/blog/Set底层实现20180620/index.html">
 <meta property="og:site_name" content="Blog Of Huanglibei">
-<meta property="og:description" content="Welcome to my blog">
+<meta property="og:description" content="HashSetpublic class HashSet&amp;lt;E&amp;gt; extends AbstractSet&amp;lt;E&amp;gt; implements Set&amp;lt;E&amp;gt;, Cloneable, java.io.Serializable HashSet底层是HashMap实现 我们知道，HashMap中key值是不能“重复”的（这个是否重复是通过hashcode和equals比较出来的，这">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-20T08:27:16.138Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Blog Of Huanglibei">
-<meta name="twitter:description" content="Welcome to my blog">
+<meta name="twitter:title" content="Set子类的实现">
+<meta name="twitter:description" content="HashSetpublic class HashSet&amp;lt;E&amp;gt; extends AbstractSet&amp;lt;E&amp;gt; implements Set&amp;lt;E&amp;gt;, Cloneable, java.io.Serializable HashSet底层是HashMap实现 我们知道，HashMap中key值是不能“重复”的（这个是否重复是通过hashcode和equals比较出来的，这">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="happyshell.top/archives/"/>
+  <link rel="canonical" href="happyshell.top/blog/Set底层实现20180620/"/>
 
 
 
 
 
-  <title>归档 | Blog Of Huanglibei</title>
+  <title>Set子类的实现 | Blog Of Huanglibei</title>
   
 
 
@@ -143,7 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -247,411 +248,212 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/Set底层实现20180620/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Set子类的实现</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T15:44:08+08:00">
+                2018-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 20 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/排序20180709/" itemprop="url">
-              
-                <span itemprop="name">8种排序方法</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-09T15:07:30+08:00"
-              content="2018-07-09" >
-          07-09
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/leetcode20180703/" itemprop="url">
-              
-                <span itemprop="name">链表二叉树</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-03T19:41:53+08:00"
-              content="2018-07-03" >
-          07-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/IO流20180625/" itemprop="url">
-              
-                <span itemprop="name">IO流</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-25T20:05:55+08:00"
-              content="2018-06-25" >
-          06-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
+        <h1 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h1><pre><code>public class HashSet&lt;E&gt;
+extends AbstractSet&lt;E&gt;
+implements Set&lt;E&gt;, Cloneable, java.io.Serializable
+</code></pre><p>HashSet底层是HashMap实现</p>
+<p>我们知道，HashMap中key值是不能“重复”的（这个是否重复是通过hashcode和equals比较出来的，这是一个值得探讨的问题），HashSet正是借鉴了HashMap的key的这样一个特性，以此产生了这样一个不能包含重复数据的集合。</p>
+<p>HashSet 源代码详解</p>
+<p>第一： 构造函数，可以看到其构造函数内部是new了一个HashMap， 所以HashSet 的底层实现是通过HashMap实现的</p>
+<pre><code>public HashSet() {
+    map = new HashMap&lt;&gt;();
+}
+</code></pre><p>第二： add方法，可以看到，它是通过map的put方法放进去的，里面有两个参数，一个是e：我们传进去的对象，另外一个是一个常量对象。</p>
+<pre><code>public boolean add(E e) {
+    return map.put(e, PRESENT)==null;
+}
+</code></pre><p>让我们看一下那个常量对象是什么？可以看到是一个static finnal的对象，意味着HashSet的add方法总是将我们传进去的对象作为Key 值，把那个静态的对象作为value值，value值都是一一致的。</p>
+<pre><code>private static final Object PRESENT = new Object();
+</code></pre><p>所以我们可以看到它的get方法，（错误，Set没有get方法），所以我们需要查看它的Iterator方法：返回的是map的key值的集合。</p>
+<pre><code>public Iterator&lt;E&gt; iterator() {
+    return map.keySet().iterator();
+}
+</code></pre><p>因此分析HashSet 的底层实现就是要搞懂HashMap的底层实现</p>
+<h2 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h2><p>类似于HashMap和HashSet之间的关系，HashSet底层依赖于HashMap实现，TreeSet底层则采用一个NavigableMap来保存TreeSet集合的元素。但实际上，由于NavigableMap只是一个接口，因此底层依然是使用TreeMap来包含Set集合中的所有元素。</p>
+<pre><code>public TreeSet() {                                  // ①
+    // 以自然顺序方式创建一个新的TreeMap,根据该TreeSet创建一个TreeSet
+this(new TreeMap&lt;E,Object&gt;());
+}
 
-        
-        
-        
+public TreeSet(Comparator&lt;? super E&gt; comparator) {  // ②
+    // 以定制顺序方式创建一个新的TreeMap,根据该TreeSet创建一个TreeSet
+// 使用该TreeMap的key来保存Set集合的元素
+this(new TreeMap&lt;E,Object&gt;(comparator));
+}
 
-        
-        
+public boolean add(E e) {
+    return m.put(e, PRESENT)==null;
+}
 
-        
+// 使用NavigableMap的key来保存Set集合的元素
+private transient NavigableMap&lt;E,Object&gt; m;
+// 使用一个PRESENT作为Map集合的所有value
+private static final Object PRESENT = new Object();
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/多线程20180625/" itemprop="url">
-              
-                <span itemprop="name">多线程基础</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-25T20:05:55+08:00"
-              content="2018-06-25" >
-          06-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+// 包访问权限的构造器，以指定的NavigableMap对象创建Set集合
+TreeSet(NavigableMap&lt;E,Object&gt; m) {
+    this.m = m；
+}
+</code></pre>
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/计算机网络20180621/" itemprop="url">
-              
-                <span itemprop="name">计算机网络</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-21T12:00:07+08:00"
-              content="2018-06-21" >
-          06-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/map底层实现20180620/" itemprop="url">
-              
-                <span itemprop="name">Map子类的实现</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-20T15:44:08+08:00"
-              content="2018-06-20" >
-          06-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/Set底层实现20180620/" itemprop="url">
-              
-                <span itemprop="name">Set子类的实现</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-20T15:44:08+08:00"
-              content="2018-06-20" >
-          06-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/list底层实现20180615/" itemprop="url">
-              
-                <span itemprop="name">List子类的实现</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-15T16:24:53+08:00"
-              content="2018-06-15" >
-          06-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/java面试小结20180601/" itemprop="url">
-              
-                <span itemprop="name">面试小结</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-01T20:52:37+08:00"
-              content="2018-06-01" >
-          06-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/剑指offer20180601/" itemprop="url">
-              
-                <span itemprop="name">剑指OFFER</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-01T20:52:28+08:00"
-              content="2018-06-01" >
-          06-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/list底层实现20180615/" rel="next" title="List子类的实现">
+                <i class="fa fa-chevron-left"></i> List子类的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/map底层实现20180620/" rel="prev" title="Map子类的实现">
+                Map子类的实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -659,6 +461,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -679,8 +485,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -740,6 +555,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HashSet"><span class="nav-number">1.</span> <span class="nav-text">HashSet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TreeSet"><span class="nav-number">1.1.</span> <span class="nav-text">TreeSet</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -873,6 +704,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="动态规划定义动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划 动态规划实际上是一类题目的总称，并不是指某个固定的算法。动态规划的意义就是通过采用递推（或者分而治之）的策略，通过解决大问题的子问题从而解决整体的做法。动态规划的核心思想是巧妙的将问题拆分成多个子问题，通过计算子问题而得到整体问">
+<meta name="description" content="冒泡排序public void maopao(int[] arr){     for(int i=0;i&amp;lt;arr.length;i++){         for(int j=0;j&amp;lt;arr.length-i-1;j++){             if(arr[j]&amp;gt;arr[j+1]){                 int temp=arr[j];">
 <meta property="og:type" content="article">
-<meta property="og:title" content="动态规划">
-<meta property="og:url" content="happyshell.top/blog/动态规划20180519/index.html">
+<meta property="og:title" content="8种排序方法">
+<meta property="og:url" content="happyshell.top/blog/排序20180709/index.html">
 <meta property="og:site_name" content="Blog Of Huanglibei">
-<meta property="og:description" content="动态规划定义动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划 动态规划实际上是一类题目的总称，并不是指某个固定的算法。动态规划的意义就是通过采用递推（或者分而治之）的策略，通过解决大问题的子问题从而解决整体的做法。动态规划的核心思想是巧妙的将问题拆分成多个子问题，通过计算子问题而得到整体问">
+<meta property="og:description" content="冒泡排序public void maopao(int[] arr){     for(int i=0;i&amp;lt;arr.length;i++){         for(int j=0;j&amp;lt;arr.length-i-1;j++){             if(arr[j]&amp;gt;arr[j+1]){                 int temp=arr[j];">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-28T12:31:21.227Z">
+<meta property="og:image" content="https://i.imgur.com/dWjpAn8.jpg">
+<meta property="og:updated_time" content="2018-07-09T07:15:40.294Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="动态规划">
-<meta name="twitter:description" content="动态规划定义动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划 动态规划实际上是一类题目的总称，并不是指某个固定的算法。动态规划的意义就是通过采用递推（或者分而治之）的策略，通过解决大问题的子问题从而解决整体的做法。动态规划的核心思想是巧妙的将问题拆分成多个子问题，通过计算子问题而得到整体问">
+<meta name="twitter:title" content="8种排序方法">
+<meta name="twitter:description" content="冒泡排序public void maopao(int[] arr){     for(int i=0;i&amp;lt;arr.length;i++){         for(int j=0;j&amp;lt;arr.length-i-1;j++){             if(arr[j]&amp;gt;arr[j+1]){                 int temp=arr[j];">
+<meta name="twitter:image" content="https://i.imgur.com/dWjpAn8.jpg">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="happyshell.top/blog/动态规划20180519/"/>
+  <link rel="canonical" href="happyshell.top/blog/排序20180709/"/>
 
 
 
 
 
-  <title>动态规划 | Blog Of Huanglibei</title>
+  <title>8种排序方法 | Blog Of Huanglibei</title>
   
 
 
@@ -262,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/动态规划20180519/">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/排序20180709/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Huanglibei">
@@ -279,7 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">动态规划</h1>
+          <h1 class="post-title" itemprop="name headline">8种排序方法</h1>
         
 
         <div class="post-meta">
@@ -291,8 +293,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-19T17:28:03+08:00">
-                2018-05-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-09T15:07:30+08:00">
+                2018-07-09
               </time>
             
 
@@ -351,170 +353,151 @@
       
 
       
-        <h1 id="动态规划定义"><a href="#动态规划定义" class="headerlink" title="动态规划定义"></a>动态规划定义</h1><p>动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划</p>
-<p>动态规划实际上是一类题目的总称，并不是指某个固定的算法。动态规划的意义就是通过采用递推（或者分而治之）的策略，通过解决大问题的子问题从而解决整体的做法。动态规划的核心思想是巧妙的将问题拆分成多个子问题，通过计算子问题而得到整体问题的解。而子问题又可以拆分成更多的子问题，从而用类似递推迭代的方法解决要求的问题。</p>
-<p><strong>动态规划的应用场景</strong></p>
-<p>对于一个可拆分问题中存在可以由前若干项计算当前项的问题可以由动态规划计算。<br>能用动态规划计算的问题存在一种递推的连带关系。</p>
-<p>分析问题时需要进行状态转换，分解问题，分解成自己能够解决的问题</p>
-<p>例：题目：求一个数列中最大连续子序列的和。</p>
-<p>原问题转化为：Fk是第k项前的最大序列和，求F1～FN中最大值。</p>
-<p>#动态规划的应用举例 #</p>
-<h2 id="数塔取数问题"><a href="#数塔取数问题" class="headerlink" title="数塔取数问题"></a>数塔取数问题</h2><p>一个高度为N的由正整数组成的三角形，从上走到下，求经过的数字和的最大值。<br>每次只能走到下一层相邻的数上，例如从第3层的6向下走，只能走到第4层的2或9上。</p>
-<pre><code>该三角形第n层有n个数字，例如：
+        <p><img src="https://i.imgur.com/dWjpAn8.jpg" alt=""></p>
+<h1 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h1><pre><code>public void maopao(int[] arr){
+    for(int i=0;i&lt;arr.length;i++){
+        for(int j=0;j&lt;arr.length-i-1;j++){
+            if(arr[j]&gt;arr[j+1]){
+                int temp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=temp;
+            }
+        }
+    }
+}
+</code></pre><h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><p>以升序为例，比如在一个长度为N的无序数组中，<br>在第一趟遍历N个数据，找出其中最小的数值与第一个元素交换，<br>第二趟遍历剩下的N-1个数据，找出其中最小的数值与第二个元素交换……<br>第N-1趟遍历剩下的2个数据，找出其中最小的数值与第N-1个元素交换，<br>至此选择排序完成。</p>
+<pre><code>public void selectsort(int[] arr){
+    for(int i=0;i&lt;arr.length;i++){
+        int min=arr[i]; //每一轮的第一个值作为初始最小值
+        int index=i;    //用来记录最小值的位置  
+        for(int j=i+1;j&lt;arr.length;j++){
+            if(arr[j]&lt;min){
+                min=arr[j];  //当前最小值
+                index=j;     //记录当前最小值的位置
+            }
+        }
+        if(index!=i){
+            arr[index]=arr[i];  //交换位置
+            arr[i]=min;
+        }
+    }
+}
+</code></pre><h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><p>像扑克摸牌一样，插入即表示将一个新的数据插入到一个有序数组中，并继续保持有序。例如有一个长度为N的无序数组，进行N-1次的插入即能完成排序；第一次，数组第1个数认为是有序的数组，将数组第二个元素插入仅有1个有序的数组中；第二次，数组前两个元素组成有序的数组，将数组第三个元素插入由两个元素构成的有序数组中……第N-1次，数组前N-1个元素组成有序的数组，将数组的第N个元素插入由N-1个元素构成的有序数组中，则完成了整个插入排序。</p>
+<pre><code>以下面5个无序的数据为例：
+65 27 59 64 58 （文中仅细化了第四次插入过程）
+第1次插入: 27 65 59 64 58
+第2次插入: 27 59 65 64 58
+第3次插入: 27 59 64 65 58
+第4次插入: 27 58 59 64 65
 
-第一层有一个数字：       5
+public void insertsort(int[] arr){
+    for(int i=1;i&lt;arr.length;i++){ //每次当作插入一个新的值，从第二个数开始插入
+        int key=arr[i];            //本次循环要插入的值
+        int j=i;                   //插入值的位置
 
-第二层有两个数字：      8 4
+        while(j&gt;=0&amp;&amp;arr[j-1]&gt;key){//查找要插入的位置,循环结束时则找到插入位置j 
+            arr[j]=arr[j-1];     //移动元素的位置.供要插入元素使用  
+            j--;
+        }
 
-第三层有三个数字：     3 6 9
+        arr[j]=key;          //插入指定元素到指定位置  
+    }
+}
+</code></pre><h1 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h1><pre><code>将待排序的数组分成多个子序列，然后对各个子序列进行直接插入排序，待所有排列基本有序后，
+最后对所有元素进行一次直接插入排序
+</code></pre><p>希尔排序是按照不同步长对元素进行插入排序，当刚开始元素很无序的时候，步长最大，所以插入排序的元素个数很少，速度很快；当元素基本有序了，步长很小，插入排序对于有序的序列效率很高。所以，希尔排序的时间复杂度会比o(n^2)好一些。由于多次插入排序，我们知道一次插入排序是稳定的，不会改变相同元素的相对顺序，但在不同的插入排序过程中，相同的元素可能在各自的插入排序中移动，最后其稳定性就会被打乱，所以shell排序是不稳定的。</p>
+<pre><code>public void shellsort(int[] arr){
+    int gap=arr.length/2;   //初始分步设置
+    int temp;
+    while(gap&gt;0){  //步长最后要成为1进行一下直接插入排序
+        for(int i=gap;i&lt;arr.length;i++){ //
+            temp=arr[i];  //当前插入值，类似与插入排序，从第二个值开始插入
+                            arr[0]是第一个值，arr[gap]是第二个值
+            int j=i-gap;  //插入值的前一个值
+            while(j&gt;=0&amp;&amp;arr[j]&gt;temp){//当插入值比之前的值小的时候
+                arr[j+gap]=arr[j];    //移动元素的位置
+                j=j-gap;        //继续循环看之前有没有比插入值小的值
+            }
+            arr[j+gap]=temp;最后得到的j+gap就是最后要插入的位置
+        }
+        gap/=2;
+    }
+}
+</code></pre><h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>快速排序是C.R.A.Hoare于1962年提出的一种划分交换排序。它采用了一种分治的策略，该方法的基本思想是：</p>
+<pre><code>1．先从数列取出一个数作为基准元。//可自行确认
+2．分区过程，将比这个数大的数全放到它的右边，小于或等于它的数全放到它的左边。
+3．再对左右区间重复第二步，直到各区间只有一个数。
+</code></pre><p>挖坑法：</p>
+<p> 思路是先将最左边的值保存下来，作为key值。这时候最右边的值被取出去，最右边就相当于有了一个坑，我们从左向右进行遍历，找到一个比key大的数就把它填到这个坑里，这时候坑就相当于之前大数的位置，我们又从右向左进行遍历找比key小的数，找到后再次填到坑里。依次类推</p>
+<pre><code>public void test1(){
+    int [] arr={3,1,5,2,9,8,4,6,7};
+    quicksort(arr,0,arr.length-1);
+    System.out.println(Arrays.toString(arr));
+}
+第一步：key=arr[0]=3作为关键字，此时arr[0]成为了一个坑
+第二步：从最右边开始寻找比3小的值，最后寻找到2，角标right=3，将值2赋给arr[0]，
+       此时结果为：2，1，5，2，9，8，4，6，7，然后arr[right]=2为新的坑
+第三步：从左边left++开始寻找比key大的值，最后寻找到5，将5赋予之前的坑
+        arr[right--]=arr[left]即arr[3]=5，然后arr[2]=5为新的坑
+        此时结果为2，1，5，5，9，8，4，6，7
+第四步：循环后left=right，执行arr[left]=key，将key填入最后的坑中
+        2，1，3，5，9，8，4，6，7，第一次划分就完成了
 
-第四层有四个数字：    7 2 9 5
+public void quicksort(int[] arr,int low,int high){
+    int left=low;
+    int right=high;
+    if(left&gt;=right) //左边大于等右边时退出循环
+        return;
+    int key=arr[left];  //首次将坑设置到数组的最左边，也就是用来排序的值
+    while(left&lt;right){
+        while(left&lt;right&amp;&amp;arr[right]&gt;key) //寻找右边比key小的坐标，大的原地不动
+            right--;    //
+        if(left&lt;right)
+            arr[left++]=arr[right];  //在右边找到比key小的值后，把值添加到‘坑’里
+                            这里left坑被填后，需要角标后移，开始下一步寻找
+        while(left&lt;right&amp;&amp;arr[left]&lt;key)//然后寻找左边比key大的值
+            left++;
+        if(left&lt;right)
+            arr[right--]=arr[left]; //之前的right已经赋予了坑，所以这是一个新的坑
+                                     将找到比key大的值放在这里
+    }
+    arr[left]=key;    //循环结束后，把key放入坑中，就得到左边比key小，右边比key大了
+    quicksort(arr,low,left-1);  继续递归下去
+    quicksort(arr,left+1,high);
+}
+</code></pre><h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><pre><code>public static void main(String[] args) {
+     int[] arr={3,1,5,7,85,9,4,6};
+      int[] temp=new int[arr.length];//临时数组，用来暂时存储每次归并排序的值
+        mergeSort(arr,0,arr.length-1,temp);  
+       System.out.println(Arrays.toString(arr));
+}
 
-最优方案是：5 + 8 + 6 + 9 = 28
-
-状态定义: Fi，j是第i行j列项最大取数和，求第n行Fn，m（0 &lt; m &lt; n）中最大值。
-
-状态转移方程：Fi，j = max{Fi-1,j-1,Fi-1,j}+Ai,j
-</code></pre><p>上述解释可能还明白，看代码分析：</p>
-<pre><code>public static void main(String[] args) {
-   Scanner in = new Scanner(System.in);
-   int n = in.nextInt();
-   long max = 0;//用来获取最大路径
-   int[][] arr=new int[n][n];     //建立数组存放值
-   arr[0][0]=in.nextInt();        //将第一行值存入
-   for(int i=1;i&lt;n;i++){          //共几行，就循环几次
-       for(int j=0;j&lt;=i;j++){
-           int num=in.nextInt();
-           if(j==0){
-               arr[i][j]=arr[i-1][j]+num;//每行第一个值是上一行 第一个值加上给出的值
-           }else{
-               arr[i][j]=Math.max(arr[i-1][j-1], arr[i-1][j])+num;
-                //每行后面的值都取上一行相邻俩个值大的再加上新值
-           }
-           max=Math.max(arr[i][j], max);//每次都与max比较，时刻保持最大路径
-       }
-   }
-   System.out.println(max);
+public static void mergeSort(int arr[],int left,int right,int[] temp){
+    if(left&lt;right){
+        int mid=(left+right)/2;   
+        mergeSort(arr,left,mid,temp);  //一直二分
+        mergeSort(arr,mid+1,right,temp);
+        merge(arr,left,mid,right,temp);//最后从最底层开始归并
+    }
+}
+public static void merge(int[] arr,int left,int mid ,int right,int[] temp){
+    int i=left,j=mid+1,k=0;
+    while(i&lt;=mid&amp;&amp;j&lt;=right){
+        if(arr[i]&lt;=arr[j])
+            temp[k++]=arr[i++];
+        else
+            temp[k++]=arr[j++];
+    }
+    while(i&lt;=mid){
+        temp[k++]=arr[i++];
+    }
+    while(j&lt;=right){
+        temp[k++]=arr[j++];
+    }
+    k=0;
+    while(left&lt;=right)
+        arr[left++]=temp[k++];
 }    
-}
-
-解析：其实动态规划就是分解成多个子问题，问题是求最大路径，那么就把每一行的最大路径存进去
-     ，每次加入新的一行只需要获取前一行的值就可以了，不用在重新重头走一遍了
-如下
-
-                    三角形数字                    动态规划过程
-第一层有一个数字：       5                             5
-
-第二层有两个数字：      8 4                        13  9
-
-第三层有三个数字：     3 6 9                     16  19 18
-
-第四层有四个数字：    7 2 9 5                  23  21  28 23
-
-第一行直接存入5
-第二行存的是最路径的和（8+5）（4+5）
-第三行这里计算的时候，如（19）只需要原值6加上上一行相邻值的较大者13，得到19
-不需要在重新进行5+8+6的计算了
-所以每次得到的都是在那个点的最大路径值，分而治之。
-</code></pre><h2 id="矩阵取数问题"><a href="#矩阵取数问题" class="headerlink" title="矩阵取数问题"></a>矩阵取数问题</h2><p>一个N<em>N矩阵中有不同的正整数，经过这个格子，就能获得相应价值的奖励，从左上走到右下，只能向下向右走，求能够获得的最大价值。例如：3 </em> 3的方格。</p>
-<pre><code>1 3 3 
-2 1 3 
-2 2 1
-
-能够获得的最大价值为：11。
-
-解题思路同上
-public static void main(String[] args) {
-    Scanner in = new Scanner(System.in);
-    int n = in.nextInt();
-    int[][] arr = new int[n+1][n+1];//这里用n+1是为了下面的i-1=0时的角标存在，
-                                        不需要重新单独考虑，默认从角标1开始
-    int max=Integer.MIN_VALUE;
-    for(int i=1;i&lt;n+1;i++){
-        for(int j=1;j&lt;n+1;j++){
-            int num =in.nextInt();
-            if(i==1){
-                arr[i][j]=arr[i][j-1]+num;
-            }
-            else{
-                arr[i][j]=Math.max(arr[i][j-1], arr[i-1][j])+num;
-            }
-            max=Math.max(arr[i][j], max);
-        }
-    }
-    System.out.println(max);
-}
-</code></pre><h2 id="最长递增子序列"><a href="#最长递增子序列" class="headerlink" title="最长递增子序列"></a>最长递增子序列</h2><pre><code>给出长度为N的数组，找出这个数组的最长递增子序列。 
-(递增子序列是指，子序列的元素是递增的） 
-例如：5 1 6 8 2 4 5 10，最长递增子序列是1 2 4 5 10。
-
-O(n^2)
-public static void main(String[] args) {
-     Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
-        int[] A = new int[n];
-        for (int j = 0; j &lt; n; j++){
-            A[j] = in.nextInt();
-        }
-        int[] dp=new int[n];//用来存放每个数字的最长子序列长度
-        int max=0;
-        for(int i=0;i&lt;n;i++){
-            dp[i]=1;//每个数的初始序列长度是自身也就是1.
-            for(int j=0;j&lt;i;j++){
-                if(A[i]&gt;A[j]){
-                    dp[i]=Math.max(dp[i],dp[j]+1);//让比这个数小的所有值的子序列相比
-                                                    取最大值然后加1；
-                    max=Math.max(dp[i]，max）;
-            }     
-        }
-        }
-        System.out.println(max);
-}
-
-解析：A里面用来存放原始数组
-     dp里面用来存放以各自原始数值为末尾时的最小子串长度
-     这种方法时间复杂度O（n^2），类似与冒泡了，每次都要与之前的所有相比
-     例如8，上述程序要与5的最长子序列也就是1相比，要和1的子序列长度1比，要和6的子序列长
-     度2相比，但是其实只需要和6比了，在时间复杂度上做的不够，但是代码更加简洁
-</code></pre><p>O(nlogn)</p>
-<pre><code>public int findLongest(int[] A, int n) {
-        int[] B = new int[n+1]; B[1] = A[0];
-        int len=1,start=0,end=len,mid;
-        for(int i = 1;i&lt;n;i++){
-        if(A[i]&gt;B[len]) {
-            len++;
-            B[len] = A[i];
-        }
-        else{
-            start=1;end=len;
-            while(start&lt;=end){
-            mid=(start+end)/2;
-            if(B[mid]&lt;A[i]) start=mid+1;
-            else end=mid-1;
-            } 
-            B[start] = A[i];
-        }
-    }
-    }
-    return len;
-  ｝
-｝
-</code></pre><h2 id="求最大子段和"><a href="#求最大子段和" class="headerlink" title="求最大子段和"></a>求最大子段和</h2><p>例如：-2,11,-4,13,-5,-2，和最大的子段为：11,-4,13。和为20。</p>
-<pre><code>public static void main(String[] args) {
-     Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
-        long max=0;long summax=0;
-        for(int i=0;i&lt;n;i++){
-            summax+=in.nextLong();
-            if(summax&gt;max){//当最新字段大于之前字段时，更新max
-                max=summax;
-            }
-            if(summax&lt;0){当子段小于0时，重头开始计算
-                summax=0;
-            }
-        }
-        System.out.println(max);
-}   
 </code></pre>
       
     </div>
@@ -539,8 +522,8 @@ public static void main(String[] args) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/华为机试20180519/" rel="next" title="HUAWEI">
-                <i class="fa fa-chevron-left"></i> HUAWEI
+              <a href="/blog/leetcode20180703/" rel="next" title="链表二叉树">
+                <i class="fa fa-chevron-left"></i> 链表二叉树
               </a>
             
           </div>
@@ -548,10 +531,6 @@ public static void main(String[] args) {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/剑指offer20180601/" rel="prev" title="剑指OFFER">
-                剑指OFFER <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -683,7 +662,7 @@ public static void main(String[] args) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划定义"><span class="nav-number">1.</span> <span class="nav-text">动态规划定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数塔取数问题"><span class="nav-number">1.1.</span> <span class="nav-text">数塔取数问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵取数问题"><span class="nav-number">1.2.</span> <span class="nav-text">矩阵取数问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最长递增子序列"><span class="nav-number">1.3.</span> <span class="nav-text">最长递增子序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求最大子段和"><span class="nav-number">1.4.</span> <span class="nav-text">求最大子段和</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#冒泡排序"><span class="nav-number">1.</span> <span class="nav-text">冒泡排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择排序"><span class="nav-number">2.</span> <span class="nav-text">选择排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插入排序"><span class="nav-number">3.</span> <span class="nav-text">插入排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#希尔排序"><span class="nav-number">4.</span> <span class="nav-text">希尔排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速排序"><span class="nav-number">5.</span> <span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#归并排序"><span class="nav-number">6.</span> <span class="nav-text">归并排序</span></a></li></ol></div>
             
 
           </div>
