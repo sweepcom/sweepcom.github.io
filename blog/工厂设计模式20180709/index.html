@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="happyshell.top, sweepcom blog" />
+  <meta name="keywords" content="设计模式," />
 
 
 
@@ -79,17 +79,22 @@
 
 
 
-<meta name="description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta name="description" content="工厂模式分类1、简单工厂模式（simple factory):类的创建模式，又叫静态工厂方法（static factory method）模式。 简单工厂模式就是由一个工厂类根据传入的参数决定创建哪一种的产品类。 2、工厂方法模式（Factory Method）：一抽象产品类派生出多个具体产品类；一抽象工厂类派生出多个具体工厂类；每个具体工厂类只能创建一个具体产品类的实例。即定义一个创建对象的接口">
+<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="反射机制">
-<meta property="og:url" content="happyshell.top/blog/反射20180519/index.html">
+<meta property="og:title" content="工厂设计模式">
+<meta property="og:url" content="happyshell.top/blog/工厂设计模式20180709/index.html">
 <meta property="og:site_name" content="Blog Of Huanglibei">
-<meta property="og:description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta property="og:description" content="工厂模式分类1、简单工厂模式（simple factory):类的创建模式，又叫静态工厂方法（static factory method）模式。 简单工厂模式就是由一个工厂类根据传入的参数决定创建哪一种的产品类。 2、工厂方法模式（Factory Method）：一抽象产品类派生出多个具体产品类；一抽象工厂类派生出多个具体工厂类；每个具体工厂类只能创建一个具体产品类的实例。即定义一个创建对象的接口">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T07:17:17.984Z">
+<meta property="og:image" content="https://i.imgur.com/kGVkqnc.jpg">
+<meta property="og:image" content="https://i.imgur.com/zY94CZT.jpg">
+<meta property="og:image" content="https://i.imgur.com/v6wH4Pz.jpg">
+<meta property="og:updated_time" content="2018-07-09T14:42:56.212Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="反射机制">
-<meta name="twitter:description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta name="twitter:title" content="工厂设计模式">
+<meta name="twitter:description" content="工厂模式分类1、简单工厂模式（simple factory):类的创建模式，又叫静态工厂方法（static factory method）模式。 简单工厂模式就是由一个工厂类根据传入的参数决定创建哪一种的产品类。 2、工厂方法模式（Factory Method）：一抽象产品类派生出多个具体产品类；一抽象工厂类派生出多个具体工厂类；每个具体工厂类只能创建一个具体产品类的实例。即定义一个创建对象的接口">
+<meta name="twitter:image" content="https://i.imgur.com/kGVkqnc.jpg">
 
 
 
@@ -119,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="happyshell.top/blog/反射20180519/"/>
+  <link rel="canonical" href="happyshell.top/blog/工厂设计模式20180709/"/>
 
 
 
 
 
-  <title>反射机制 | Blog Of Huanglibei</title>
+  <title>工厂设计模式 | Blog Of Huanglibei</title>
   
 
 
@@ -262,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/反射20180519/">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/工厂设计模式20180709/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Huanglibei">
@@ -279,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">反射机制</h1>
+          <h1 class="post-title" itemprop="name headline">工厂设计模式</h1>
         
 
         <div class="post-meta">
@@ -291,8 +296,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-19T17:28:03+08:00">
-                2018-05-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-09T22:10:27+08:00">
+                2018-07-09
               </time>
             
 
@@ -314,8 +319,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaSE/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaSE</span>
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
 
@@ -351,10 +356,91 @@
       
 
       
-        <p>JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；<strong>这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。</strong><br>要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象.</p>
-<p><strong>反射就是把java类中的各种成分映射成一个个的Java对象</strong></p>
-<p>例如：一个类有：成员变量、方法、构造方法、包等等信息，利用反射技术可以对一个类进行解剖，把个个组成部分映射成一个个对象。</p>
+        <h1 id="工厂模式分类"><a href="#工厂模式分类" class="headerlink" title="工厂模式分类"></a>工厂模式分类</h1><p>1、简单工厂模式（simple factory):类的创建模式，又叫静态工厂方法（static factory method）模式。</p>
+<p>简单工厂模式就是由一个工厂类根据传入的参数决定创建哪一种的产品类。<br><img src="https://i.imgur.com/kGVkqnc.jpg" alt=""></p>
+<p>2、工厂方法模式（Factory Method）：一抽象产品类派生出多个具体产品类；一抽象工厂类派生出多个具体工厂类；<strong>每个具体工厂类只能创建一个具体产品类的实例</strong>。即定义一个创建对象的接口（即抽象工厂类），让其子类（具体工厂类）决定实例化哪一个类（具体产品类）。<strong>工厂与产品是“一对一”的关系</strong>。</p>
+<p><img src="https://i.imgur.com/zY94CZT.jpg" alt=""></p>
+<p>3、抽象工厂模式（Abstract Factory）：多个抽象产品类，派生出多个具体产品类；一个抽象工厂类，派生出多个具体工厂类；每个具体工厂类可创建多个具体产品类的实例。即提供一个创建一系列相关或相互依赖对象的接口，而无需指定他们的具体的类。<strong>工厂与产品是“一对多”的关系。</strong></p>
+<p><img src="https://i.imgur.com/v6wH4Pz.jpg" alt=""></p>
+<pre><code>简单优缺点分析
+简单工厂方法
+优点：调用的客户端不需要修改代码。
+缺点： 当需要增加新的运算类的时候，不仅需新加运算类，还要修改工厂类，违反了开闭原则。
+工厂方法模式
+好处：增加一个产品类，只需要增加产品类和相对应的工厂，两个类，不需要修改工厂类。
+缺点：增加产品，会修改客户端代码，工厂方法只是把简单工厂的内部逻辑判断移到了客户端进行。
+抽象工厂模式：
+优点：易于交换产品系列
+缺点：例如增加一个产品，需要修改所有创建产品的工厂，使用新的工厂还是要修改客户端代码的
+</code></pre><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><p>应用场景</p>
+<pre><code>工厂方法：
+在以下情况下，适用于工厂方法模式：
+(1) 当一个类不知道它所必须创建的对象的类的时候。
+(2) 当一个类希望由它的子类来指定它所创建的对象的时候。
+(3) 当类将创建对象的职责委托给多个帮助子类中的某一个，并且你希望将哪一个帮助子类是代理
+    者这一信息局部化的时候。
+</code></pre><p>抽象工厂：</p>
+<pre><code>(1) 一个系统不应当依赖于产品类实例如何被创建、组合和表达的细节，这对于所有形态的工厂模
+    式都是重要的。
+(2) 这个系统有多于一个的产品族，而系统只消费其中某一产品族。
+(3) 同属于同一个产品族的产品是在一起使用的，这一约束必须在系统的设计中体现出来。
+(4) 系统提供一个产品类的库，所有的产品以同样的接口出现，从而使客户端不依赖于实现
+</code></pre><h1 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h1><p>工厂方法：一对一，即一个子类工程生产一个子类产品</p>
+<pre><code>package com.designpattern.factory;
 
+public interface ProductA {
+    public void describe();
+}
+
+package com.designpattern.factory;
+
+public class ProductA1 implements ProductA {
+
+    @Override
+    public void describe() {
+        System.out.println(&quot;this is ProductA1&quot;);
+
+    }
+}
+
+package com.designpattern.factory;
+public class ProductA2 implements ProductA {
+    @Override
+    public void describe() {
+        System.out.println(&quot;this is ProductA2&quot;);
+    }
+
+}
+package com.designpattern.factory.factorymethod;
+import com.designpattern.factory.ProductA;
+public interface ProductACreator {
+    public ProductA createProduct();
+}
+package com.designpattern.factory.factorymethod;
+
+import com.designpattern.factory.ProductA;
+import com.designpattern.factory.ProductA1;
+
+public class ProductA1Creator implements ProductACreator {
+
+    @Override
+    public ProductA createProduct() {
+        return new ProductA1();
+    }
+
+}
+package com.designpattern.factory.factorymethod;
+
+import com.designpattern.factory.ProductA;
+import com.designpattern.factory.ProductA2;
+
+public class ProductA2Creator implements ProductACreator {
+
+    @Override
+    public ProductA createProduct() {
+        return new ProductA2();
+    }
+</code></pre>
       
     </div>
     
@@ -369,6 +455,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
 
       
       
@@ -378,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/SQL语句练习20180519/" rel="next" title="SQL语句练习">
-                <i class="fa fa-chevron-left"></i> SQL语句练习
+              <a href="/blog/单例设计模式20180709/" rel="next" title="单例设计模式">
+                <i class="fa fa-chevron-left"></i> 单例设计模式
               </a>
             
           </div>
@@ -388,8 +480,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/动态规划20180519/" rel="prev" title="动态规划">
-                动态规划 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/设计模式六大原则20180710/" rel="prev" title="设计模式六大原则">
+                设计模式六大原则 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -442,8 +534,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -503,6 +604,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#工厂模式分类"><span class="nav-number">1.</span> <span class="nav-text">工厂模式分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用场景"><span class="nav-number">2.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#举例"><span class="nav-number">3.</span> <span class="nav-text">举例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

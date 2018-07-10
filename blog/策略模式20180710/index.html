@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="happyshell.top, sweepcom blog" />
+  <meta name="keywords" content="设计模式," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta name="description" content="策略模式的使用场景：1.针对同一类型问题的多种处理方式，仅仅是具体行为有差别时；2.需要安全地封装多种同一类型的操作时；3.出现同一抽象类有多个子类，而又需要使用 if-else 或者 switch-case 来选择具体子类时。 这个模式涉及到三个角色： 环境(Context)角色：持有一个Strategy的引用。 抽象策略(Strategy)角色：这是一个抽象角色，通常由一个接口或抽象类实现。此">
+<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="反射机制">
-<meta property="og:url" content="happyshell.top/blog/反射20180519/index.html">
+<meta property="og:title" content="策略模式">
+<meta property="og:url" content="happyshell.top/blog/策略模式20180710/index.html">
 <meta property="og:site_name" content="Blog Of Huanglibei">
-<meta property="og:description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta property="og:description" content="策略模式的使用场景：1.针对同一类型问题的多种处理方式，仅仅是具体行为有差别时；2.需要安全地封装多种同一类型的操作时；3.出现同一抽象类有多个子类，而又需要使用 if-else 或者 switch-case 来选择具体子类时。 这个模式涉及到三个角色： 环境(Context)角色：持有一个Strategy的引用。 抽象策略(Strategy)角色：这是一个抽象角色，通常由一个接口或抽象类实现。此">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T07:17:17.984Z">
+<meta property="og:updated_time" content="2018-07-10T02:49:41.449Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="反射机制">
-<meta name="twitter:description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta name="twitter:title" content="策略模式">
+<meta name="twitter:description" content="策略模式的使用场景：1.针对同一类型问题的多种处理方式，仅仅是具体行为有差别时；2.需要安全地封装多种同一类型的操作时；3.出现同一抽象类有多个子类，而又需要使用 if-else 或者 switch-case 来选择具体子类时。 这个模式涉及到三个角色： 环境(Context)角色：持有一个Strategy的引用。 抽象策略(Strategy)角色：这是一个抽象角色，通常由一个接口或抽象类实现。此">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="happyshell.top/blog/反射20180519/"/>
+  <link rel="canonical" href="happyshell.top/blog/策略模式20180710/"/>
 
 
 
 
 
-  <title>反射机制 | Blog Of Huanglibei</title>
+  <title>策略模式 | Blog Of Huanglibei</title>
   
 
 
@@ -262,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/反射20180519/">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/策略模式20180710/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Huanglibei">
@@ -279,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">反射机制</h1>
+          <h1 class="post-title" itemprop="name headline">策略模式</h1>
         
 
         <div class="post-meta">
@@ -291,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-19T17:28:03+08:00">
-                2018-05-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-10T10:49:41+08:00">
+                2018-07-10
               </time>
             
 
@@ -314,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaSE/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaSE</span>
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
 
@@ -351,10 +352,131 @@
       
 
       
-        <p>JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；<strong>这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。</strong><br>要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象.</p>
-<p><strong>反射就是把java类中的各种成分映射成一个个的Java对象</strong></p>
-<p>例如：一个类有：成员变量、方法、构造方法、包等等信息，利用反射技术可以对一个类进行解剖，把个个组成部分映射成一个个对象。</p>
+        <h1 id="策略模式的使用场景："><a href="#策略模式的使用场景：" class="headerlink" title="策略模式的使用场景："></a>策略模式的使用场景：</h1><p>1.针对同一类型问题的多种处理方式，仅仅是具体行为有差别时；<br>2.需要安全地封装多种同一类型的操作时；<br>3.出现同一抽象类有多个子类，而又需要使用 if-else 或者 switch-case 来选择具体子类时。</p>
+<p>这个模式涉及到三个角色：</p>
+<p>环境(Context)角色：持有一个Strategy的引用。</p>
+<p>抽象策略(Strategy)角色：这是一个抽象角色，通常由一个接口或抽象类实现。此角色给出所有的具体策略类所需的接口。</p>
+<p>具体策略(ConcreteStrategy)角色：包装了相关的算法或行为。</p>
+<p>策略模式的典型代码如下：</p>
+<p>抽象策略类</p>
+<pre><code>public interface Strategy {
+    /**
+     * 策略方法
+     */
+    public void strategyInterface();
+}    
+</code></pre><p>具体策略类</p>
+<pre><code>public class ConcreteStrategyA implements Strategy {
 
+    @Override
+    public void strategyInterface() {
+        //相关的业务
+    }
+
+}
+
+public class ConcreteStrategyB implements Strategy {
+
+@Override
+public void strategyInterface() {
+    //相关的业务
+}
+</code></pre><p>环境角色类</p>
+<pre><code>public class Context {
+//持有一个具体策略的对象
+private Strategy strategy;
+/**
+ * 构造函数，传入一个具体策略对象
+ * @param strategy    具体策略对象
+ */
+public Context(Strategy strategy){
+    this.strategy = strategy;
+}
+/**
+ * 策略方法
+ */
+public void contextInterface(){
+
+    strategy.strategyInterface();
+}
+</code></pre><h1 id="实例应用"><a href="#实例应用" class="headerlink" title="实例应用"></a>实例应用</h1><p>假设鹅厂推出了3种会员，分别为会员，超级会员以及金牌会员，还有就是普通玩家，针对不同类别的玩家，购买《王者农药》皮肤有不同的打折方式，并且一个顾客每消费10000就增加一个级别，那么我们就可以使用策略模式，因为策略模式描述的就是算法的不同，这里我们举例就采用最简单的，以上四种玩家分别采用原价（普通玩家），九折，八折和七价的收钱方式。</p>
+<pre><code>那么我们首先要有一个计算价格的策略接口
+
+public interface CalPrice {
+//根据原价返回一个最终的价格
+Double calPrice(Double orgnicPrice);
+}
+
+下面是4种玩家的计算方式的实现
+
+public class Orgnic implements CalPrice {
+
+    @Override
+    public Double calPrice(Double orgnicPrice) {
+        return orgnicPrice;
+    }
+}
+
+public class Vip implements CalPrice {
+    @Override
+    public Double calPrice(Double orgnicPrice) {
+        return orgnicPrice * 0.9;
+    }
+}
+
+public class SuperVip implements CalPrice {
+    @Override
+    public Double calPrice(Double orgnicPrice) {
+        return orgnicPrice * 0.8;
+    }
+}
+
+public class GoldVip implements CalPrice {
+    @Override
+    public Double calPrice(Double orgnicPrice) {
+        return orgnicPrice * 0.7;
+    }
+}
+
+我们看客户类，我们需要客户类帮我们完成玩家升级的功能。
+
+public class Player {
+private Double totalAmount = 0D;//客户在鹅厂消费的总额
+private Double amount = 0D;//客户单次消费金额
+private CalPrice calPrice = new Orgnic();//每个客户都有一个计算价格的策略，初始都是普通计算，即原价
+
+//客户购买皮肤，就会增加它的总额
+public void buy(Double amount) {
+    this.amount = amount;
+    totalAmount += amount;
+    if (totalAmount &gt; 30000) {//30000则改为金牌会员计算方式
+        calPrice = new GoldVip();
+    } else if (totalAmount &gt; 20000) {//类似
+        calPrice = new SuperVip();
+    } else if (totalAmount &gt; 10000) {//类似
+        calPrice = new Vip();
+    }
+}
+
+//计算客户最终要付的钱
+public Double calLastAmount() {
+    return calPrice.calPrice(amount);
+}
+</code></pre><p>}<br>    接下来是客户端调用，系统会帮我们自动调整收费策略。</p>
+<pre><code>public class Client {
+public static void main(String[] args) {
+    Player player = new Player();
+    player.buy(5000D);
+    System.out.println(&quot;玩家需要付钱：&quot; + player.calLastAmount());
+    player.buy(12000D);
+    System.out.println(&quot;玩家需要付钱：&quot; + player.calLastAmount());
+    player.buy(12000D);
+    System.out.println(&quot;玩家需要付钱：&quot; + player.calLastAmount());
+    player.buy(12000D);
+    System.out.println(&quot;玩家需要付钱：&quot; + player.calLastAmount());
+}
+}
+</code></pre>
       
     </div>
     
@@ -369,6 +491,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
 
       
       
@@ -378,8 +506,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/SQL语句练习20180519/" rel="next" title="SQL语句练习">
-                <i class="fa fa-chevron-left"></i> SQL语句练习
+              <a href="/blog/观察者设计模式20180710/" rel="next" title="观察者模式">
+                <i class="fa fa-chevron-left"></i> 观察者模式
               </a>
             
           </div>
@@ -387,10 +515,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/动态规划20180519/" rel="prev" title="动态规划">
-                动态规划 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -442,8 +566,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -503,6 +636,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#策略模式的使用场景："><span class="nav-number">1.</span> <span class="nav-text">策略模式的使用场景：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例应用"><span class="nav-number">2.</span> <span class="nav-text">实例应用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

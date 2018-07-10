@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="happyshell.top, sweepcom blog" />
+  <meta name="keywords" content="设计模式," />
 
 
 
@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta name="description" content="概述观察者模式是一种使用频率非常高的设计模式，最常用的地方就是订阅-发布系统。 这个模式的重要作用就是将观察者和被观察者解耦，使他们之间的依赖更小甚至没有。 在该模式中一个对象通过添加一个方法（该方法允许另一个对象，即观察者注册自己），使本身变的可观察，当可观察的对象更改时，它会将消息发送到已注册的观察者 Subject : 抽象被观察者（Observeable），吧所有观察者对象的医用保存在一个">
+<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="反射机制">
-<meta property="og:url" content="happyshell.top/blog/反射20180519/index.html">
+<meta property="og:title" content="观察者模式">
+<meta property="og:url" content="happyshell.top/blog/观察者设计模式20180710/index.html">
 <meta property="og:site_name" content="Blog Of Huanglibei">
-<meta property="og:description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta property="og:description" content="概述观察者模式是一种使用频率非常高的设计模式，最常用的地方就是订阅-发布系统。 这个模式的重要作用就是将观察者和被观察者解耦，使他们之间的依赖更小甚至没有。 在该模式中一个对象通过添加一个方法（该方法允许另一个对象，即观察者注册自己），使本身变的可观察，当可观察的对象更改时，它会将消息发送到已注册的观察者 Subject : 抽象被观察者（Observeable），吧所有观察者对象的医用保存在一个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T07:17:17.984Z">
+<meta property="og:image" content="https://i.imgur.com/CIyPXfi.png">
+<meta property="og:updated_time" content="2018-07-10T02:20:36.259Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="反射机制">
-<meta name="twitter:description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta name="twitter:title" content="观察者模式">
+<meta name="twitter:description" content="概述观察者模式是一种使用频率非常高的设计模式，最常用的地方就是订阅-发布系统。 这个模式的重要作用就是将观察者和被观察者解耦，使他们之间的依赖更小甚至没有。 在该模式中一个对象通过添加一个方法（该方法允许另一个对象，即观察者注册自己），使本身变的可观察，当可观察的对象更改时，它会将消息发送到已注册的观察者 Subject : 抽象被观察者（Observeable），吧所有观察者对象的医用保存在一个">
+<meta name="twitter:image" content="https://i.imgur.com/CIyPXfi.png">
 
 
 
@@ -119,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="happyshell.top/blog/反射20180519/"/>
+  <link rel="canonical" href="happyshell.top/blog/观察者设计模式20180710/"/>
 
 
 
 
 
-  <title>反射机制 | Blog Of Huanglibei</title>
+  <title>观察者模式 | Blog Of Huanglibei</title>
   
 
 
@@ -262,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/反射20180519/">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/观察者设计模式20180710/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Huanglibei">
@@ -279,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">反射机制</h1>
+          <h1 class="post-title" itemprop="name headline">观察者模式</h1>
         
 
         <div class="post-meta">
@@ -291,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-19T17:28:03+08:00">
-                2018-05-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-10T10:13:05+08:00">
+                2018-07-10
               </time>
             
 
@@ -314,8 +317,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaSE/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaSE</span>
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
 
@@ -351,9 +354,48 @@
       
 
       
-        <p>JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；<strong>这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。</strong><br>要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象.</p>
-<p><strong>反射就是把java类中的各种成分映射成一个个的Java对象</strong></p>
-<p>例如：一个类有：成员变量、方法、构造方法、包等等信息，利用反射技术可以对一个类进行解剖，把个个组成部分映射成一个个对象。</p>
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>观察者模式是一种使用频率非常高的设计模式，最常用的地方就是订阅-发布系统。</p>
+<p>这个模式的重要作用就是将观察者和被观察者解耦，使他们之间的依赖更小甚至没有。</p>
+<p>在该模式中一个对象通过添加一个方法（该方法允许另一个对象，即观察者注册自己），使本身变的可观察，当可观察的对象更改时，它会将消息发送到已注册的观察者</p>
+<p><img src="https://i.imgur.com/CIyPXfi.png" alt=""><br>Subject : 抽象被观察者（Observeable），吧所有观察者对象的医用保存在一个集合里，每个主题都可以有任意数量的观察者，抽象被观察者提供一个接口，可以增加和删除观察者对象。</p>
+<p>ConcreteSubject： 具体的被观察者，将有关状态存入具体的观察者对象，在具体的被观察者内部状态发生变化时，给所有注册的观察者发送通知。</p>
+<p>Observer ： 抽象观察者，定义了一个更新接口，使得在得到被观察者的通知时更新自己<br>。<br>ConcreteObserver ： 具体的观察者，实现了抽象观察者锁定义的接口，用来在收到通知时更新自己。</p>
+<h1 id="实现举例"><a href="#实现举例" class="headerlink" title="实现举例"></a>实现举例</h1><p>订阅模式就是个观察者模式，订阅后，被订阅的有更新就会提示你</p>
+<p>先定义一个订阅者，实现更新方法。</p>
+<pre><code>class User implements Observer {
+public String name;
+
+public User(String name) {
+    this.name = name;
+}
+
+@Override
+public void update(Observable o, Object arg) {
+    System.out.println(&quot;Hi &quot;+name +&quot;,公众号更新了内容：&quot;+arg);
+}
+</code></pre><p>定义一个可观察者，有变化时发布更新通知。</p>
+<pre><code>public class Gamedaily extends Observable {
+public void postNewArticle(String content){
+    //内容发生改变
+    setChanged();
+    //通知所有订阅者改变的内容
+    notifyObservers(content);
+}
+</code></pre><p>使用</p>
+<pre><code>public class Client {
+public static void main(String[] args) {
+    Gamedaily gamedaily = new Gamedaily();
+    User user1 = new User(&quot;user1&quot;);
+    User user2 = new User(&quot;user2&quot;);
+    User user3 = new User(&quot;user3&quot;);
+    //将观察者注册到可观察者的通知列表中。
+    gamedaily.addObserver(user1);
+    gamedaily.addObserver(user2);
+    gamedaily.addObserver(user3);
+
+    gamedaily.postNewArticle(&quot;新文章来了&quot;);
+}
+</code></pre><p>当公众号发布新文章的时候，所有订阅者都收到的通知，并作出相应的改变。一个公众号对应多个订阅者，并且完全没有耦合</p>
 
       
     </div>
@@ -369,6 +411,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
 
       
       
@@ -378,8 +426,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/SQL语句练习20180519/" rel="next" title="SQL语句练习">
-                <i class="fa fa-chevron-left"></i> SQL语句练习
+              <a href="/blog/设计模式六大原则20180710/" rel="next" title="设计模式六大原则">
+                <i class="fa fa-chevron-left"></i> 设计模式六大原则
               </a>
             
           </div>
@@ -388,8 +436,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/动态规划20180519/" rel="prev" title="动态规划">
-                动态规划 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/策略模式20180710/" rel="prev" title="策略模式">
+                策略模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -442,8 +490,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -503,6 +560,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现举例"><span class="nav-number">2.</span> <span class="nav-text">实现举例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

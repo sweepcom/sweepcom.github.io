@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/pXI7bGQ.png">
 <meta property="og:image" content="https://i.imgur.com/OwSIF2p.png">
-<meta property="og:updated_time" content="2018-07-09T07:22:03.392Z">
+<meta property="og:updated_time" content="2018-07-09T12:13:24.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络">
 <meta name="twitter:description" content="1.OSI，TCP/IP，五层协议的体系结构，以及各层协议OSI分层 （7层）：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。 TCP/IP分层（4层）：网络接口层、 网际层、运输层、 应用层。 五层协议 （5层）：物理层、数据链路层、网络层、运输层、 应用层。 物理层1.在物理层上传输的数据单位是比特 2.物理层确保原始的数据可在各种物理媒体上传输。 3.使用的中间设备叫做转发器">
@@ -437,7 +437,19 @@ C类 192.168.0.0--192.168.255.255
 ARP的缓存区需要设置生存时间，凡超过时间的从缓存中删除，因为主机的物理地址可能由于更换设
 备而改变，这时候缓存中的数据就无效，所以需要删除，然后重新寻找。
 </code></pre><h1 id="TCP-UDP协议"><a href="#TCP-UDP协议" class="headerlink" title="TCP/UDP协议"></a>TCP/UDP协议</h1><p>TCP和UDP为运输层的俩个主要协议<br>网络层为主机之间提供逻辑通信，而运输层为应用程序之间提供端到端的逻辑通信</p>
-<h2 id="用户数据报协议UDP"><a href="#用户数据报协议UDP" class="headerlink" title="用户数据报协议UDP"></a>用户数据报协议UDP</h2><pre><code>1.UDP是无连接的，即发送数据不需要建立连接，减少了开销和发送数据之前的时延
+<h2 id="TCP-UDP区别"><a href="#TCP-UDP区别" class="headerlink" title="TCP/UDP区别"></a>TCP/UDP区别</h2><pre><code>1、TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接
+2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序
+到达;UDP尽最大努力交付，即不保证可靠交付
+
+Tcp通过校验和，重传控制，序号标识，滑动窗口、确认应答实现可靠传输。如丢包时的重发控制，
+还可以对次序乱掉的分包进行顺序控制。
+
+3、UDP具有较好的实时性，工作效率比TCP高，适用于对高速传输和实时性有较高的通信或广播通信。
+
+4.每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信
+
+5、TCP对系统资源要求较多，UDP对系统资源要求较少
+</code></pre><h2 id="用户数据报协议UDP"><a href="#用户数据报协议UDP" class="headerlink" title="用户数据报协议UDP"></a>用户数据报协议UDP</h2><pre><code>1.UDP是无连接的，即发送数据不需要建立连接，减少了开销和发送数据之前的时延
 2.UDP使用尽最大努力交付，不保证可靠交付，因此不需要维持复杂的连接状态表（许多参数）
 3.UDP是面向报文的，应用层的报文下交给运输层的UDP，UDP添加首部后就直接交给IP层也就是
   网络层
@@ -463,7 +475,17 @@ ARP的缓存区需要设置生存时间，凡超过时间的从缓存中删除�
 3.能够运输实体资源（如缓存大小）
 </code></pre><p>TCP的连接采用客户服务器方式，主动建立的应用进程叫做客户，被动等待连接的进程叫做服务器</p>
 <p>电话应用</p>
-<h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><pre><code>seq:&quot;sequance&quot;序列号；ack:&quot;acknowledge&quot;确认号；SYN:&quot;synchronize&quot;请求同步标志；
+<h3 id="TCP首部格式"><a href="#TCP首部格式" class="headerlink" title="TCP首部格式"></a>TCP首部格式</h3><pre><code>1：源端口和目的端口，各占俩个字节
+2：序号：占4字节，范围是0-2^32-1;
+3：数据偏移：占4位，指的是数据起始处到TCP报文段起始出的距离，实际指出首部长度
+4：紧急(URG)：URG=1时，表示紧急字段有效，紧急数据尽快传送，如ctrl+c终止命令
+5：确认号ACK：ack=1时有效，TCP的ACK都必须设置为1
+6：复位RST（ReSet），TCP出现严重差错必须先释放连接然后建立连接
+7：同步SYN：SYN=1，ack=0时表示是一个请求连接报文，SYN=1，ack=1表示同意建立连接
+8：终止FIN：用来释放连接，fin=1，时表示发送方数据发送完毕，请求释放连接
+9：窗口：指出现在允许发送方发送的数据量，因为接收方的数据缓存空间是有限的
+10：检验和：检测数据在传输时是否出错。
+</code></pre><h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><pre><code>seq:&quot;sequance&quot;序列号；ack:&quot;acknowledge&quot;确认号；SYN:&quot;synchronize&quot;请求同步标志；
 ACK:&quot;acknowledge&quot;确认标志&quot;；FIN：&quot;Finally&quot;结束标志。
 
 第一次握手：客户端发送syn包(syn=1)，和一个初始序号seq=x到服务器，并进入SYN_SEND状
@@ -496,9 +518,26 @@ ACK:&quot;acknowledge&quot;确认标志&quot;；FIN：&quot;Finally&quot;结束�
 务器查询到域名后，把对应的IP地址放在回答报文中返回给应用程序。
 2.当本地域名服务器不能回答该请求时，本地域名服务器会去请求其他域名服务器，重复上一过程
   直到查询到结果为止。
-</code></pre><h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准</p>
-<p>HTTP报文结构：</p>
-<pre><code>请求报文：从客户向服务器发送请求报文
+</code></pre><h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准，默认端口号80</p>
+<h3 id="http状态吗"><a href="#http状态吗" class="headerlink" title="http状态吗"></a>http状态吗</h3><pre><code>1XX表示通知信息：如请求受到了或正在进行处理
+2XX表示成功，如接受或知道了
+   200 OK
+   201 Created 创建
+   202 Accepted 已接受
+3XX表示重定向，如要完成还需采取进一步行动
+4XX表示客户端错误，如请求中有错误的语法或不能完成
+   400 Bad Request 错误的请求
+   401 Unauthorized 未授权
+   402 Payment Required 需要付费
+   403 Forbidden 拒绝访问
+   404 Not Found 未找到
+5XX表示服务器的差错
+   500 Internal Server Error 内部服务器错误
+   501 Not Implemented 未执行
+   502 Bad Gateway 错误的网关
+   503 Service Unavailable 服务不可用
+   504 Gateway Timeout 网关超时
+</code></pre><h3 id="HTTP报文结构"><a href="#HTTP报文结构" class="headerlink" title="HTTP报文结构"></a>HTTP报文结构</h3><pre><code>请求报文：从客户向服务器发送请求报文
 响应报文：从服务器到客户的回答
 俩种报文只有开始行不同，其结构如下
 1.开始行：用于区分响应还是请求报文
@@ -514,6 +553,11 @@ ACK:&quot;acknowledge&quot;确认标志&quot;；FIN：&quot;Finally&quot;结束�
 
 　　DELETE：删除给定的URL所标志的资源。
 
+   TRACE：请求进行环回测试的请求报文；
+   HEAD：请求读取URL所标识信息的首部
+   OPTION:请求一些选项的信息
+   CONNECT：用于代理服务器
+
 　　HTTP 中， POST 与 GET 的区别
 
 　　1）Get是从服务器上获取数据，Post是向服务器传送数据。
@@ -524,6 +568,23 @@ ACK:&quot;acknowledge&quot;确认标志&quot;；FIN：&quot;Finally&quot;结束�
 　　3）Get传送的数据量小，不能大于2KB；Post传送的数据量较大，一般被默认为不受限制。
 
 　　4）根据HTTP规范，GET用于信息获取，而且应该是安全的和幂等的。
+</code></pre><h3 id="Http和Https的区别"><a href="#Http和Https的区别" class="headerlink" title="Http和Https的区别"></a>Http和Https的区别</h3><pre><code>1、https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。
+
+2、http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。
+
+3、http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。
+
+4、http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、
+   身份认证的网络协议，比http协议安全，可以防止在数据传输过程中，数据被窃取，修改，
+   确保数据的完整性
+</code></pre><p>缺点：</p>
+<pre><code>（1）HTTPS的握手阶段，比较费时，会使页面的加载时间延长将近50%
+
+（2）HTTPS的缓存没有HTTP的缓存高效，会增加数据的开销和功耗
+
+（3）HTTPS也不是绝对的安全，特别是在服务器受到劫持，攻击等，起不到任何作用
+
+（4）HTTPS需要的CA证书一般需要钱，如果功能强大，费用会更高
 </code></pre><h1 id="在浏览器中输入www-baidu-com后执行的全部过程"><a href="#在浏览器中输入www-baidu-com后执行的全部过程" class="headerlink" title="在浏览器中输入www.baidu.com后执行的全部过程"></a>在浏览器中输入<a href="http://www.baidu.com后执行的全部过程" target="_blank" rel="noopener">www.baidu.com后执行的全部过程</a></h1><pre><code>1、客户端浏览器通过DNS解析到www.baidu.com 的IP地址220.181.27.48，通过这个IP地址找到
 客户端到服务器的路径。客户端浏览器发起一个HTTP会话到220.181.27.48，然后通过TCP进行封
 装数据包，输入到网络层。
@@ -536,7 +597,19 @@ ACK:&quot;acknowledge&quot;确认标志&quot;；FIN：&quot;Finally&quot;结束�
 4、客户端的链路层，包通过链路层发送到路由器，通过邻居协议查找给定IP地址的MAC地址，然后
 发送ARP请求查找目的地址，如果得到回应后就可以使用ARP的请求应答交换的IP数据包现在就可以
 传输了，然后发送IP数据包到达服务器的地址。
-</code></pre><h1 id="java的socket（TCP传输）实现"><a href="#java的socket（TCP传输）实现" class="headerlink" title="java的socket（TCP传输）实现"></a>java的socket（TCP传输）实现</h1><p>必须服务端先开启，然后开启客户端</p>
+</code></pre><h1 id="交换机和路由器的区别"><a href="#交换机和路由器的区别" class="headerlink" title="交换机和路由器的区别"></a>交换机和路由器的区别</h1><pre><code>1、工作层次不同
+    a -- 交换机工作在第二层，数据链路层;
+    b -- 路由器工作在第三层，网络层；
+2、交换机只能识别MAC地址
+   路由器识别IP地址
+   路由器可以处理TCP/IP协议，交换机不可以
+3、路由器可以给你的局域网自动分配IP
+   交换机只是用来分配网络数据的
+4、路由器可以把一个IP分配给很多个主机使用，这些主机对外只表现出一个IP。交
+   换机可以把很多主机连起来，这些主机对外各有各的IP
+5、路由器提供防火墙的服务，交换机不能提供该功能
+</code></pre><p>三层交换机可以有路由的功能，而且比低端路由器的转发速率更快。</p>
+<h1 id="java的socket（TCP传输）实现"><a href="#java的socket（TCP传输）实现" class="headerlink" title="java的socket（TCP传输）实现"></a>java的socket（TCP传输）实现</h1><p>必须服务端先开启，然后开启客户端</p>
 <p>客户端连接</p>
 <pre><code>public class clientSocket {
 public static void main(String args[]) throws IOException{
@@ -597,8 +670,8 @@ public static void main(String args[]) throws IOException{
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/map底层实现20180620/" rel="next" title="Map子类的实现">
-                <i class="fa fa-chevron-left"></i> Map子类的实现
+              <a href="/blog/Set底层实现20180620/" rel="next" title="Set子类的实现">
+                <i class="fa fa-chevron-left"></i> Set子类的实现
               </a>
             
           </div>
@@ -686,7 +759,7 @@ public static void main(String args[]) throws IOException{
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -697,7 +770,7 @@ public static void main(String args[]) throws IOException{
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -708,7 +781,7 @@ public static void main(String args[]) throws IOException{
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -741,7 +814,7 @@ public static void main(String args[]) throws IOException{
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-OSI，TCP-IP，五层协议的体系结构，以及各层协议"><span class="nav-number">1.</span> <span class="nav-text">1.OSI，TCP/IP，五层协议的体系结构，以及各层协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#物理层"><span class="nav-number">1.1.</span> <span class="nav-text">物理层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据链路层"><span class="nav-number">1.2.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层"><span class="nav-number">1.3.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输层"><span class="nav-number">1.4.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用层"><span class="nav-number">1.5.</span> <span class="nav-text">应用层</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP地址"><span class="nav-number">2.</span> <span class="nav-text">IP地址</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址分类"><span class="nav-number">2.1.</span> <span class="nav-text">IP地址分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环回地址"><span class="nav-number">2.2.</span> <span class="nav-text">环回地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址和硬件地址"><span class="nav-number">2.3.</span> <span class="nav-text">IP地址和硬件地址</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ARP地址解析协议"><span class="nav-number">3.</span> <span class="nav-text">ARP地址解析协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-UDP协议"><span class="nav-number">4.</span> <span class="nav-text">TCP/UDP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用户数据报协议UDP"><span class="nav-number">4.1.</span> <span class="nav-text">用户数据报协议UDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输控制协议TCP协议"><span class="nav-number">4.2.</span> <span class="nav-text">传输控制协议TCP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手"><span class="nav-number">4.2.1.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手"><span class="nav-number">4.2.2.</span> <span class="nav-text">四次挥手</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用层协议"><span class="nav-number">5.</span> <span class="nav-text">应用层协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS协议"><span class="nav-number">5.1.</span> <span class="nav-text">DNS协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议"><span class="nav-number">5.2.</span> <span class="nav-text">HTTP协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在浏览器中输入www-baidu-com后执行的全部过程"><span class="nav-number">6.</span> <span class="nav-text">在浏览器中输入www.baidu.com后执行的全部过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java的socket（TCP传输）实现"><span class="nav-number">7.</span> <span class="nav-text">java的socket（TCP传输）实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-OSI，TCP-IP，五层协议的体系结构，以及各层协议"><span class="nav-number">1.</span> <span class="nav-text">1.OSI，TCP/IP，五层协议的体系结构，以及各层协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#物理层"><span class="nav-number">1.1.</span> <span class="nav-text">物理层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据链路层"><span class="nav-number">1.2.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层"><span class="nav-number">1.3.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输层"><span class="nav-number">1.4.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用层"><span class="nav-number">1.5.</span> <span class="nav-text">应用层</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP地址"><span class="nav-number">2.</span> <span class="nav-text">IP地址</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址分类"><span class="nav-number">2.1.</span> <span class="nav-text">IP地址分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环回地址"><span class="nav-number">2.2.</span> <span class="nav-text">环回地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址和硬件地址"><span class="nav-number">2.3.</span> <span class="nav-text">IP地址和硬件地址</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ARP地址解析协议"><span class="nav-number">3.</span> <span class="nav-text">ARP地址解析协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-UDP协议"><span class="nav-number">4.</span> <span class="nav-text">TCP/UDP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-UDP区别"><span class="nav-number">4.1.</span> <span class="nav-text">TCP/UDP区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户数据报协议UDP"><span class="nav-number">4.2.</span> <span class="nav-text">用户数据报协议UDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输控制协议TCP协议"><span class="nav-number">4.3.</span> <span class="nav-text">传输控制协议TCP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP首部格式"><span class="nav-number">4.3.1.</span> <span class="nav-text">TCP首部格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手"><span class="nav-number">4.3.2.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手"><span class="nav-number">4.3.3.</span> <span class="nav-text">四次挥手</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用层协议"><span class="nav-number">5.</span> <span class="nav-text">应用层协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS协议"><span class="nav-number">5.1.</span> <span class="nav-text">DNS协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议"><span class="nav-number">5.2.</span> <span class="nav-text">HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http状态吗"><span class="nav-number">5.2.1.</span> <span class="nav-text">http状态吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP报文结构"><span class="nav-number">5.2.2.</span> <span class="nav-text">HTTP报文结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Http和Https的区别"><span class="nav-number">5.2.3.</span> <span class="nav-text">Http和Https的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在浏览器中输入www-baidu-com后执行的全部过程"><span class="nav-number">6.</span> <span class="nav-text">在浏览器中输入www.baidu.com后执行的全部过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交换机和路由器的区别"><span class="nav-number">7.</span> <span class="nav-text">交换机和路由器的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java的socket（TCP传输）实现"><span class="nav-number">8.</span> <span class="nav-text">java的socket（TCP传输）实现</span></a></li></ol></div>
             
 
           </div>

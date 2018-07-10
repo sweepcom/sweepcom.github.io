@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="happyshell.top, sweepcom blog" />
+  <meta name="keywords" content="设计模式," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta name="description" content="为什么要设计单例模式?对于系统中的某些类来说，只有一个实例很重要，例如，一个系统中可以存在多个打印任务，但是只能有一个正在工作的任务；一个系统只能有一个窗口管理器或文件系统；一个系统只能有一个计时工具或ID(序号)生成器。如在Windows中就只能打开一个任务管理器。如果不使用机制对窗口对象进行唯一化，将弹出多个窗口，如果这些窗口显示的内容完全一致，则是重复对象，浪费内存资源；如果这些窗口显示的内">
+<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="反射机制">
-<meta property="og:url" content="happyshell.top/blog/反射20180519/index.html">
+<meta property="og:title" content="单例设计模式">
+<meta property="og:url" content="happyshell.top/blog/单例设计模式20180709/index.html">
 <meta property="og:site_name" content="Blog Of Huanglibei">
-<meta property="og:description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta property="og:description" content="为什么要设计单例模式?对于系统中的某些类来说，只有一个实例很重要，例如，一个系统中可以存在多个打印任务，但是只能有一个正在工作的任务；一个系统只能有一个窗口管理器或文件系统；一个系统只能有一个计时工具或ID(序号)生成器。如在Windows中就只能打开一个任务管理器。如果不使用机制对窗口对象进行唯一化，将弹出多个窗口，如果这些窗口显示的内容完全一致，则是重复对象，浪费内存资源；如果这些窗口显示的内">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T07:17:17.984Z">
+<meta property="og:updated_time" content="2018-07-09T14:09:53.068Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="反射机制">
-<meta name="twitter:description" content="JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象. 反射就是把java类中的各种成分映射成一">
+<meta name="twitter:title" content="单例设计模式">
+<meta name="twitter:description" content="为什么要设计单例模式?对于系统中的某些类来说，只有一个实例很重要，例如，一个系统中可以存在多个打印任务，但是只能有一个正在工作的任务；一个系统只能有一个窗口管理器或文件系统；一个系统只能有一个计时工具或ID(序号)生成器。如在Windows中就只能打开一个任务管理器。如果不使用机制对窗口对象进行唯一化，将弹出多个窗口，如果这些窗口显示的内容完全一致，则是重复对象，浪费内存资源；如果这些窗口显示的内">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="happyshell.top/blog/反射20180519/"/>
+  <link rel="canonical" href="happyshell.top/blog/单例设计模式20180709/"/>
 
 
 
 
 
-  <title>反射机制 | Blog Of Huanglibei</title>
+  <title>单例设计模式 | Blog Of Huanglibei</title>
   
 
 
@@ -262,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/反射20180519/">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/单例设计模式20180709/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Huanglibei">
@@ -279,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">反射机制</h1>
+          <h1 class="post-title" itemprop="name headline">单例设计模式</h1>
         
 
         <div class="post-meta">
@@ -291,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-19T17:28:03+08:00">
-                2018-05-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-09T20:38:57+08:00">
+                2018-07-09
               </time>
             
 
@@ -314,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaSE/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaSE</span>
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
 
@@ -351,9 +352,57 @@
       
 
       
-        <p>JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；<strong>这种动态获取类的信息以及动态调用对象的方法的功能称为java语言的反射机制。</strong><br>要想解剖一个类,必须先要获取到该类的字节码文件对象。而解剖使用的就是Class类中的方法.所以先要获取到每一个字节码文件对应的Class类型的对象.</p>
-<p><strong>反射就是把java类中的各种成分映射成一个个的Java对象</strong></p>
-<p>例如：一个类有：成员变量、方法、构造方法、包等等信息，利用反射技术可以对一个类进行解剖，把个个组成部分映射成一个个对象。</p>
+        <h1 id="为什么要设计单例模式"><a href="#为什么要设计单例模式" class="headerlink" title="为什么要设计单例模式?"></a>为什么要设计单例模式?</h1><p>对于系统中的某些类来说，只有一个实例很重要，例如，一个系统中可以存在多个打印任务，但是只能有一个正在工作的任务；一个系统只能有一个窗口管理器或文件系统；一个系统只能有一个计时工具或ID(序号)生成器。<strong>如在Windows中就只能打开一个任务管理器</strong>。如果不使用机制对窗口对象进行唯一化，将弹出多个窗口，如果这些窗口显示的内容完全一致，则是重复对象，浪费内存资源；如果这些窗口显示的内容不一致，则意味着在某一瞬间系统有多个状态，与实际不符，也会给用户带来误解，不知道哪一个才是真实的状态。因此有时确保系统中某个对象的唯一性即一个类只能有一个实例非常重要。<br>如何保证一个类只有一个实例并且这个实例易于被访问呢？定义一个全局变量可以确保对象随时都可以被访问，但不能防止我们实例化多个对象。一个更好的解决办法是让类自身负责保存它的唯一实例。这个类可以保证没有其他实例被创建，并且它可以提供一个访问该实例的方法。这就是单例模式的模式动机。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>主要有两点需要特别注意：</p>
+<p>一点是构造方法必须是private的，否则不能保证只有一个实例</p>
+<p>另一个是必须有pulic static的获取实例方法或者public static的实例属性，保证外部能访问</p>
+<p>1、最基本的懒汉方式实现，线程不安全</p>
+<pre><code>public class Singleton1 {
+private static Singleton1 instance;
+
+private Singleton1() {
+}
+
+public static Singleton1 getInstance() {
+    if (instance == null) {
+        instance = new Singleton1();
+    }
+    return instance;
+}
+</code></pre><p>2、在public static Singleton1 getInstance()方法上加上同步关键字synchronized就能保证线程安全，但是影响了执行效率。</p>
+<p>3、比较常用的高效的线程安全的单利模式实现是加双重锁</p>
+<pre><code>public class Singleton3 {
+private volatile static Singleton3 instance;
+
+private Singleton3() {
+}
+
+public static Singleton3 getSingleton() {
+    if (instance== null) {
+        synchronized (Singleton3.class) {
+            if (singleton == null) {
+                instance = new Singleton3();
+            }
+        }
+    }
+    return instance;
+}
+</code></pre><p>需要特别注意的是一定要加volatile关键字，这样才能保证在内存中访问到的是最新值，从而有效的做双重判断，保证只有一个instance对象。</p>
+<p>4、饿汉模式，类初始化的时候创建</p>
+<pre><code>public class Singleton4 {
+private static Singleton4 instance = new Singleton4();
+private Singleton4() {
+}
+public static Singleton4 getInstance() {
+    return instance;
+}
+</code></pre><p>5、枚举实现单例模式<br>以上方法都有一个问题，就是不能防止反射方法破坏单例模式。如果使用反射，还是可以创建多个实例的。</p>
+<pre><code>public enum Singleton {
+INSTANCE;
+public Object buid() {
+    return new Object();
+}
+</code></pre><p>枚举的实现，保证只有一个实例（即使使用反射机制也无法多次实例化一个枚举量），并且线程安全。<br>看起来很好，但是很少见到真正有这么用的。</p>
 
       
     </div>
@@ -369,6 +418,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
 
       
       
@@ -378,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/SQL语句练习20180519/" rel="next" title="SQL语句练习">
-                <i class="fa fa-chevron-left"></i> SQL语句练习
+              <a href="/blog/排序20180709/" rel="next" title="8种排序方法">
+                <i class="fa fa-chevron-left"></i> 8种排序方法
               </a>
             
           </div>
@@ -388,8 +443,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/动态规划20180519/" rel="prev" title="动态规划">
-                动态规划 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/工厂设计模式20180709/" rel="prev" title="工厂设计模式">
+                工厂设计模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -442,8 +497,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -503,6 +567,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要设计单例模式"><span class="nav-number">1.</span> <span class="nav-text">为什么要设计单例模式?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
