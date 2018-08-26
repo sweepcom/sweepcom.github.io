@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="编程题," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.求俩个数的和给定一个整数数组，找出其中两个数满足相加等于你指定的目标数字。  　　要求：这个函数twoSum必须要返回能够相加等于目标数字的两个数的索引，且index1必须要小于index2。请注意一点，你返回的结果（包括index1和index2）都不是基于0开始的。你可以假设每一个输入肯定只有一个结果。 暴力遍历： public int[] twoSum(int[] nums, int t">
+<meta name="keywords" content="编程题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode（1-20）">
+<meta property="og:url" content="happyshell.top/blog/leetcode20180711/index.html">
+<meta property="og:site_name" content="Blog Of Huanglibei">
+<meta property="og:description" content="1.求俩个数的和给定一个整数数组，找出其中两个数满足相加等于你指定的目标数字。  　　要求：这个函数twoSum必须要返回能够相加等于目标数字的两个数的索引，且index1必须要小于index2。请注意一点，你返回的结果（包括index1和index2）都不是基于0开始的。你可以假设每一个输入肯定只有一个结果。 暴力遍历： public int[] twoSum(int[] nums, int t">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-15T04:00:08.690Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="leetcode（1-20）">
+<meta name="twitter:description" content="1.求俩个数的和给定一个整数数组，找出其中两个数满足相加等于你指定的目标数字。  　　要求：这个函数twoSum必须要返回能够相加等于目标数字的两个数的索引，且index1必须要小于index2。请注意一点，你返回的结果（包括index1和index2）都不是基于0开始的。你可以假设每一个输入肯定只有一个结果。 暴力遍历： public int[] twoSum(int[] nums, int t">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="happyshell.top/blog/leetcode20180711/"/>
+
+
+
+
+
+  <title>leetcode（1-20） | Blog Of Huanglibei</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog Of Huanglibei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">快乐贝壳</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/leetcode20180711/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">leetcode（1-20）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T16:27:12+08:00">
+                2018-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程题/" itemprop="url" rel="index">
+                    <span itemprop="name">编程题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-求俩个数的和"><a href="#1-求俩个数的和" class="headerlink" title="1.求俩个数的和"></a>1.求俩个数的和</h1><pre><code>给定一个整数数组，找出其中两个数满足相加等于你指定的目标数字。 
+</code></pre><p>　　要求：这个函数twoSum必须要返回能够相加等于目标数字的两个数的索引，且index1必须要小于index2。请注意一点，你返回的结果（包括index1和index2）都不是基于0开始的。你可以假设每一个输入肯定只有一个结果。</p>
+<pre><code>暴力遍历：
+public int[] twoSum(int[] nums, int target) {
+    int[] arr=new int[2];
+    for(int i=0;i&lt;nums.length;i++){
+        for(int j=i+1;j&lt;nums.length;i++){
+            if(nums[i]+nums[j]==target){
+                arr[0]=i;
+                arr[1]=j;
+                return arr;
+            }
+        }
+    }
+    return arr;
+}
+
+两遍哈希表
+ Map&lt;Integer,Integer&gt; m=new HashMap();
+    for(int i=0;i&lt;nums.length;i++){
+        m.put(nums[i], i);
+    }
+    for(int i=0;i&lt;nums.length;i++){
+        int numtwo=target-nums[i];
+        if(m.containsKey(numtwo)&amp;&amp;m.get(numtwo)!=i){
+            return new int[]{i,m.get(numtwo)};
+        }
+    }
+    throw new IllegalArgumentException(&quot;No two sum solution&quot;);
+</code></pre><h1 id="2-俩数相加"><a href="#2-俩数相加" class="headerlink" title="2.俩数相加"></a>2.俩数相加</h1><p>给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。</p>
+<pre><code>输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)
+输出：7 -&gt; 0 -&gt; 8
+原因：342 + 465 = 807
+</code></pre><p>你可以假设除了数字 0 之外，这两个数字都不会以零开头。</p>
+<pre><code> public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    int a=0,b=0,n1=0,n2=0;
+    while(l1!=null){
+        a+=l1.val*Math.pow(10,n1);
+        n1++;
+        l1=l1.next;
+    }
+    while(l2!=null){
+        b+=l2.val*Math.pow(10,n2);
+        n2++;
+        l2=l2.next;
+    }
+    int c=a+b;
+    ListNode head=new ListNode(0);
+    ListNode result=head;
+    while(c!=0){
+        int temp=c%10;
+        c=c/10;
+        head.next=new ListNode(temp);
+        head=head.next;
+    }
+    return result.next;
+}
+</code></pre><h1 id="3-无重复的最长子串"><a href="#3-无重复的最长子串" class="headerlink" title="3.无重复的最长子串"></a>3.无重复的最长子串</h1><p> 给定 “abcabcbb” ，没有重复字符的最长子串是 “abc” ，那么长度就是3。</p>
+<pre><code> public int lengthOfLongestSubstring(String s) {
+    int len=0;
+    Map&lt;Character,Integer&gt; m=new HashMap();  //
+    for(int i=0,j=0;j&lt;s.length();j++){ 
+            //i代表子串重新开始的计算位置
+        if(m.containsKey(s.charAt(j))){
+            i=Math.max(m.get(s.charAt(j)),i);
+        }
+        len=Math.max(len,j-i+1);//
+        m.put(s.charAt(j),j+1);//当前字符及其在字符串中的下一个位置
+    }
+    return len;
+}
+
+如abcadjh：
+m一开始存的a，1，后面在遇到第二个a的时候，将i的值设为之前a和i较大的值1，也就是从bca开
+始继续,没遇到重复字符都这么计算，直到遍历完字符串
+</code></pre><h1 id="4-俩个排序数组的中位数"><a href="#4-俩个排序数组的中位数" class="headerlink" title="4.俩个排序数组的中位数"></a>4.俩个排序数组的中位数</h1><pre><code>nums1 = [1, 3]
+nums2 = [2]
+
+中位数是 2.0
+
+nums1 = [1, 2]
+nums2 = [3, 4]
+
+中位数是 (2 + 3)/2 = 2.5
+
+ public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+    int n1=nums1.length;
+    int n2=nums2.length;
+    int[] arr=new int[n1+n2];
+    int k=0,i=0,j=0;
+
+    while(i&lt;n1&amp;&amp;j&lt;n2){
+        if(nums1[i]&lt;nums2[j])
+            arr[k++]=nums1[i++];
+        else
+            arr[k++]=nums2[j++];
+    }
+    while(i&lt;n1){
+        arr[k++]=nums1[i++];
+    }
+    while(j&lt;n2){
+        arr[k++]=nums2[j++];
+    }
+    int mid=arr.length/2;
+    if(arr.length%2==1)
+        return (double)(arr[mid]);
+
+    return ((double)(arr[mid]+arr[mid-1])/2);
+</code></pre><p>#5.最长回文子串  #<br>动态规划，每次遍历都找到以单个字符和以双个字符为中心的最长回文串</p>
+<pre><code>public String longestPalindrome(String s) {
+int start = 0, end = 0;
+for (int i = 0; i &lt; s.length(); i++) {
+    int len1 = expandAroundCenter(s, i, i);//判断以该字符为中心的回文长度
+    int len2 = expandAroundCenter(s, i, i + 1);//以该字符及下一个为中心
+    int len = Math.max(len1, len2);
+    if (len &gt; end - start) {
+        start = i - (len - 1) / 2;
+        end = i + len / 2;
+    }
+}
+return s.substring(start, end + 1);
+}
+//返回回文串长度
+private int expandAroundCenter(String s, int left, int right) {
+    int L = left, R = right;
+    while (L &gt;= 0 &amp;&amp; R &lt; s.length() &amp;&amp; s.charAt(L) == s.charAt(R)) {
+        L--;
+        R++;
+    }
+    return R - L - 1;//这里最后left和right都不是最终角标，
+                        如aba最后，left=-1；right=3，所以要计算
+}
+</code></pre><h1 id="6-俩数相减"><a href="#6-俩数相减" class="headerlink" title="6.俩数相减"></a>6.俩数相减</h1><p>输入一个数组，由数字构成，可以表示一个数，反转该数组得到B，求A与B的差的绝对值</p>
+<p>如[1,2,3],321-123=198,输出[1，9，8]<br>121，返回[0]</p>
+<pre><code>public static int[] solve(int[] A){
+    int[] B=new int[A.length];
+    int temp=0;//用来表示进位
+    if(judge(A)==true){ //正序大于逆序
+        for(int i=0,j=A.length-1;i&lt;A.length;i++,j--){
+            if(A[i]-temp&gt;=A[j]){  
+                B[j]=A[i]-A[j]-temp; 不需要进位的情况
+                temp=0;
+            }else{
+                B[j]=A[i]-A[j]-temp+10; //需要进位的情况
+                temp=1;
+            }
+        }
+    }
+    if(judge(A)==false){ //逆序大于正序
+        for(int i=0,j=A.length-1;i&lt;A.length;i++,j--){
+            if(A[j]-temp&gt;=A[i]){
+                B[j]=A[j]-A[i]-temp;
+                temp=0;
+            }else{
+                B[j]=A[j]-A[i]-temp+10;
+                temp=1;
+            }
+        }
+    }
+    int index=0;
+    while(index&lt;B.length&amp;&amp;B[index]==0){
+        index++;
+    }
+    int[] C=new int[B.length-index];
+    for(int i=0;i&lt;C.length;i++){
+        C[i]=B[index++];
+    }
+    if(C.length==0)
+        return new int[]{0};
+    return C;
+}
+public static boolean judge(int[] arr){ //判断数组和数组翻转后谁大决定谁减谁
+    int i=0,j=arr.length-1;
+    while(i&lt;arr.length){
+        if(arr[i]&lt;arr[j]){
+            return true;
+        }
+        else if(arr[i]&gt;arr[j]){
+            return false;
+        }
+        else{
+            i++;
+            j--;
+        }
+    }
+    return true;
+}
+</code></pre><h1 id="7-全排列"><a href="#7-全排列" class="headerlink" title="7.全排列"></a>7.全排列</h1><p>每次固定一个位置，如1，2，3，固定1，交换后面的所有，固定2，交换其他的<br>给定一个没有重复数字的序列，返回其所有可能的全排列。<br>如果是有重复数字的可以set来删除</p>
+<pre><code>public List&lt;List&lt;Integer&gt;&gt; permute(int[] nums) {
+      List&lt;List&lt;Integer&gt;&gt; result=new ArrayList&lt;&gt;();
+       permutation(nums,0,result);
+       return result;
+   }
+   public  void permutation(int[]nums,int begin,List&lt;List&lt;Integer&gt;&gt; result){
+           if(begin==nums.length){
+               List&lt;Integer&gt; temp=new ArrayList&lt;&gt;();
+               for(int n:nums){
+                   temp.add(n);
+               }
+               result.add(temp);
+           }
+      else{
+           for(int i=begin;i&lt;nums.length;i++){
+               swap(nums, begin, i);   
+               permutation(nums,begin+1,result);//固定上一个位置，向下遍历
+               swap(nums, begin, i);//将数组变成原来的样子，循环固定另一个数
+           }
+       }
+   }
+
+   public  void swap(int[] A, int x, int y) {
+       int tmp = A[x];
+       A[x] = A[y];
+       A[y] = tmp;
+   }
+</code></pre><h1 id="8-最优数组"><a href="#8-最优数组" class="headerlink" title="8.最优数组"></a>8.最优数组</h1><pre><code>给定俩个数组A，B大小相同，使得A[i]&gt;B[i]的个数最多
+Input: A = [12,24,8,32], B = [13,25,32,11]
+Output: [24,32,8,12]
+思路：将A排序，遍历B，每次从A中找出比B[i]当前值大的最小的A中的值，若没有，则将A当没有
+     被用过的值的最小值填充进去
+
+public int[] advantageCount(int[] A, int[] B) {
+       Arrays.sort(A);
+       int[] result=new int[A.length];
+       Arrays.fill(result, -1);  //将结果数组都初始化为-1；
+       int k=0;
+       for(int i=0;i&lt;B.length;i++){
+           int temp=B[i];           //以B[i]为标准寻找A中符合的值
+           for(int j=0;j&lt;A.length;j++){   
+               if(A[j]!=-1&amp;&amp;A[j]&gt;temp){//判断-1是不为了让值重复使用。
+                  result[i]=A[j];    
+                   A[j]=-1;       //使用过后设为-1，不再使用
+                   break;          //找到第一个比B[i]大的值就返回
+               }
+           }
+           if(result[i]==-1){    //判断是否寻找到了适合的值，若没有A将最小值给与
+               for(int j=0;j&lt;A.length;j++){
+                   if(A[j]!=(-1)){  //同样，找没有赋值过的最小值
+                      result[i]=A[j];
+                      A[j]=-1;    
+                      break;
+                   }
+               }
+           }
+       }
+       return result;
+  }
+}
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程题/" rel="tag"># 编程题</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/计算机操作系统20180710/" rel="next" title="计算机操作系统">
+                <i class="fa fa-chevron-left"></i> 计算机操作系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/mmall复习20180715/" rel="prev" title="用户模块">
+                用户模块 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanglibei</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-求俩个数的和"><span class="nav-number">1.</span> <span class="nav-text">1.求俩个数的和</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-俩数相加"><span class="nav-number">2.</span> <span class="nav-text">2.俩数相加</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-无重复的最长子串"><span class="nav-number">3.</span> <span class="nav-text">3.无重复的最长子串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-俩个排序数组的中位数"><span class="nav-number">4.</span> <span class="nav-text">4.俩个排序数组的中位数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-俩数相减"><span class="nav-number">5.</span> <span class="nav-text">6.俩数相减</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-全排列"><span class="nav-number">6.</span> <span class="nav-text">7.全排列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-最优数组"><span class="nav-number">7.</span> <span class="nav-text">8.最优数组</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huanglibei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">快乐贝壳</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

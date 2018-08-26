@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="happyshell.top, sweepcom blog" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="表结构  CREATE TABLE `mmall_category` (   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &amp;apos;类别Id&amp;apos;,   `parent_id` int(11) DEFAULT NULL COMMENT &amp;apos;父类别id当id=0时说明是根节点,一级类别&amp;apos;,   `name` varchar(50">
+<meta property="og:type" content="article">
+<meta property="og:title" content="品类管理模块">
+<meta property="og:url" content="happyshell.top/blog/品类管理模块20180715/index.html">
+<meta property="og:site_name" content="Blog Of Huanglibei">
+<meta property="og:description" content="表结构  CREATE TABLE `mmall_category` (   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &amp;apos;类别Id&amp;apos;,   `parent_id` int(11) DEFAULT NULL COMMENT &amp;apos;父类别id当id=0时说明是根节点,一级类别&amp;apos;,   `name` varchar(50">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-19T13:38:35.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="品类管理模块">
+<meta name="twitter:description" content="表结构  CREATE TABLE `mmall_category` (   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &amp;apos;类别Id&amp;apos;,   `parent_id` int(11) DEFAULT NULL COMMENT &amp;apos;父类别id当id=0时说明是根节点,一级类别&amp;apos;,   `name` varchar(50">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="happyshell.top/blog/品类管理模块20180715/"/>
+
+
+
+
+
+  <title>品类管理模块 | Blog Of Huanglibei</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog Of Huanglibei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">快乐贝壳</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/品类管理模块20180715/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">品类管理模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-15T10:16:23+08:00">
+                2018-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mmall总结/" itemprop="url" rel="index">
+                    <span itemprop="name">mmall总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="表结构"><a href="#表结构" class="headerlink" title="表结构"></a>表结构</h1><pre><code>  CREATE TABLE `mmall_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &apos;类别Id&apos;,
+  `parent_id` int(11) DEFAULT NULL COMMENT &apos;父类别id当id=0时说明是根节点,一级类别&apos;,
+  `name` varchar(50) DEFAULT NULL COMMENT &apos;类别名称&apos;,
+  `status` tinyint(1) DEFAULT &apos;1&apos; COMMENT &apos;类别状态1-正常,2-已废弃&apos;,
+  `sort_order` int(4) DEFAULT NULL COMMENT &apos;排序编号,同类展示顺序,数值相等则自然排序&apos;,
+  `create_time` datetime DEFAULT NULL COMMENT &apos;创建时间&apos;,
+  `update_time` datetime DEFAULT NULL COMMENT &apos;更新时间&apos;,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100032 DEFAULT CHARSET=utf8;
+</code></pre><p>因为这是后台管理员所用的界面，所以需要校验用户权限</p>
+<h1 id="用户登录（后台）"><a href="#用户登录（后台）" class="headerlink" title="用户登录（后台）"></a>用户登录（后台）</h1><pre><code>1.登录时用的是和用户一样的登录接口
+    ServerResponse&lt;User&gt; response=iUserService.login(username,password);
+2.判断用户的权限，不是管理员不让登录，然后将信息存到session
+      User user =response.getData();
+      if(user.getRole()== Const.Role.ROLE_ADMIN){
+            session.setAttribute(Const.CURRENT_USER,user);
+            return  response;
+        }else{
+            return ServerResponse.createByErrorMessage(&quot;不是管理员，无法登录&quot;);
+</code></pre><h1 id="添加分类"><a href="#添加分类" class="headerlink" title="添加分类"></a>添加分类</h1><pre><code>1.controller层：校验登录，校验角色，是否是管理员
+     User user = (User)session.getAttribute(Const.CURRENT_USER);
+     if(iUserService.checkAdmin(user).isSuccess()){
+    //是管理员
+      return iCategoreService.addCategory(categoryName,parentId);
+
+2.service层：添加品类需要俩个参数，品类名称，父节点ID
+    验证参数不能为空，ID不能为null
+    新建categry，设值，插入数据库
+</code></pre><h1 id="修改品类名称"><a href="#修改品类名称" class="headerlink" title="修改品类名称"></a>修改品类名称</h1><pre><code>1.controller层，同上，校验登录，校验角色，是否是管理员
+
+2.service层：添加品类需要俩个参数，品类新名称，品类ID
+        iCategoryService.updateCategoryName(categoryId,categoryName);
+</code></pre><h1 id="查询子品类"><a href="#查询子品类" class="headerlink" title="查询子品类"></a>查询子品类</h1><p>不递归，只查下一级所有目录</p>
+<pre><code>1.controller层：iCategoryService.getChildrenParallerlCategory(categoryId);
+2.service层：传入父节点，查询父节点为该节点的所有节点返回
+            List&lt;Category&gt;categoryList=categoryMapper.
+            selectCategoryChildrenByParentId(categoryId);
+</code></pre><h1 id="查寻该节点下所有节点，一直递归下去"><a href="#查寻该节点下所有节点，一直递归下去" class="headerlink" title="查寻该节点下所有节点，一直递归下去"></a>查寻该节点下所有节点，一直递归下去</h1><p>在前台拿到节点</p>
+<pre><code>Category category=categoryMapper.selectByPrimaryKey(categoryId);
+   if(category!=null){
+       categorySet.add(category);
+   }
+   //查找子节点，递归算法要有一个退出条件
+   List&lt;Category&gt; categoryList=categoryMapper.selectCategoryChildrenByParentId
+   (categoryId);//这里根据传入ID查找出所有的与之相等的子节点parentid
+   for(Category categoryItem:categoryList){
+       findChildrenCategory(categorySet,categoryItem.getId());
+   }
+   return  categorySet;
+</code></pre><p>这里用带set了，去重，所以要重写category的euqals和hashcode方法</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/mmall复习20180715/" rel="next" title="用户模块">
+                <i class="fa fa-chevron-left"></i> 用户模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/JavaWeb20180717/" rel="prev" title="Servlet、jsp总结">
+                Servlet、jsp总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanglibei</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#表结构"><span class="nav-number">1.</span> <span class="nav-text">表结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户登录（后台）"><span class="nav-number">2.</span> <span class="nav-text">用户登录（后台）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加分类"><span class="nav-number">3.</span> <span class="nav-text">添加分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改品类名称"><span class="nav-number">4.</span> <span class="nav-text">修改品类名称</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询子品类"><span class="nav-number">5.</span> <span class="nav-text">查询子品类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查寻该节点下所有节点，一直递归下去"><span class="nav-number">6.</span> <span class="nav-text">查寻该节点下所有节点，一直递归下去</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huanglibei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">快乐贝壳</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaWeb," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是ServletServlet是采用java语言编写的服务端程序，运行于Web服务器中的Servlet容器中，其主要功能是 提供请求/响应的web服务模式，可以生成动态的web内容  什么是动态页面呢？ 是指根据不同时间，不同用户而显示不同内容的页面，例如常见的论坛、留言板、电子商务网站等 Servlet生命周期和工作原理Servlet是在容器的控制下进行的，常用的是tomcat。 1. 加载">
+<meta name="keywords" content="JavaWeb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet、jsp总结">
+<meta property="og:url" content="happyshell.top/blog/JavaWeb20180717/index.html">
+<meta property="og:site_name" content="Blog Of Huanglibei">
+<meta property="og:description" content="什么是ServletServlet是采用java语言编写的服务端程序，运行于Web服务器中的Servlet容器中，其主要功能是 提供请求/响应的web服务模式，可以生成动态的web内容  什么是动态页面呢？ 是指根据不同时间，不同用户而显示不同内容的页面，例如常见的论坛、留言板、电子商务网站等 Servlet生命周期和工作原理Servlet是在容器的控制下进行的，常用的是tomcat。 1. 加载">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/QS6u04e.jpg">
+<meta property="og:updated_time" content="2018-07-17T12:45:36.441Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Servlet、jsp总结">
+<meta name="twitter:description" content="什么是ServletServlet是采用java语言编写的服务端程序，运行于Web服务器中的Servlet容器中，其主要功能是 提供请求/响应的web服务模式，可以生成动态的web内容  什么是动态页面呢？ 是指根据不同时间，不同用户而显示不同内容的页面，例如常见的论坛、留言板、电子商务网站等 Servlet生命周期和工作原理Servlet是在容器的控制下进行的，常用的是tomcat。 1. 加载">
+<meta name="twitter:image" content="https://i.imgur.com/QS6u04e.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="happyshell.top/blog/JavaWeb20180717/"/>
+
+
+
+
+
+  <title>Servlet、jsp总结 | Blog Of Huanglibei</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog Of Huanglibei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">快乐贝壳</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/JavaWeb20180717/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Servlet、jsp总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-17T15:57:32+08:00">
+                2018-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是Servlet"><a href="#什么是Servlet" class="headerlink" title="什么是Servlet"></a>什么是Servlet</h1><pre><code>Servlet是采用java语言编写的服务端程序，运行于Web服务器中的Servlet容器中，其主要功能是
+提供请求/响应的web服务模式，可以生成动态的web内容
+
+什么是动态页面呢？
+是指根据不同时间，不同用户而显示不同内容的页面，例如常见的论坛、留言板、电子商务网站等
+</code></pre><h1 id="Servlet生命周期和工作原理"><a href="#Servlet生命周期和工作原理" class="headerlink" title="Servlet生命周期和工作原理"></a>Servlet生命周期和工作原理</h1><p>Servlet是在容器的控制下进行的，常用的是tomcat。</p>
+<pre><code>1. 加载：容器（Tomcat）通过类加载器使用Servlet类对应的文件来加载Servlet。
+2. 创建：调用Servlet的构造器生成一个Servlet实例。
+3. init()：在Servlet的生命周期中，仅执行一次，在Tomcat装入Servlet时执行的，这个方法
+   在Servlet创建但是向客户端提供请求前被调用。
+4. service()：Tomcat接收到请求，发现这是对Servlet发起的请求，Tomcat这个时候会创建两
+   个对象HttpServletRequest，HttpServletResponse。容器根据请求的URL找到对应的
+   Servlet，然后针对这个请求创建一个线程，同时把之前创建的两个对象以参数的像是传递给
+   这个线程。然后容器调用这个Servlet的service()，service()方法根据请求的method属性
+   值来确定调用doGet还是doPost，然后把生成响应数据（动态页面）返回给容器，容器把响应
+   消息组装成HTTP格式返回给客户端。
+5. destory：容器在卸载Servlet之前调用destory，让servlet释放了自己占用的系统资源。
+</code></pre><p><img src="https://i.imgur.com/QS6u04e.jpg" alt=""></p>
+<h1 id="JSP和Servlet区别"><a href="#JSP和Servlet区别" class="headerlink" title="JSP和Servlet区别"></a>JSP和Servlet区别</h1><pre><code>1.Servlet的实现方式是在Java中嵌入了HTML（业务逻辑与视图没有分离，代码可读性差，系统
+ 扩展性，可维护性差），JSP是在HTML中嵌入了Java。实现了业务的分离
+2. JSP可以被看作是一个特殊的Servlet，只不过是Servlet的扩展，只要是JSP能实现 
+   Servlet也都可以实现。因为JSP页面最后还是要被转换成Servlet来运行，因此处理请求实际
+   上是编译后的Servlet。
+</code></pre><h1 id="get和post的区别"><a href="#get和post的区别" class="headerlink" title="get和post的区别"></a>get和post的区别</h1><pre><code>1、Get是用来从服务器上获得数据，而Post除了查看信息外还用来向服务器上传递数据。
+   比如注册帐号，提交的时候是不希望被看到的
+2、Get将表单中数据的按照variable=value的形式，添加到action所指向的URL后面，并且两者
+ 使用“?”连接，而各个变量之间使用“&amp;”连接；Post是将表单中的数据放在form的数据体中，按照
+ 变量和值相对应的方式，传递到action所指向URL。
+3、Get是不安全的，因为在传输过程，数据被放在请求的URL中，而如今现有的很多服务器、代理
+服务器或者用户代理都会将请求URL记录到日志文件中，然后放在某个地方，这样就可能会有一些
+隐私的信息被第三方看到。另外，用户也可以在浏览器上直接看到提交的数据，一些系统内部消息
+将会一同显示在用户面前。Post的所有操作对用户来说都是不可见的。
+4、Get传输的数据量小，这主要是因为受URL长度限制；而Post可以传输大量的数据，所以在上传
+  文件只能使用Post
+</code></pre><h1 id="forward和redirect区别"><a href="#forward和redirect区别" class="headerlink" title="forward和redirect区别"></a>forward和redirect区别</h1><pre><code>forward：请求转发：服务器端行为，然后目标地址的URL不改变，但是服务器内部转发了。（只有一次请求）
+redirect:重定向：客户端重定向行为，目的地址的URL改变了，两次请求。，效率稍低
+</code></pre><h1 id="JavaWeb四大域作用范围"><a href="#JavaWeb四大域作用范围" class="headerlink" title="JavaWeb四大域作用范围"></a>JavaWeb四大域作用范围</h1><h2 id="Application-ServletContext"><a href="#Application-ServletContext" class="headerlink" title="Application(ServletContext)"></a>Application(ServletContext)</h2><pre><code>1. 作用域：整个Webapp，所有Servlet共用一个serveltContext。
+2. 生命周期：当Web应用被加载到Tomcat中时就创建了。
+</code></pre><h2 id="Session（HttpSession）"><a href="#Session（HttpSession）" class="headerlink" title="Session（HttpSession）"></a>Session（HttpSession）</h2><pre><code>1. 作用域：一次会话。
+2. 生命周期：当第一次调用request.getSession()的时候，服务器会检查是否已经有了对应的
+   Session，如果没有就在内存中创建一个Session并返回。但是当一段时间以后，Session没有
+   被使用（默认30min），Session就会被销毁了。如果服务器非正常关闭，没有到期的session
+   也会跟着销毁。如果调用session提供的invalidate()，可以立即销毁session。
+</code></pre><h2 id="Request（ServletRequest）"><a href="#Request（ServletRequest）" class="headerlink" title="Request（ServletRequest）"></a>Request（ServletRequest）</h2><pre><code>1. 作用域：整个请求链，在Servlet处理好的数据给JSP显示，整个时候参数就可以放在 
+   ServletRequest域中
+2. 生命周期：整个请求链
+</code></pre><h2 id="Page（PageContext）"><a href="#Page（PageContext）" class="headerlink" title="Page（PageContext）"></a>Page（PageContext）</h2><pre><code>1. 作用域：当对JSP请求开始，当响应的结束时销毁。
+2. 作用范围：整个JSP页面，是四大域中最小的一个。
+</code></pre><h2 id="JSP中的九大内置对象"><a href="#JSP中的九大内置对象" class="headerlink" title="JSP中的九大内置对象"></a>JSP中的九大内置对象</h2><pre><code>request对象：客户端请求，包含来自GET/POST请求的参数，信息客户端请求被封装在request对象中
+response对象：封装了服务器的响应信息，表示服务器端对客户端的响应
+config对象：主要用来获取服务器的配置信息
+page对象：指向了当前jsp程序本身。类似与this指针
+session对象：用来保存会话信息。也就是说，可以实现在同一用户的不同请求之间共享数
+application对象：代表了当前应用程序的上下文。可以在不同的用户之间共享信息。
+pageContext对象：提供了对jsp页面所有对象以及命名空间的访问，等于一个全局变量，生命周期
+                和服务器相同
+out对象：用于向客户端、浏览器输出数据。
+exception对象：封装了jsp程序执行过程中发生的异常和错误信息。
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaWeb/" rel="tag"># JavaWeb</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/品类管理模块20180715/" rel="next" title="品类管理模块">
+                <i class="fa fa-chevron-left"></i> 品类管理模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/printf格式化输出20180719/" rel="prev" title="printf用法">
+                printf用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanglibei</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Servlet"><span class="nav-number">1.</span> <span class="nav-text">什么是Servlet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet生命周期和工作原理"><span class="nav-number">2.</span> <span class="nav-text">Servlet生命周期和工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSP和Servlet区别"><span class="nav-number">3.</span> <span class="nav-text">JSP和Servlet区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#get和post的区别"><span class="nav-number">4.</span> <span class="nav-text">get和post的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#forward和redirect区别"><span class="nav-number">5.</span> <span class="nav-text">forward和redirect区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaWeb四大域作用范围"><span class="nav-number">6.</span> <span class="nav-text">JavaWeb四大域作用范围</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Application-ServletContext"><span class="nav-number">6.1.</span> <span class="nav-text">Application(ServletContext)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session（HttpSession）"><span class="nav-number">6.2.</span> <span class="nav-text">Session（HttpSession）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Request（ServletRequest）"><span class="nav-number">6.3.</span> <span class="nav-text">Request（ServletRequest）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Page（PageContext）"><span class="nav-number">6.4.</span> <span class="nav-text">Page（PageContext）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP中的九大内置对象"><span class="nav-number">6.5.</span> <span class="nav-text">JSP中的九大内置对象</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huanglibei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">快乐贝壳</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

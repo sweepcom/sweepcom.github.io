@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="所有脚本以#！/bin.bin.sh开头 bash变量1.变量名在有效的范围内必须唯一，以字母或者下划线打头，中间只能由字母数字下划线组成 2.变量名的长度不能超过255个字符 3.在bash中，变量的默认类型都是字符串类型 定义变量： 变量名=变量值  俩边不能头空格，若变量值有空格需要用双引号引起来 x=5;  或name=“my name&amp;quot;     x = 5这样的类型是错的，有空">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell编程">
+<meta property="og:url" content="happyshell.top/blog/shell编程20180730/index.html">
+<meta property="og:site_name" content="Blog Of Huanglibei">
+<meta property="og:description" content="所有脚本以#！/bin.bin.sh开头 bash变量1.变量名在有效的范围内必须唯一，以字母或者下划线打头，中间只能由字母数字下划线组成 2.变量名的长度不能超过255个字符 3.在bash中，变量的默认类型都是字符串类型 定义变量： 变量名=变量值  俩边不能头空格，若变量值有空格需要用双引号引起来 x=5;  或name=“my name&amp;quot;     x = 5这样的类型是错的，有空">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-30T11:58:14.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="shell编程">
+<meta name="twitter:description" content="所有脚本以#！/bin.bin.sh开头 bash变量1.变量名在有效的范围内必须唯一，以字母或者下划线打头，中间只能由字母数字下划线组成 2.变量名的长度不能超过255个字符 3.在bash中，变量的默认类型都是字符串类型 定义变量： 变量名=变量值  俩边不能头空格，若变量值有空格需要用双引号引起来 x=5;  或name=“my name&amp;quot;     x = 5这样的类型是错的，有空">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="happyshell.top/blog/shell编程20180730/"/>
+
+
+
+
+
+  <title>shell编程 | Blog Of Huanglibei</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog Of Huanglibei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">快乐贝壳</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/shell编程20180730/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">shell编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-30T11:32:06+08:00">
+                2018-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>所有脚本以#！/bin.bin.sh开头</p>
+<h1 id="bash变量"><a href="#bash变量" class="headerlink" title="bash变量"></a>bash变量</h1><pre><code>1.变量名在有效的范围内必须唯一，以字母或者下划线打头，中间只能由字母数字下划线组成
+2.变量名的长度不能超过255个字符
+3.在bash中，变量的默认类型都是字符串类型
+</code></pre><p>定义变量：</p>
+<pre><code>变量名=变量值  俩边不能头空格，若变量值有空格需要用双引号引起来
+x=5;  或name=“my name&quot;    
+x = 5这样的类型是错的，有空格
+</code></pre><p>调用变量：</p>
+<pre><code>echo $X   (echo调用变量需要用$符号)
+</code></pre><p>变量叠加：</p>
+<pre><code>x=123；
+x=&quot;$x&quot;456   或者${x}456
+echo $x ---123456
+</code></pre><p>设置与删除变量：</p>
+<pre><code>set -u ，没有变量会提醒报错
+set 查看所有变量
+env 查看所有环境变量
+unset name   删除name变量
+</code></pre><h2 id="环境变量和用户自定义变量"><a href="#环境变量和用户自定义变量" class="headerlink" title="环境变量和用户自定义变量"></a>环境变量和用户自定义变量</h2><pre><code>环境变量全局有用，自定义变量在定义区间有效
+在bash中再次bash等于进入一个子区间，只能查看环境变量,pstree查看
+export y=1  设置环境变量
+</code></pre><h2 id="位置参数变量"><a href="#位置参数变量" class="headerlink" title="位置参数变量"></a>位置参数变量</h2><p><strong>向程序传递调用的参数值</strong></p>
+<pre><code>$n  n为数字，$0代表命令本身，$1-$9代表在外输入的第一到第九个参数，十以上参数${10}；
+$*  这个变量代表命令行中的所有参数，这里把所有参数看成一个整体
+$@    这个变量也代表命令行中多有参数，不过@代表把每个参数区分对待    
+$#  命令行的参数的个数
+\   反斜杠转意输出原有符号
+
+在shell脚本里调用命令行的参数值
+例：./test.sh 35 67
+可以在shell脚本使用$1$2来获取35，67对其进行操作
+</code></pre><h2 id="预定义变量"><a href="#预定义变量" class="headerlink" title="预定义变量"></a>预定义变量</h2><pre><code>$?  判断最后一次执行命令的返回状态，返回0，正确执行，非0，不正确
+$$  当前的进程号pid
+$!  后台运行的最后一个进程的进程号
+</code></pre><h2 id="read接受键盘输入"><a href="#read接受键盘输入" class="headerlink" title="read接受键盘输入"></a>read接受键盘输入</h2><pre><code>-p：  &quot;提示信息&quot;，在等待read输入时，输出提示信息
+      read -p  &quot;please input your name: &quot; -t 30 name 
+      //等待用户输入名字作为变量，并且只等候30秒 
+-t：  &quot;秒数&quot;，read命令会一直等待用户输入，使用此选项可以指定等待时间
+-n：  read命令只会接受指定的字符数，就会执行
+       read -p  &quot;please input your sex[M/F]: &quot; -n 1 name
+       只接受一个字符就结束
+-s：  隐藏输入的数据，适用于机密信息的输入
+</code></pre><h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><h2 id="declare声明变量类型"><a href="#declare声明变量类型" class="headerlink" title="declare声明变量类型"></a>declare声明变量类型</h2><pre><code>declare[+/-][选项]变量名
+
+-：给变量设置类型属性
++：取消变量类型属性
+-a:将变量声明为数组
+**-i:将变量声明为整数型**
+     declare -a movie[2]=tba
+     查看数组：echo ${movie[1\*]} 表示查看一个或者所有
+-x:将变量声明为环境变量  类似于export，最终执行的declare -x
+-r：将变量声明为只读变量  //变量不能操作了，删除也不可以，重启会丢失，临时变量
+-p：显示指定变量的被声明的类型
+</code></pre><h2 id="运算方法"><a href="#运算方法" class="headerlink" title="运算方法"></a>运算方法</h2><p>使用expr</p>
+<pre><code>aa=11
+bb=22
+sum=$(expr $aa + $ bb)  //这里+俩边要有空格，否则不是数值运算
+
+重要：sum=$(($aa+$bb))        //这里不用在乎空格，好记  推荐
+sum=$[$aa+$bb]          //容易和别的命令记混
+echo $sum
+</code></pre><h1 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h1><p>  source 配置文件  加载配置文件，不然只能注销重新登录才生效</p>
+<p>以下配置文件启动就生效</p>
+<pre><code> /etc/profile     //etc下的文件对所有用户生效
+/etc/profile.d/*.sh
+~/.bash_profile   家目录，每个用户都有，对当前用户生效
+~/.bashrc         家目录，定义别名
+/etc/bashrc
+</code></pre><p>#正则表达式#<br>通配符：匹配文件名称<br>正则：用来匹配文件中的数据，linux中是包含匹配，不是完全匹配</p>
+<pre><code>通配符:
+-  *  匹配任意内容
+-  ？ 匹配任意一个字符
+-  [] 匹配括号中的一个内容
+</code></pre><h1 id="字符截取命令"><a href="#字符截取命令" class="headerlink" title="字符截取命令"></a>字符截取命令</h1><pre><code>grep &quot;/bin/bash&quot;  /etc/passwd     取出所有可登录的用户
+grep &quot;/bin/bash&quot;  /etc/passwd | grep -v &quot;root&quot;  取出所有用户在取反不含root的
+</code></pre><h2 id="cut命令"><a href="#cut命令" class="headerlink" title="cut命令"></a>cut命令</h2><pre><code>例：cut -d &quot;:&quot;  -f 1,3 /etc/passwd
+</code></pre><p>   -f 截取列<br>   -d 分隔符号： 按照指定字符分割列，默认制表符</p>
+<pre><code>grep &quot;/bin/bash&quot;  /etc/passwd | grep -v &quot;root&quot; |cut -f 1，3  -d &quot;:&quot;
+取出所有用户在取反不含root的的信息，在将其第1，3，列数据按照&quot;：&quot;分割取出
+</code></pre><h2 id="awk命令"><a href="#awk命令" class="headerlink" title="awk命令"></a>awk命令</h2><p>awk识别print和printf命令</p>
+<p>printf不可以用管道实现</p>
+<pre><code>awk  &apos;条件1{动作1}条件2｛动作2｝...&apos;  文件名
+</code></pre><h2 id="sed命令"><a href="#sed命令" class="headerlink" title="sed命令"></a>sed命令</h2><p>替换命令</p>
+<pre><code>sed [选项] ‘[动作]’  文件名
+
+选项： -n :一般sed会把所有数据输出到屏幕，如果加入此选择只会允许sed命令处理的行输出到屏幕
+      -e :允许对输入数据的多条sed命令编辑
+      -i ：用sed的修改结果直接修改读取数据的文件，而不是由屏幕输出
+</code></pre><p>   动作：<br>        -a：追加，在当前行后添加一行或多行<br>        -c：行替换，用c后面的字符串替换原数据航<br>        -i：插入，在当前行插入一行或多行，d：删除指定行<br>        -p：打印，输出指定行<br>        -s：字符紫环，用一个字符串替换另一个字符串，格式为”行范围s/旧字串/新子串/g”</p>
+<h2 id="sort和wc"><a href="#sort和wc" class="headerlink" title="sort和wc"></a>sort和wc</h2><pre><code>sort排序：  sort[选项] 文件名
+选项：
+     -f：忽略大小写
+     -n：以数值进行排序，默认使用字符串排序
+     -r：反向排序
+     -t：指定分隔符
+     -k，n[，m]按照指定的字段范围排序，从n到m
+</code></pre><p>   wc [选项] 文件名<br>   选项：<br>       -l：只统计行<br>       -w：只统计单词数<br>       -m：只统计字符数</p>
+<h1 id="流程控制语句"><a href="#流程控制语句" class="headerlink" title="流程控制语句"></a>流程控制语句</h1><pre><code>判断文件是否存在：[-e /root/install.log]    echo $?判断上一条语句执行是否成功
+</code></pre><h2 id="条件判断类型"><a href="#条件判断类型" class="headerlink" title="条件判断类型"></a>条件判断类型</h2><h3 id="按照文件类型进行判断"><a href="#按照文件类型进行判断" class="headerlink" title="按照文件类型进行判断"></a>按照文件类型进行判断</h3><pre><code>-b 文件    判断该文件是否存在，并且是否为块设备文件（是的为真）
+-c 文件    判断该文件是否存在，并且是否为字符设备文件（是的话为真）
+-d 文件    判断该文件是否存在，并且是否为目录文件（是的话为真）
+-e 文件    判断该文件是否存在（存在的话为真）
+-f 文件    判断该文件是否存在，并且是否为普通文件（是的话为真）
+-L 文件    判断该文件是否存在，并且是否为符号链接文件（是的话为真）
+-p 文件    判断该文件是否存在，并且是否为管道文件（是的话为真）
+-s 文件    判断该文件是否存在，并且是否为非空（是的话为真）
+-S 文件    判断该文件是否存在，并且是否为套接字文件（是的话为真）
+</code></pre><h3 id="按照文件权限进行判断"><a href="#按照文件权限进行判断" class="headerlink" title="按照文件权限进行判断"></a>按照文件权限进行判断</h3><pre><code>-r 文件    判断该文件是否存在，并且是否该文件拥有读权限（有为真）
+-w 文件    判断该文件是否存在，并且是否该文件拥有写权限（有为真）
+-x 文件    判断该文件是否存在，并且是否该文件拥有执行权限（有为真）
+-u 文件    判断该文件是否存在，并且是否该文件拥有SUID权限（有为真）
+-g 文件    判断该文件是否存在，并且是否该文件拥有SGID（有为真）
+-k 文件    判断该文件是否存在，并且是否该文件拥有Sbit（有为真）
+</code></pre><h3 id="两个文件之间进行比较"><a href="#两个文件之间进行比较" class="headerlink" title="两个文件之间进行比较"></a>两个文件之间进行比较</h3><pre><code>文件1 -nt 文件2    判断文件1的修改时间是否比文件2的新（若是则为真）
+文件1 -ot 文件2    判断文件1的修改时间是否比文件2的旧（若是则为真）
+文件1 -ef 文件2    判断文件1是否和文件2的inode号一致，可以理解为两个文件是否为
+同一个文件，这个判断用于判断硬链接是很好的方法
+</code></pre><h3 id="两个整数之间比较"><a href="#两个整数之间比较" class="headerlink" title="两个整数之间比较"></a>两个整数之间比较</h3><pre><code>整数1 -eq 整数2    判断整数1是否和整数2相等（相等为真）
+整数1 -ne 整数2    判断整数1是否和整数2不相等（不相等为真）
+整数1 -gt 整数2    判断整数1是否大于整数2（大于为真）
+整数1 -lt 整数2    判断整数1是否小于整数2（小于为真）
+整数1 -ge 整数2    判断整数1是否大于等于整数2（大于等于为真）
+整数1 -le 整数2    判断整数1是否小于等于整数2（小于等于为真）
+</code></pre><h3 id="字符串的判断"><a href="#字符串的判断" class="headerlink" title="字符串的判断"></a>字符串的判断</h3><pre><code>-z 字符串    判断字符串是否为空（为空返回真）
+-n 字符串    判断字符串是否为非空（非空返回真）
+字串1 == 字串2    判断字符串1是否和字符串2相等（相等返回真）
+字串 != 字串2    判断字符串1是否和字符串2不相等（不相等返回真）
+</code></pre><h3 id="多重条件判断"><a href="#多重条件判断" class="headerlink" title="多重条件判断"></a>多重条件判断</h3><pre><code>判断1 -a 判断2    逻辑与，判断1和判断2都成立，最终的结果才为真
+判断1 -o 判断2    逻辑或，判断1和判断2有一个成立，最终的结果就为真
+! 判断    逻辑非，是原始的判断是取反
+</code></pre><h2 id="if…then…fi-语句"><a href="#if…then…fi-语句" class="headerlink" title="if…then…fi 语句"></a>if…then…fi 语句</h2><p><strong>[ 条件判断式中间必须有空格 ]</strong></p>
+<pre><code>if[ 条件判断式 ]；then    
+   程序
+fi
+</code></pre><p>   或者<br>   if[ 条件判断式 ]<br>       then<br>       程序<br>    fi</p>
+<h2 id="if…else-if-else"><a href="#if…else-if-else" class="headerlink" title="if…else if ..else"></a>if…else if ..else</h2><pre><code>if [ 条件判断式一 ] ; then
+
+条件一成立时执行操作
+
+elif [ 条件判断式二 ]; then
+
+条件二成立时执行操作
+
+else
+
+当条件1,2均不成立时执行的操作
+
+fi  
+</code></pre><h2 id="case…esac语句"><a href="#case…esac语句" class="headerlink" title="case…esac语句"></a>case…esac语句</h2><pre><code>case $变量名称 in
+&quot;值1&quot;）
+    程序段
+ ;;  //这里是两个分号代表第一个判断的结束
+“值2”）
+程序段
+;; 
+#... 这里可以有多个判断语句的程序段
+*)  
+    echo ...        //当以上所有的判断均不满足的时候执行的操作。
+;;
+esac
+</code></pre><h2 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h2><pre><code> #for循环开始
+for var in 1 2 3 4 5 6 7 8
+do
+   #依次输出列表中的数字
+   echo &quot;the number is $var&quot;
+done
+
+#for循环开始
+for (( i=1;i&lt;5;i++ ))
+do
+   #输出循环变量i的值
+   echo &quot;$i&quot;
+done
+</code></pre><h2 id="function函数"><a href="#function函数" class="headerlink" title="function函数"></a>function函数</h2><pre><code>function printit(){
+ echo -n &quot;Your choice is &quot; #加上-n可以不断行继续在同一行显示
+}
+
+read -p &quot;Please input your choice:&quot; choice
+case ${choice} in
+ &quot;one&quot;)
+     printit; echo ${choice} | tr &apos;a-z&apos; &apos;A-Z&apos; #将参数进行大小写转换
+     ;;
+ &quot;two&quot;)
+     printit; echo ${choice}
+     ;;
+ &quot;three&quot;)
+     echo &quot;Your choice is three.&quot;
+     ;;
+ *)
+     echo &quot;Usage ${0} {one|two|theree}&quot;
+     ;;
+esac
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/商品模块20180719/" rel="next" title="商品模块">
+                <i class="fa fa-chevron-left"></i> 商品模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/JUC之线程池20180824/" rel="prev" title="JUC系列之线程池">
+                JUC系列之线程池 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanglibei</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#bash变量"><span class="nav-number">1.</span> <span class="nav-text">bash变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境变量和用户自定义变量"><span class="nav-number">1.1.</span> <span class="nav-text">环境变量和用户自定义变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位置参数变量"><span class="nav-number">1.2.</span> <span class="nav-text">位置参数变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预定义变量"><span class="nav-number">1.3.</span> <span class="nav-text">预定义变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#read接受键盘输入"><span class="nav-number">1.4.</span> <span class="nav-text">read接受键盘输入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运算符"><span class="nav-number">2.</span> <span class="nav-text">运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#declare声明变量类型"><span class="nav-number">2.1.</span> <span class="nav-text">declare声明变量类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算方法"><span class="nav-number">2.2.</span> <span class="nav-text">运算方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境变量配置"><span class="nav-number">3.</span> <span class="nav-text">环境变量配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符截取命令"><span class="nav-number">4.</span> <span class="nav-text">字符截取命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cut命令"><span class="nav-number">4.1.</span> <span class="nav-text">cut命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#awk命令"><span class="nav-number">4.2.</span> <span class="nav-text">awk命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sed命令"><span class="nav-number">4.3.</span> <span class="nav-text">sed命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sort和wc"><span class="nav-number">4.4.</span> <span class="nav-text">sort和wc</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程控制语句"><span class="nav-number">5.</span> <span class="nav-text">流程控制语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件判断类型"><span class="nav-number">5.1.</span> <span class="nav-text">条件判断类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按照文件类型进行判断"><span class="nav-number">5.1.1.</span> <span class="nav-text">按照文件类型进行判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按照文件权限进行判断"><span class="nav-number">5.1.2.</span> <span class="nav-text">按照文件权限进行判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个文件之间进行比较"><span class="nav-number">5.1.3.</span> <span class="nav-text">两个文件之间进行比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个整数之间比较"><span class="nav-number">5.1.4.</span> <span class="nav-text">两个整数之间比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串的判断"><span class="nav-number">5.1.5.</span> <span class="nav-text">字符串的判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多重条件判断"><span class="nav-number">5.1.6.</span> <span class="nav-text">多重条件判断</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if…then…fi-语句"><span class="nav-number">5.2.</span> <span class="nav-text">if…then…fi 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if…else-if-else"><span class="nav-number">5.3.</span> <span class="nav-text">if…else if ..else</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case…esac语句"><span class="nav-number">5.4.</span> <span class="nav-text">case…esac语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for循环"><span class="nav-number">5.5.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#function函数"><span class="nav-number">5.6.</span> <span class="nav-text">function函数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huanglibei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">快乐贝壳</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

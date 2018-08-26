@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="happyshell.top, sweepcom blog" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="复习模块之前先看好全局信息和工具类 主要知识点1. 横向越权、纵向越权安全漏洞 ，在线修改密码使用 2. MD5明文加密以及增加salt值 3. Guava缓存的使用    忘记密码重置功能 4. 高复用服务响应对象的设计思想以及抽象封装 5. Session使用 6. 方法的局部演进 横向与纵向越权1.横向越权：横向越权指的是攻击者尝试访问与他拥有相同权限的用户的资源            比如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用户模块">
+<meta property="og:url" content="happyshell.top/blog/mmall复习20180715/index.html">
+<meta property="og:site_name" content="Blog Of Huanglibei">
+<meta property="og:description" content="复习模块之前先看好全局信息和工具类 主要知识点1. 横向越权、纵向越权安全漏洞 ，在线修改密码使用 2. MD5明文加密以及增加salt值 3. Guava缓存的使用    忘记密码重置功能 4. 高复用服务响应对象的设计思想以及抽象封装 5. Session使用 6. 方法的局部演进 横向与纵向越权1.横向越权：横向越权指的是攻击者尝试访问与他拥有相同权限的用户的资源            比如">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-19T07:40:38.971Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用户模块">
+<meta name="twitter:description" content="复习模块之前先看好全局信息和工具类 主要知识点1. 横向越权、纵向越权安全漏洞 ，在线修改密码使用 2. MD5明文加密以及增加salt值 3. Guava缓存的使用    忘记密码重置功能 4. 高复用服务响应对象的设计思想以及抽象封装 5. Session使用 6. 方法的局部演进 横向与纵向越权1.横向越权：横向越权指的是攻击者尝试访问与他拥有相同权限的用户的资源            比如">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="happyshell.top/blog/mmall复习20180715/"/>
+
+
+
+
+
+  <title>用户模块 | Blog Of Huanglibei</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog Of Huanglibei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">快乐贝壳</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="happyshell.top/blog/mmall复习20180715/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Huanglibei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog Of Huanglibei">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用户模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-15T10:16:23+08:00">
+                2018-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mmall总结/" itemprop="url" rel="index">
+                    <span itemprop="name">mmall总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>复习模块之前先看好全局信息和工具类</p>
+<h1 id="主要知识点"><a href="#主要知识点" class="headerlink" title="主要知识点"></a>主要知识点</h1><pre><code>1. 横向越权、纵向越权安全漏洞 ，在线修改密码使用
+2. MD5明文加密以及增加salt值
+3. Guava缓存的使用    忘记密码重置功能
+4. 高复用服务响应对象的设计思想以及抽象封装
+5. Session使用
+6. 方法的局部演进
+</code></pre><h2 id="横向与纵向越权"><a href="#横向与纵向越权" class="headerlink" title="横向与纵向越权"></a>横向与纵向越权</h2><pre><code>1.横向越权：横向越权指的是攻击者尝试访问与他拥有相同权限的用户的资源 
+          比如数据库查询时，条件不唯一，查到了别的用户在数据库中的信息
+2，纵向越权：纵向越权指的是一个低级别攻击者尝试访问高级别用户的资源
+</code></pre><p>   如何防止横向越权：</p>
+<pre><code>可通过建立用户和可操作资源的绑定关系，用户对任何资源进行操作时，通过该绑定关系确保该
+资源是属于该用户所有的。
+
+对请求中的关键参数进行间接映射，避免使用原始关键参数名，比如使用索引1代替id值123等
+</code></pre><p>如何防止纵向越权：</p>
+<pre><code>建议使用基于角色访问控制机制来防止纵向越权攻击，即预先定义不同的权限角色，为每个角色分
+配不同的权限，每个用户都属于特定的角色，即拥有固定的权限，当用户执行某个动作或产生某种
+行为时，通过用户所在的角色判定该动作或者行为是否允许。
+</code></pre><h2 id="MD5明文加密"><a href="#MD5明文加密" class="headerlink" title="MD5明文加密"></a>MD5明文加密</h2><pre><code>调用一个加密算法，每次登录注册时，用算法加密，所以存在数据库中的密码是加密后的算法，
+每次密码验证都需要加密后进行验证
+</code></pre><p>##Guava缓存的使用 ##</p>
+<pre><code>适用性
+
+你愿意花一些记忆来提高速度。speed.
+您希望Key有时会不止一次被查询
+你的缓存不需要存储更多的数据比什么都适合在。（Guava缓存是本地应用程序的一次运行）。
+它们不将数据存储在文件中，也不存储在外部服务器上。如果这样做不适合您的需要，考虑一个工
+具像memcached。
+
+mave中安装依赖
+</code></pre><p>方法：<br>    1.设置初始化容量<br>    2.设置缓存最大容量，当超过这个容量时会使用LRU（最少使用算法），将不常用的移除<br>    3.设置有效期，有效期一过缓存被回收</p>
+<h1 id="表结构"><a href="#表结构" class="headerlink" title="表结构"></a>表结构</h1><pre><code>CREATE TABLE `mmall_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &apos;用户表id&apos;,
+  `username` varchar(50) NOT NULL COMMENT &apos;用户名&apos;,
+  `password` varchar(50) NOT NULL COMMENT &apos;用户密码，MD5加密&apos;,
+  `email` varchar(50) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `question` varchar(100) DEFAULT NULL COMMENT &apos;找回密码问题&apos;,
+  `answer` varchar(100) DEFAULT NULL COMMENT &apos;找回密码答案&apos;,
+  `role` int(4) NOT NULL COMMENT &apos;角色0-管理员,1-普通用户&apos;,用于权限控制
+  `create_time` datetime NOT NULL COMMENT &apos;创建时间&apos;,
+  `update_time` datetime NOT NULL COMMENT &apos;最后一次更新时间&apos;,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_name_unique` (`username`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+</code></pre><h1 id="controller-service-dao流程"><a href="#controller-service-dao流程" class="headerlink" title="controller-service-dao流程"></a>controller-service-dao流程</h1><p>一般情况：</p>
+<pre><code>1.controller：
+ServerResponse&lt;User&gt; response = iUserService.login(username,password);
+这里response是一个ServerResponse&lt;T&gt;的实例，
+总共有是三个属性，许多的构造函数分别返回不同的值，以此来区分返回值
+public class ServerResponse&lt;T&gt; implements Serializable{
+private int status;
+private String msg;
+private T data;
+
+2.service层：
+public ServerResponse&lt;User&gt; login(String username, String password)
+return ServerResponse.createBySuccess(&quot;Success&quot;,user);
+
+最终返回的是给控制层的ServerResponse&lt;T&gt;的实例，通过创建时调用不同的方法，返回不同实
+例，其实就是新建实例的时候通过构造函数的重载（参数的不同）来区分返回状态
+
+3.dao层：通过调用XXXMapper的方法去XXXMapper.xml中进行数据查询
+ public interface UserMapper {
+int checkUsername(String username);
+
+mappers/UserMapper.xml
+&lt;select id=&quot;checkUsername&quot; resultType=&quot;int&quot; parameterType=&quot;string&quot;&gt;
+  select count(1) from mmall_user
+  where username=#{username}
+&lt;/select&gt;
+</code></pre><h1 id="用户登录"><a href="#用户登录" class="headerlink" title="用户登录"></a>用户登录</h1><pre><code>1.根据用户名查询返回值数量，若为0，返回ServerResponse.createByErrorMessage
+                                (&quot;Username not exist&quot;);用户名不存在
+2.第一步若不为0，则根据用户名和密码查询，若为空，返回密码错误，同上。
+  验证密码先将其用MD5转换，在去验证，因为数据库存的是MD5加密后的数据
+    String md5Password = MD5Util.MD5EncodeUtf8(password);
+
+3.user.setPassword(StringUtils.EMPTY);密码置为空
+
+4.return ServerResponse.createBySuccess(&quot;Success&quot;,user);//返回成功到控制层
+
+5.session.setAttribute(Const.CURRENT_USER,response.getData());
+  登录成功后用session记录用户信息
+</code></pre><h1 id="注册功能"><a href="#注册功能" class="headerlink" title="注册功能"></a>注册功能</h1><pre><code>1.验证用户名是否重复，根据用户名查询返回数量大于0，返回用户名已存在，否则继续
+2.根据邮箱查询，看是否重复
+3.user.setRole(Const.Role.ROLE_CUSTOMER);默认是普通用户登录
+4.MD5加密：user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
+5.将注册用户插入数据库，插入成功返回成功
+</code></pre><h1 id="查看用户信息"><a href="#查看用户信息" class="headerlink" title="查看用户信息"></a>查看用户信息</h1><p>用户可以查看自己的信息，不需要数据库查找，直接用session</p>
+<pre><code>User user = (User) session.getAttribute(Const.CURRENT_USER);并返回
+</code></pre><h1 id="忘记密码"><a href="#忘记密码" class="headerlink" title="忘记密码"></a>忘记密码</h1><p>分三步，根据用户名找到问题，回答问题，重置密码</p>
+<pre><code>forget_get_question.do，
+forget_check_answer.do
+forget_reset_password.do
+通过点击页面的忘记密码跳转，然后输入用户名，会给出提示问题
+回答问题成功后，可以输入新密码，然后重置密码成功
+
+1.通过用户名在数据库查找问题，要先判断用户名是否存在，在查找
+2.验证问题和答案是否正确，还要验证是否是这个用户的信息，因为不同的用户之间问题答案是有
+  可能重复的，所以加个缓存信息在修改密码的时候
+3.通过缓存来实现，在验证答案的时候，设置缓存信息，最后将缓存信息返回留给重置密码时用
+        String forgetToken = UUID.randomUUID().toString();
+        TokenCache.setKey(&quot;token_&quot;+username,forgetToken)
+        return ServerResponse.createBySuccess(forgetToken);
+4.重置密码，
+     1.调用重置密码方法时将缓存信息作为参数传入，检验token，不能为空，为空直接返回错误
+       信息，不能修改密码。
+     2.检验用户名不能为空
+     3.拿到之前验证问题是存的缓存值信息，并与拿到的缓存信息比较
+        String token = TokenCache.getKey(TokenCache.TOKEN_PREFIX+username);
+         if(StringUtils.equals(forgetToken,token)){
+        String md5Password = MD5Util.MD5EncodeUtf8(passwordNew);
+        int rowCount = userMapper.updatePasswordByUsername(username,md5Password);
+        if(rowCount&gt;0){
+            return ServerResponse.createBySuccessMessage(&quot;update password
+                                                         to successful&quot;);
+        }
+        }else{
+        return ServerResponse.createByErrorMessage(&quot;token is error&quot;);
+</code></pre><h1 id="用户在线修改密码"><a href="#用户在线修改密码" class="headerlink" title="用户在线修改密码"></a>用户在线修改密码</h1><pre><code>//防止横向越权，要校验一下这个用户的旧密码，一定要指定是这个用户。
+//因为我们会查询一个count(1)，如果不指定id，那么结果就是true，count&gt;0
+
+1.根据ID和原密码查询返回数量
+2.若查询到了，则更新新密码
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/leetcode20180711/" rel="next" title="leetcode（1-20）">
+                <i class="fa fa-chevron-left"></i> leetcode（1-20）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/品类管理模块20180715/" rel="prev" title="品类管理模块">
+                品类管理模块 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Huanglibei</p>
+              <p class="site-description motion-element" itemprop="description">Welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主要知识点"><span class="nav-number">1.</span> <span class="nav-text">主要知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#横向与纵向越权"><span class="nav-number">1.1.</span> <span class="nav-text">横向与纵向越权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MD5明文加密"><span class="nav-number">1.2.</span> <span class="nav-text">MD5明文加密</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表结构"><span class="nav-number">2.</span> <span class="nav-text">表结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#controller-service-dao流程"><span class="nav-number">3.</span> <span class="nav-text">controller-service-dao流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户登录"><span class="nav-number">4.</span> <span class="nav-text">用户登录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注册功能"><span class="nav-number">5.</span> <span class="nav-text">注册功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看用户信息"><span class="nav-number">6.</span> <span class="nav-text">查看用户信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#忘记密码"><span class="nav-number">7.</span> <span class="nav-text">忘记密码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户在线修改密码"><span class="nav-number">8.</span> <span class="nav-text">用户在线修改密码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huanglibei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">快乐贝壳</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
